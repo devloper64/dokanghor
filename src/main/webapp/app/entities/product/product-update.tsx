@@ -100,6 +100,22 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                   }}
                 />
               </AvGroup>
+
+              <AvGroup>
+                <Label id="imageLabel" for="product-image">
+                  Image
+                </Label>
+                <AvField
+                  id="product-image"
+                  type="text"
+                  name="image"
+                  validate={{
+                    required: { value: true, errorMessage: 'This field is required.' },
+                  }}
+                />
+              </AvGroup>
+
+
               <AvGroup>
                 <Label for="product-subCategory">Sub Category</Label>
                 <AvInput id="product-subCategory" type="select" className="form-control" name="subCategoryId" required>

@@ -1,7 +1,8 @@
 export interface IProduct {
   id?: number;
   name?: string;
-  price?: string;
+  price?: number;
+  image?: string;
   subCategoryName?: string;
   subCategoryId?: number;
 }

@@ -28,7 +28,7 @@ public class ProductCriteria implements Serializable, Criteria {
 
     private StringFilter name;
 
-    private StringFilter price;
+    private DoubleFilter price;
 
     private LongFilter subCategoryId;
 
@@ -63,11 +63,11 @@ public class ProductCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
-    public StringFilter getPrice() {
+    public DoubleFilter getPrice() {
         return price;
     }
 
-    public void setPrice(StringFilter price) {
+    public void setPrice(DoubleFilter price) {
         this.price = price;
     }
 

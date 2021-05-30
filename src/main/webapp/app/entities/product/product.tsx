@@ -107,6 +107,9 @@ export const Product = (props: IProductProps) => {
                   <th className="hand" onClick={sort('price')}>
                     Price <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('image')}>
+                    Image <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     Sub Category <FontAwesomeIcon icon="sort" />
                   </th>
@@ -123,6 +126,7 @@ export const Product = (props: IProductProps) => {
                     </td>
                     <td>{product.name}</td>
                     <td>{product.price}</td>
+                    <td>{product.image}</td>
                     <td>
                       {product.subCategoryName ? <Link to={`sub-category/${product.subCategoryId}`}>{product.subCategoryName}</Link> : ''}
                     </td>

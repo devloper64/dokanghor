@@ -38,8 +38,8 @@ public class ProductResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PRICE = "AAAAAAAAAA";
-    private static final String UPDATED_PRICE = "BBBBBBBBBB";
+    private static final double DEFAULT_PRICE = 0.0;
+    private static final double UPDATED_PRICE = 10.0;
 
     @Autowired
     private ProductRepository productRepository;
@@ -176,7 +176,7 @@ public class ProductResourceIT {
     public void checkPriceIsRequired() throws Exception {
         int databaseSizeBeforeTest = productRepository.findAll().size();
         // set the field null
-        product.setPrice(null);
+        product.setPrice(0);
 
         // Create the Product, which fails.
         ProductDTO productDTO = productMapper.toDto(product);
@@ -205,7 +205,7 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)));
     }
-    
+
     @Test
     @Transactional
     public void getProduct() throws Exception {

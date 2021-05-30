@@ -7,20 +7,22 @@ import java.io.Serializable;
  * A DTO for the {@link com.coder.ecommerce.domain.Product} entity.
  */
 public class ProductDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
     private String name;
 
     @NotNull
-    private String price;
+    private double price;
+
+    private String image;
 
 
     private Long subCategoryId;
 
     private String subCategoryName;
-    
+
     public Long getId() {
         return id;
     }
@@ -37,11 +39,11 @@ public class ProductDTO implements Serializable {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -59,6 +61,14 @@ public class ProductDTO implements Serializable {
 
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

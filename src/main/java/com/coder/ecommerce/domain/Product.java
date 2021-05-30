@@ -27,7 +27,11 @@ public class Product implements Serializable {
 
     @NotNull
     @Column(name = "price", nullable = false)
-    private String price;
+    private double price;
+
+
+    @Column(name = "image", nullable = false)
+    private String image;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -43,6 +47,14 @@ public class Product implements Serializable {
         this.id = id;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,16 +68,16 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public Product price(String price) {
+    public Product price(double price) {
         this.price = price;
         return this;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
