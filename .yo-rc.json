@@ -37,6 +37,7 @@
     "blueprints": [],
     "lastLiquibaseTimestamp": 1622308198000,
     "herokuDeployType": "git",
-    "herokuJavaVersion": "1.8"
+    "herokuJavaVersion": "1.8",
+    "herokuAppName": "limitless-wildwood-29422"
   }
 }
