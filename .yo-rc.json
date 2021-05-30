@@ -36,7 +36,6 @@
     "enableTranslation": false,
     "blueprints": [],
     "lastLiquibaseTimestamp": 1622308198000,
-    "herokuAppName": "ancient-basin-28371",
     "herokuDeployType": "git",
     "herokuJavaVersion": "1.8"
   }
