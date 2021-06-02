@@ -1,6 +1,8 @@
 package com.coder.ecommerce.web.rest;
 
+import com.coder.ecommerce.service.FileService;
 import com.coder.ecommerce.service.ProductService;
+import com.coder.ecommerce.service.dto.FileDTO;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.ProductDTO;
 import com.coder.ecommerce.service.dto.ProductCriteria;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +47,12 @@ public class ProductResource {
 
     private final ProductQueryService productQueryService;
 
-    public ProductResource(ProductService productService, ProductQueryService productQueryService) {
+    private final FileService fileService;
+
+    public ProductResource(ProductService productService, ProductQueryService productQueryService,FileService fileService) {
         this.productService = productService;
         this.productQueryService = productQueryService;
+        this.fileService=fileService;
     }
 
     /**
@@ -56,17 +62,24 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productDTO, or with status {@code 400 (Bad Request)} if the product has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/products")
+    @PostMapping(value = "/products")
     public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) throws URISyntaxException {
         log.debug("REST request to save Product : {}", productDTO);
         if (productDTO.getId() != null) {
             throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         ProductDTO result = productService.save(productDTO);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
+    @PostMapping("/product/upload")
+    public FileDTO upload(@RequestParam("file") MultipartFile multipartFile) {
+        return fileService.upload(multipartFile);
+    }
+
 
     /**
      * {@code PUT  /products} : Updates an existing product.
@@ -96,7 +109,7 @@ public class ProductResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
-    @GetMapping("/products")
+    @GetMapping("/productsList")
     public ResponseEntity<List<ProductDTO>> getAllProducts(ProductCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Products by criteria: {}", criteria);
         Page<ProductDTO> page = productQueryService.findByCriteria(criteria, pageable);
