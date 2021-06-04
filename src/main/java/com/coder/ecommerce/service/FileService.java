@@ -7,6 +7,8 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,11 +51,14 @@ public class FileService {
         map.put("firebaseStorageDownloadTokens", fileName);
         BlobId blobId = BlobId.of("ecommerce-d6878.appspot.com", "product/"+fileName);
 
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        File myFile = new File(Objects.requireNonNull(classLoader.getResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json")).getFile());
+//        ClassLoader classLoader = this.getClass().getClassLoader();
+//        File myFile = new File(Objects.requireNonNull(classLoader.getResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json")).getFile());
+
+        Resource xlsRes = new ClassPathResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json");
+        InputStream xlsStream = xlsRes.getInputStream();
 
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setMetadata(map).setContentType("media").build();
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(myFile));
+        Credentials credentials = GoogleCredentials.fromStream(xlsStream);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/ecommerce-d6878.appspot.com/o/product/%s?alt=media&token="+fileName, URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)));
