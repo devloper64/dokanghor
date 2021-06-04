@@ -50,7 +50,8 @@ public class FileService {
         Map<String, String> map = new HashMap<>();
         map.put("firebaseStorageDownloadTokens", fileName);
         BlobId blobId = BlobId.of("ecommerce-d6878.appspot.com", "product/"+fileName);
-        URL resource = getClass().getClassLoader().getResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json");
+        URL resource = ClassLoader.getSystemResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.jso" +
+            "n");
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setMetadata(map).setContentType("media").build();
         assert resource != null;
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(resource.getFile()));
