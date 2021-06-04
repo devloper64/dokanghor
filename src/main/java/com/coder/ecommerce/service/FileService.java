@@ -10,10 +10,7 @@ import com.google.cloud.storage.StorageOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -50,9 +47,10 @@ public class FileService {
         Map<String, String> map = new HashMap<>();
         map.put("firebaseStorageDownloadTokens", fileName);
         BlobId blobId = BlobId.of("ecommerce-d6878.appspot.com", "product/"+fileName);
-        File fileJson = new File(this.getClass().getClassLoader().getSystemResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json").getFile());
+        InputStream fileJson = ClassLoader.getSystemResourceAsStream("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json");
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setMetadata(map).setContentType("media").build();
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(fileJson));
+        assert fileJson != null;
+        Credentials credentials = GoogleCredentials.fromStream(fileJson);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/ecommerce-d6878.appspot.com/o/product/%s?alt=media&token="+fileName, URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)));
