@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -47,10 +48,12 @@ public class FileService {
         Map<String, String> map = new HashMap<>();
         map.put("firebaseStorageDownloadTokens", fileName);
         BlobId blobId = BlobId.of("ecommerce-d6878.appspot.com", "product/"+fileName);
-        InputStream fileJson = ClassLoader.getSystemResourceAsStream("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json");
+
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File myFile = new File(Objects.requireNonNull(classLoader.getResource("ecommerce-d6878-firebase-adminsdk-12jam-45806abdd1.json")).getFile());
+
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setMetadata(map).setContentType("media").build();
-        assert fileJson != null;
-        Credentials credentials = GoogleCredentials.fromStream(fileJson);
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(myFile));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/ecommerce-d6878.appspot.com/o/product/%s?alt=media&token="+fileName, URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)));
