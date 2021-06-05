@@ -35,7 +35,7 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "lastLiquibaseTimestamp": 1622308198000,
+    "lastLiquibaseTimestamp": 1622902234000,
     "herokuDeployType": "git",
     "herokuJavaVersion": "1.8",
     "herokuAppName": "limitless-wildwood-29422"

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * A Product.
  */
 @Entity
-@Table(name = "product")
+@Table(name = "product",schema = "public")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;

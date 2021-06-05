@@ -10,7 +10,7 @@ import java.io.Serializable;
  * A Address.
  */
 @Entity
-@Table(name = "address")
+@Table(name = "address",schema = "public")
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;

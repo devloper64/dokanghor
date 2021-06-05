@@ -27,6 +27,18 @@ import subCategory, {
 import product, {
   ProductState
 } from 'app/entities/product/product.reducer';
+// prettier-ignore
+import shippingAddress, {
+  ShippingAddressState
+} from 'app/entities/shipping-address/shipping-address.reducer';
+// prettier-ignore
+import payment, {
+  PaymentState
+} from 'app/entities/payment/payment.reducer';
+// prettier-ignore
+import transaction, {
+  TransactionState
+} from 'app/entities/transaction/transaction.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -43,6 +55,9 @@ export interface IRootState {
   readonly category: CategoryState;
   readonly subCategory: SubCategoryState;
   readonly product: ProductState;
+  readonly shippingAddress: ShippingAddressState;
+  readonly payment: PaymentState;
+  readonly transaction: TransactionState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -61,6 +76,9 @@ const rootReducer = combineReducers<IRootState>({
   category,
   subCategory,
   product,
+  shippingAddress,
+  payment,
+  transaction,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

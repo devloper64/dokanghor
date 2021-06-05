@@ -11,7 +11,7 @@ import java.io.Serializable;
  * A SubCategory.
  */
 @Entity
-@Table(name = "sub_category")
+@Table(name = "sub_category",schema = "public")
 public class SubCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
