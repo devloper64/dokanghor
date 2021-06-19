@@ -110,11 +110,12 @@ export default (state: CategoryState = initialState, action): CategoryState => {
 };
 
 const apiUrl = 'api/categories';
+const apiUrlList = 'api/categoryList';
 
 // Actions
 
 export const getEntities: ICrudGetAllAction<ICategory> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrlList}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_CATEGORY_LIST,
     payload: axios.get<ICategory>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`),

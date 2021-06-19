@@ -110,11 +110,11 @@ export default (state: SubCategoryState = initialState, action): SubCategoryStat
 };
 
 const apiUrl = 'api/sub-categories';
-
+const apiUrlList = 'api/subCategoriesList';
 // Actions
 
 export const getEntities: ICrudGetAllAction<ISubCategory> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrlList}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_SUBCATEGORY_LIST,
     payload: axios.get<ISubCategory>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`),
