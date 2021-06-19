@@ -96,7 +96,7 @@ public class SubCategoryResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of subCategories in body.
      */
-    @GetMapping("/sub-categories")
+    @GetMapping("/subCategoriesList")
     public ResponseEntity<List<SubCategoryDTO>> getAllSubCategories(SubCategoryCriteria criteria, Pageable pageable) {
         log.debug("REST request to get SubCategories by criteria: {}", criteria);
         Page<SubCategoryDTO> page = subCategoryQueryService.findByCriteria(criteria, pageable);

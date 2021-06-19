@@ -96,7 +96,7 @@ public class CategoryResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of categories in body.
      */
-    @GetMapping("/categories")
+    @GetMapping("/categoryList")
     public ResponseEntity<List<CategoryDTO>> getAllCategories(CategoryCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Categories by criteria: {}", criteria);
         Page<CategoryDTO> page = categoryQueryService.findByCriteria(criteria, pageable);
