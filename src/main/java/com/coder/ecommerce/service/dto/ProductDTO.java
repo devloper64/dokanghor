@@ -2,6 +2,7 @@ package com.coder.ecommerce.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A DTO for the {@link com.coder.ecommerce.domain.Product} entity.
@@ -22,6 +23,15 @@ public class ProductDTO implements Serializable {
     private Long subCategoryId;
 
     private String subCategoryName;
+
+    private String createdBy;
+
+    private Instant createdDate;
+
+    private String lastModifiedBy;
+
+    private Instant lastModifiedDate;
+
 
     public Long getId() {
         return id;
@@ -69,6 +79,38 @@ public class ProductDTO implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override

@@ -1,0 +1,119 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="coder (generated)" id="1624031050584-3">
+        <addColumn tableName="category">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-4">
+        <addColumn tableName="payment">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-5">
+        <addColumn tableName="product">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-6">
+        <addColumn tableName="sub_category">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-7">
+        <addColumn tableName="transaction">
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-8">
+        <addColumn tableName="category">
+            <column name="created_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-9">
+        <addColumn tableName="payment">
+            <column name="created_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-10">
+        <addColumn tableName="product">
+            <column name="created_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-11">
+        <addColumn tableName="sub_category">
+            <column name="created_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-12">
+        <addColumn tableName="transaction">
+            <column name="created_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-13">
+        <addColumn tableName="category">
+            <column name="last_modified_by" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-14">
+        <addColumn tableName="payment">
+            <column name="last_modified_by" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-15">
+        <addColumn tableName="product">
+            <column name="last_modified_by" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-16">
+        <addColumn tableName="sub_category">
+            <column name="last_modified_by" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-17">
+        <addColumn tableName="transaction">
+            <column name="last_modified_by" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-18">
+        <addColumn tableName="category">
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-19">
+        <addColumn tableName="payment">
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-20">
+        <addColumn tableName="product">
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-21">
+        <addColumn tableName="sub_category">
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1624031050584-22">
+        <addColumn tableName="transaction">
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+<!--    <changeSet author="coder (generated)" id="1624031050584-1">-->
+<!--        <alterSequence sequenceName="sequence_generator"/>-->
+<!--    </changeSet>-->
+    <changeSet author="coder (generated)" id="1624031050584-2">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="image" tableName="product" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

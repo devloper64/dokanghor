@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "transaction")
-public class Transaction implements Serializable {
+public class Transaction extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
