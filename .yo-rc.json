@@ -38,6 +38,6 @@
     "lastLiquibaseTimestamp": 1622902234000,
     "herokuDeployType": "git",
     "herokuJavaVersion": "1.8",
-    "herokuAppName": "limitless-wildwood-29422"
+    "herokuAppName": "dokanghor"
   }
 }
