@@ -9,30 +9,22 @@
     </changeSet>
     <changeSet author="coder (generated)" id="1624031050584-4">
         <addColumn tableName="payment">
-            <column name="created_by" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_by" type="varchar(50)"/>
         </addColumn>
     </changeSet>
     <changeSet author="coder (generated)" id="1624031050584-5">
         <addColumn tableName="product">
-            <column name="created_by" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_by" type="varchar(50)"/>
         </addColumn>
     </changeSet>
     <changeSet author="coder (generated)" id="1624031050584-6">
         <addColumn tableName="sub_category">
-            <column name="created_by" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_by" type="varchar(50)"/>
         </addColumn>
     </changeSet>
     <changeSet author="coder (generated)" id="1624031050584-7">
         <addColumn tableName="transaction">
-            <column name="created_by" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_by" type="varchar(50)"/>
         </addColumn>
     </changeSet>
     <changeSet author="coder (generated)" id="1624031050584-8">
