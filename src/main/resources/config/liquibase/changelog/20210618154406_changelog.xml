@@ -103,7 +103,7 @@
 <!--    <changeSet author="coder (generated)" id="1624031050584-1">-->
 <!--        <alterSequence sequenceName="sequence_generator"/>-->
 <!--    </changeSet>-->
-    <changeSet author="coder (generated)" id="1624031050584-2">
-        <addNotNullConstraint columnDataType="varchar(255)" columnName="image" tableName="product" validate="true"/>
-    </changeSet>
+<!--    <changeSet author="coder (generated)" id="1624031050584-2">-->
+<!--        <addNotNullConstraint columnDataType="varchar(255)" columnName="image" tableName="product" validate="true"/>-->
+<!--    </changeSet>-->
 </databaseChangeLog>
