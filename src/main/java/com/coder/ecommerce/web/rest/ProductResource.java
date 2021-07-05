@@ -47,12 +47,10 @@ public class ProductResource {
 
     private final ProductQueryService productQueryService;
 
-    private final FileService fileService;
 
     public ProductResource(ProductService productService, ProductQueryService productQueryService,FileService fileService) {
         this.productService = productService;
         this.productQueryService = productQueryService;
-        this.fileService=fileService;
     }
 
     /**
@@ -75,10 +73,7 @@ public class ProductResource {
             .body(result);
     }
 
-    @PostMapping("/product/upload")
-    public FileDTO upload(@RequestParam("file") MultipartFile multipartFile) {
-        return fileService.upload(multipartFile);
-    }
+
 
 
     /**
