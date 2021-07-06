@@ -90,7 +90,7 @@ public class MobileIntroResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mobileIntros in body.
      */
-    @GetMapping("/mobile-intros")
+    @GetMapping("/getMobileIntros")
     public ResponseEntity<List<MobileIntroDTO>> getAllMobileIntros(Pageable pageable) {
         log.debug("REST request to get a page of MobileIntros");
         Page<MobileIntroDTO> page = mobileIntroService.findAll(pageable);
