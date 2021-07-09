@@ -15,8 +15,9 @@ export const Home = (props: IHomeProp) => {
   const { account } = props;
 
   return (
-    <Row>
-    </Row>
+    <div>
+      <img src="content/images/home.png" className="background-image"/>
+    </div>
   );
 };
 

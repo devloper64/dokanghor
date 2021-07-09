@@ -40,7 +40,7 @@ Navbar styles
 .navbar-version {
   font-size: 10px;
   color: $header-color-secondary;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 15px;
 }
 
 .brand-logo {
@@ -57,6 +57,11 @@ Navbar styles
   }
 }
 
+.bg-primary {
+  height: 70px;
+  background-color: #db3022 !important;
+}
+
 .brand-title {
   font-size: 24px;
   color: $header-color;
@@ -68,7 +73,7 @@ Navbar styles
 
 .loading-bar {
   height: 3px;
-  background-color: #009cd8;
+  background-color: #db3022;
   position: absolute;
   top: 0px;
   z-index: 1031;
