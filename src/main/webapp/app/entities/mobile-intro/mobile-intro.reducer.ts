@@ -110,11 +110,12 @@ export default (state: MobileIntroState = initialState, action): MobileIntroStat
 };
 
 const apiUrl = 'api/mobile-intros';
+const getApiUrl = 'api/getMobileIntros';
 
 // Actions
 
 export const getEntities: ICrudGetAllAction<IMobileIntro> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${getApiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_MOBILEINTRO_LIST,
     payload: axios.get<IMobileIntro>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`),
