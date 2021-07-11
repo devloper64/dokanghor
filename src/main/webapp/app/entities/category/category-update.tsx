@@ -81,6 +81,19 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
                     required: { value: true, errorMessage: 'This field is required.' },
                   }}
                 />
+
+                <Label id="imageLabel" for="category-image">
+                  Image
+                </Label>
+                <AvField
+                  id="category-image"
+                  type="text"
+                  name="image"
+                  validate={{
+                    required: { value: true, errorMessage: 'This field is required.' },
+                  }}
+                />
+
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/category" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

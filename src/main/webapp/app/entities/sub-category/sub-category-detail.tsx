@@ -29,6 +29,12 @@ export const SubCategoryDetail = (props: ISubCategoryDetailProps) => {
             <span id="name">Name</span>
           </dt>
           <dd>{subCategoryEntity.name}</dd>
+
+          <dt>
+            <span id="image">Image</span>
+          </dt>
+          <dd>{subCategoryEntity.image}</dd>
+
           <dt>Category</dt>
           <dd>{subCategoryEntity.categoryName ? subCategoryEntity.categoryName : ''}</dd>
         </dl>

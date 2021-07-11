@@ -43,6 +43,10 @@ import transaction, {
 import mobileIntro, {
   MobileIntroState
 } from 'app/entities/mobile-intro/mobile-intro.reducer';
+// prettier-ignore
+import productImages, {
+  ProductImagesState
+} from 'app/entities/product-images/product-images.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -63,6 +67,7 @@ export interface IRootState {
   readonly payment: PaymentState;
   readonly transaction: TransactionState;
   readonly mobileIntro: MobileIntroState;
+  readonly productImages: ProductImagesState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -85,6 +90,7 @@ const rootReducer = combineReducers<IRootState>({
   payment,
   transaction,
   mobileIntro,
+  productImages,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

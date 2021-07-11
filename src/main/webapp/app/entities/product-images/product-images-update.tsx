@@ -7,23 +7,23 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipste
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ICategory } from 'app/shared/model/category.model';
-import { getEntities as getCategories } from 'app/entities/category/category.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './sub-category.reducer';
-import { ISubCategory } from 'app/shared/model/sub-category.model';
+import { IProduct } from 'app/shared/model/product.model';
+import { getEntities as getProducts } from 'app/entities/product/product.reducer';
+import { getEntity, updateEntity, createEntity, reset } from './product-images.reducer';
+import { IProductImages } from 'app/shared/model/product-images.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface ISubCategoryUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IProductImagesUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
-  const [categoryId, setCategoryId] = useState('0');
+export const ProductImagesUpdate = (props: IProductImagesUpdateProps) => {
+  const [productId, setProductId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { subCategoryEntity, categories, loading, updating } = props;
+  const { productImagesEntity, products, loading, updating } = props;
 
   const handleClose = () => {
-    props.history.push('/sub-category');
+    props.history.push('/product-images');
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
-    props.getCategories();
+    props.getProducts();
   }, []);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
-        ...subCategoryEntity,
+        ...productImagesEntity,
         ...values,
       };
 
@@ -59,7 +59,7 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="ecommerceApp.subCategory.home.createOrEditLabel">Create or edit a SubCategory</h2>
+          <h2 id="ecommerceApp.productImages.home.createOrEditLabel">Create or edit a ProductImages</h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -67,33 +67,19 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm model={isNew ? {} : subCategoryEntity} onSubmit={saveEntity}>
+            <AvForm model={isNew ? {} : productImagesEntity} onSubmit={saveEntity}>
               {!isNew ? (
                 <AvGroup>
-                  <Label for="sub-category-id">ID</Label>
-                  <AvInput id="sub-category-id" type="text" className="form-control" name="id" required readOnly />
+                  <Label for="product-images-id">ID</Label>
+                  <AvInput id="product-images-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="nameLabel" for="sub-category-name">
-                  Name
-                </Label>
-                <AvField
-                  id="sub-category-name"
-                  type="text"
-                  name="name"
-                  validate={{
-                    required: { value: true, errorMessage: 'This field is required.' },
-                  }}
-                />
-              </AvGroup>
-
-              <AvGroup>
-                <Label id="imageLabel" for="sub-category-image">
+                <Label id="imageLabel" for="product-images-image">
                   Image
                 </Label>
                 <AvField
-                  id="sub-category-image"
+                  id="product-images-image"
                   type="text"
                   name="image"
                   validate={{
@@ -101,21 +87,20 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
                   }}
                 />
               </AvGroup>
-
               <AvGroup>
-                <Label for="sub-category-category">Category</Label>
-                <AvInput id="sub-category-category" type="select" className="form-control" name="categoryId" required>
-                  {categories
-                    ? categories.map(otherEntity => (
+                <Label for="product-images-product">Product</Label>
+                <AvInput id="product-images-product" type="select" className="form-control" name="productId">
+                  <option value="" key="0" />
+                  {products
+                    ? products.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.name}
+                          {otherEntity.id}
                         </option>
                       ))
                     : null}
                 </AvInput>
-                <AvFeedback>This field is required.</AvFeedback>
               </AvGroup>
-              <Button tag={Link} id="cancel-save" to="/sub-category" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/product-images" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">Back</span>
@@ -134,15 +119,15 @@ export const SubCategoryUpdate = (props: ISubCategoryUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  categories: storeState.category.entities,
-  subCategoryEntity: storeState.subCategory.entity,
-  loading: storeState.subCategory.loading,
-  updating: storeState.subCategory.updating,
-  updateSuccess: storeState.subCategory.updateSuccess,
+  products: storeState.product.entities,
+  productImagesEntity: storeState.productImages.entity,
+  loading: storeState.productImages.loading,
+  updating: storeState.productImages.updating,
+  updateSuccess: storeState.productImages.updateSuccess,
 });
 
 const mapDispatchToProps = {
-  getCategories,
+  getProducts,
   getEntity,
   updateEntity,
   createEntity,
@@ -152,4 +137,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubCategoryUpdate);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductImagesUpdate);

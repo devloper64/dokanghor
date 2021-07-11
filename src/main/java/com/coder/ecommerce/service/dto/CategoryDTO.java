@@ -23,6 +23,15 @@ public class CategoryDTO implements Serializable {
 
     private Instant lastModifiedDate;
 
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getCreatedBy() {
         return createdBy;

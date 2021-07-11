@@ -7,15 +7,15 @@ import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, reset } from './category.reducer';
-import { ICategory } from 'app/shared/model/category.model';
+import { getEntities, reset } from './product-images.reducer';
+import { IProductImages } from 'app/shared/model/product-images.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 
-export interface ICategoryProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IProductImagesProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export const Category = (props: ICategoryProps) => {
+export const ProductImages = (props: IProductImagesProps) => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
@@ -75,14 +75,14 @@ export const Category = (props: ICategoryProps) => {
     setSorting(true);
   };
 
-  const { categoryList, match, loading } = props;
+  const { productImagesList, match, loading } = props;
   return (
     <div>
-      <h2 id="category-heading">
-        Categories
+      <h2 id="product-images-heading">
+        Product Images
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
-          &nbsp; Create new Category
+          &nbsp; Create new Product Images
         </Link>
       </h2>
       <div className="table-responsive">
@@ -94,41 +94,43 @@ export const Category = (props: ICategoryProps) => {
           threshold={0}
           initialLoad={false}
         >
-          {categoryList && categoryList.length > 0 ? (
+          {productImagesList && productImagesList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th className="hand" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('name')}>
-                    Name <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th className="hand" onClick={sort('image')}>
                     Image <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th>
+                    Product <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {categoryList.map((category, i) => (
+                {productImagesList.map((productImages, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${category.id}`} color="link" size="sm">
-                        {category.id}
+                      <Button tag={Link} to={`${match.url}/${productImages.id}`} color="link" size="sm">
+                        {productImages.id}
                       </Button>
                     </td>
-                    <td>{category.name}</td>
-                    <td>{category.image}</td>
+                    <td>{productImages.image}</td>
+                    <td>
+                      {productImages.productId ? <Link to={`product/${productImages.productId}`}>{productImages.productId}</Link> : ''}
+                    </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${category.id}`} color="info" size="sm">
+                        <Button tag={Link} to={`${match.url}/${productImages.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${category.id}/edit`} color="primary" size="sm">
+                        <Button tag={Link} to={`${match.url}/${productImages.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${category.id}/delete`} color="danger" size="sm">
+                        <Button tag={Link} to={`${match.url}/${productImages.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                         </Button>
                       </div>
@@ -138,7 +140,7 @@ export const Category = (props: ICategoryProps) => {
               </tbody>
             </Table>
           ) : (
-            !loading && <div className="alert alert-warning">No Categories found</div>
+            !loading && <div className="alert alert-warning">No Product Images found</div>
           )}
         </InfiniteScroll>
       </div>
@@ -146,13 +148,13 @@ export const Category = (props: ICategoryProps) => {
   );
 };
 
-const mapStateToProps = ({ category }: IRootState) => ({
-  categoryList: category.entities,
-  loading: category.loading,
-  totalItems: category.totalItems,
-  links: category.links,
-  entity: category.entity,
-  updateSuccess: category.updateSuccess,
+const mapStateToProps = ({ productImages }: IRootState) => ({
+  productImagesList: productImages.entities,
+  loading: productImages.loading,
+  totalItems: productImages.totalItems,
+  links: productImages.links,
+  entity: productImages.entity,
+  updateSuccess: productImages.updateSuccess,
 });
 
 const mapDispatchToProps = {
@@ -163,4 +165,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductImages);

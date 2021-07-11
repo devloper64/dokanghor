@@ -35,7 +35,7 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "lastLiquibaseTimestamp": 1625503056000,
+    "lastLiquibaseTimestamp": 1625976787000,
     "herokuDeployType": "git",
     "herokuJavaVersion": "1.8",
     "herokuAppName": "dokanghor"

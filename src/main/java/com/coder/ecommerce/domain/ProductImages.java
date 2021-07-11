@@ -1,5 +1,6 @@
 package com.coder.ecommerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -7,11 +8,11 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 
 /**
- * A Category.
+ * A ProductImages.
  */
 @Entity
-@Table(name = "category",schema = "public")
-public class Category extends AbstractAuditingEntity implements Serializable {
+@Table(name = "product_images")
+public class ProductImages implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,11 +22,12 @@ public class Category extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "image")
+    @Column(name = "image", nullable = false)
     private String image;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "productImages", allowSetters = true)
+    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -36,29 +38,30 @@ public class Category extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getImage() {
         return image;
+    }
+
+    public ProductImages image(String image) {
+        this.image = image;
+        return this;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public Product getProduct() {
+        return product;
     }
 
-    public Category name(String name) {
-        this.name = name;
+    public ProductImages product(Product product) {
+        this.product = product;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct(Product product) {
+        this.product = product;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -67,10 +70,10 @@ public class Category extends AbstractAuditingEntity implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Category)) {
+        if (!(o instanceof ProductImages)) {
             return false;
         }
-        return id != null && id.equals(((Category) o).id);
+        return id != null && id.equals(((ProductImages) o).id);
     }
 
     @Override
@@ -81,9 +84,9 @@ public class Category extends AbstractAuditingEntity implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Category{" +
+        return "ProductImages{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
+            ", image='" + getImage() + "'" +
             "}";
     }
 }

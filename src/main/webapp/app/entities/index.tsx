@@ -12,6 +12,7 @@ import ShippingAddress from './shipping-address';
 import Payment from './payment';
 import Transaction from './transaction';
 import MobileIntro from './mobile-intro';
+import ProductImages from './product-images';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -26,6 +27,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}payment`} component={Payment} />
       <ErrorBoundaryRoute path={`${match.url}transaction`} component={Transaction} />
       <ErrorBoundaryRoute path={`${match.url}mobile-intro`} component={MobileIntro} />
+      <ErrorBoundaryRoute path={`${match.url}product-images`} component={ProductImages} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

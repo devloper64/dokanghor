@@ -30,6 +30,21 @@ public class SubCategory extends AbstractAuditingEntity implements Serializable 
     @JsonIgnoreProperties(value = "subCategories", allowSetters = true)
     private Category category;
 
+    @Column(name = "image")
+    private String image;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;

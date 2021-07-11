@@ -104,6 +104,9 @@ export const SubCategory = (props: ISubCategoryProps) => {
                   <th className="hand" onClick={sort('name')}>
                     Name <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('image')}>
+                    Image <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     Category <FontAwesomeIcon icon="sort" />
                   </th>
@@ -119,6 +122,7 @@ export const SubCategory = (props: ISubCategoryProps) => {
                       </Button>
                     </td>
                     <td>{subCategory.name}</td>
+                    <td>{subCategory.image}</td>
                     <td>
                       {subCategory.categoryName ? <Link to={`category/${subCategory.categoryId}`}>{subCategory.categoryName}</Link> : ''}
                     </td>

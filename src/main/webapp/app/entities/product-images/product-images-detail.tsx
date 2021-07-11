@@ -6,40 +6,37 @@ import { ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './category.reducer';
-import { ICategory } from 'app/shared/model/category.model';
+import { getEntity } from './product-images.reducer';
+import { IProductImages } from 'app/shared/model/product-images.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface ICategoryDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IProductImagesDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export const CategoryDetail = (props: ICategoryDetailProps) => {
+export const ProductImagesDetail = (props: IProductImagesDetailProps) => {
   useEffect(() => {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { categoryEntity } = props;
+  const { productImagesEntity } = props;
   return (
     <Row>
       <Col md="8">
         <h2>
-          Category [<b>{categoryEntity.id}</b>]
+          ProductImages [<b>{productImagesEntity.id}</b>]
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="name">Name</span>
+            <span id="image">Image</span>
           </dt>
-          <dd>{categoryEntity.name}</dd>
-
-          <dt>
-            <span id="name">Image</span>
-          </dt>
-          <dd>{categoryEntity.image}</dd>
+          <dd>{productImagesEntity.image}</dd>
+          <dt>Product</dt>
+          <dd>{productImagesEntity.productId ? productImagesEntity.productId : ''}</dd>
         </dl>
-        <Button tag={Link} to="/category" replace color="info">
+        <Button tag={Link} to="/product-images" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/category/${categoryEntity.id}/edit`} replace color="primary">
+        <Button tag={Link} to={`/product-images/${productImagesEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
         </Button>
       </Col>
@@ -47,8 +44,8 @@ export const CategoryDetail = (props: ICategoryDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ category }: IRootState) => ({
-  categoryEntity: category.entity,
+const mapStateToProps = ({ productImages }: IRootState) => ({
+  productImagesEntity: productImages.entity,
 });
 
 const mapDispatchToProps = { getEntity };
@@ -56,4 +53,4 @@ const mapDispatchToProps = { getEntity };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductImagesDetail);
