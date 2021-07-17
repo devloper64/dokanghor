@@ -43,13 +43,17 @@ export const App = (props: IAppProps) => {
           />
         </ErrorBoundary>
         <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>
-          </Card>
-          <Footer />
         </div>
+        <Footer
+          isAuthenticated={props.isAuthenticated}
+          isAdmin={props.isAdmin}
+          ribbonEnv={props.ribbonEnv}
+          isInProduction={props.isInProduction}
+          isSwaggerEnabled={props.isSwaggerEnabled}
+        />
       </div>
     </Router>
   );

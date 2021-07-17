@@ -1,5 +1,5 @@
 import './home.scss';
-
+import { Card } from 'reactstrap';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,8 +16,9 @@ export const Home = (props: IHomeProp) => {
 
   return (
     <div>
-      <img src="content/images/home.png" className="background-image"/>
+      <img src="content/images/cover.png" className="background-image"/>
     </div>
+
   );
 };
 

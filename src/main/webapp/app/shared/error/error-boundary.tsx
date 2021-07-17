@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from 'reactstrap';
 
 interface IErrorBoundaryProps {
   readonly children: JSX.Element | JSX.Element[];
@@ -31,10 +32,13 @@ class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryS
           </details>
         ) : undefined;
       return (
-        <div>
-          <h2 className="error">An unexpected error has occurred.</h2>
-          {errorDetails}
-        </div>
+        <Card className="jh-card">
+          <div>
+            <h2 className="error">An unexpected error has occurred.</h2>
+            {errorDetails}
+          </div>
+        </Card>
+
       );
     }
     return this.props.children;

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { IRootState } from 'app/shared/reducers';
 import { logout } from 'app/shared/reducers/authentication';
+import {Link,Redirect} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export interface ILogoutProps extends StateProps, DispatchProps {
   idToken: string;
@@ -22,9 +24,13 @@ export const Logout = (props: ILogoutProps) => {
   });
 
   return (
-    <div className="p-5">
-      <h4>Logged out successfully!</h4>
-    </div>
+    // <div>
+    //   <Link to={`/login`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+    //     <FontAwesomeIcon icon="plus" />
+    //     &nbsp; Login
+    //   </Link>
+    // </div>
+    <Redirect to="/login"/>
   );
 };
 

@@ -28,15 +28,13 @@ const Header = (props: IHeaderProps) => {
         <a href="">Development</a>
       </div>
     ) : null;
-
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
-
   return (
     <div id="app-header">
       {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
+      {props.isAuthenticated && props.isAdmin && (
       <Navbar  dark expand="sm" fixed="top" className="bg-primary">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <Brand />
@@ -49,6 +47,7 @@ const Header = (props: IHeaderProps) => {
           </Nav>
         </Collapse>
       </Navbar>
+      )}
     </div>
   );
 };

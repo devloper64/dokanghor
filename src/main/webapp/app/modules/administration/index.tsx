@@ -8,9 +8,15 @@ import Metrics from './metrics/metrics';
 import Configuration from './configuration/configuration';
 import Audits from './audits/audits';
 import Docs from './docs/docs';
+import { Card } from 'reactstrap';
+import PageNotFound from "app/shared/error/page-not-found";
+import { Switch } from 'react-router-dom';
+
 
 const Routes = ({ match }) => (
+  <Card className="jh-card">
   <div>
+    <Switch>
     <ErrorBoundaryRoute path={`${match.url}/user-management`} component={UserManagement} />
     <ErrorBoundaryRoute exact path={`${match.url}/health`} component={Health} />
     <ErrorBoundaryRoute exact path={`${match.url}/metrics`} component={Metrics} />
@@ -18,7 +24,10 @@ const Routes = ({ match }) => (
     <ErrorBoundaryRoute exact path={`${match.url}/configuration`} component={Configuration} />
     <ErrorBoundaryRoute exact path={`${match.url}/audits`} component={Audits} />
     <ErrorBoundaryRoute exact path={`${match.url}/logs`} component={Logs} />
+    <ErrorBoundaryRoute component={PageNotFound} />
+    </Switch>
   </div>
+  </Card>
 );
 
 export default Routes;

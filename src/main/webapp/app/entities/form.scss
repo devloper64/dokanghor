@@ -1,0 +1,782 @@
+/* ==========================================================================
+   #FONT
+   ========================================================================== */
+.entity-form {
+  width: 100%;
+}
+
+.entity-form .img {
+  margin-top: 10px;
+  border-radius: 8px;
+  max-height: 60%;
+  max-width: 60%;
+}
+.entity-form .m-t {
+  margin-top: 10px;
+}
+.entity-form .m-b {
+  margin-bottom: 20px;
+}
+.entity-form .font-robo {
+  font-family: 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
+}
+
+.entity-form .font-poppins {
+  font-family: 'Poppins', 'Arial', 'Helvetica Neue', sans-serif;
+}
+
+.entity-form .font-opensans {
+  font-family: 'Open Sans', 'Arial', 'Helvetica Neue', sans-serif;
+}
+
+.entity-form .message-failed {
+  color: orangered;
+  font-size: 17px;
+}
+.entity-form .message-success {
+  color: #57b846;
+  font-size: 17px;
+}
+
+/* ==========================================================================
+   #GRID
+   ========================================================================== */
+.entity-form .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.entity-form .row .col-2:last-child .input-group-desc {
+  margin-bottom: 0;
+}
+
+.entity-form .row-space {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.entity-form .row-refine {
+  margin: 0 -15px;
+}
+
+.entity-form .row-refine .col-3 .input-group-desc,
+.row-refine .col-9 .input-group-desc {
+  margin-bottom: 0;
+}
+
+.entity-form .col-2 {
+  width: -webkit-calc((100% - 30px) / 2);
+  width: -moz-calc((100% - 30px) / 2);
+  width: calc((100% - 30px) / 2);
+}
+
+@media (max-width: 767px) {
+  .entity-form .col-2 {
+    width: 100%;
+  }
+}
+
+.entity-form .form-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.entity-form .form-row .name {
+  width: 125px;
+  color: #555;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.entity-form .form-row .value {
+  width: -webkit-calc(100% - 125px);
+  width: -moz-calc(100% - 125px);
+  width: calc(100% - 125px);
+}
+
+@media (max-width: 767px) {
+  .entity-form .form-row {
+    display: block;
+  }
+  .entity-form .form-row .name,
+  .form-row .value {
+    display: block;
+    width: 100%;
+  }
+  .entity-form .form-row .name {
+    margin-bottom: 7px;
+  }
+}
+
+.entity-form .col-3,
+.entity-form .col-9 {
+  padding: 0 15px;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+}
+
+.entity-form .col-3 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 25%;
+  -moz-box-flex: 0;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+@media (max-width: 767px) {
+  .entity-form .col-3 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 35%;
+    -moz-box-flex: 0;
+    -ms-flex: 0 0 35%;
+    flex: 0 0 35%;
+    max-width: 35%;
+  }
+}
+
+.entity-form .col-9 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 75%;
+  -moz-box-flex: 0;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+@media (max-width: 767px) {
+  .entity-form .col-9 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 65%;
+    -moz-box-flex: 0;
+    -ms-flex: 0 0 65%;
+    flex: 0 0 65%;
+    max-width: 65%;
+  }
+}
+
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+/**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* ==========================================================================
+   #RESET
+   ========================================================================== */
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+p,
+pre,
+dl,
+dd,
+ol,
+ul,
+figure,
+hr,
+fieldset,
+legend {
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Remove trailing margins from nested lists.
+ */
+li > ol,
+li > ul {
+  margin-bottom: 0;
+}
+
+/**
+ * Remove default table spacing.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+.entity-form fieldset {
+  min-width: 0;
+  /* [1] */
+  border: 0;
+}
+
+.entity-form button {
+  outline: none;
+  background: none;
+  border: none;
+}
+
+/* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+.entity-form .page-wrapper {
+  min-height: 70vh;
+}
+/* ==========================================================================
+   #BACKGROUND
+   ========================================================================== */
+.entity-form .bg-blue {
+  background: #2c6ed5;
+}
+
+.entity-form .bg-red {
+  background: #fa4251;
+}
+
+.entity-form .bg-gra-01 {
+  background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
+  background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
+}
+
+.entity-form .bg-gra-02 {
+  background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
+  background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+}
+
+.entity-form .bg-gra-03 {
+  background: -webkit-gradient(linear, left bottom, right top, from(#08aeea), to(#b721ff));
+  background: -webkit-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: -moz-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: -o-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: linear-gradient(to top right, #08aeea 0%, #b721ff 100%);
+}
+
+/* ==========================================================================
+   #SPACING
+   ========================================================================== */
+.entity-form .p-t-100 {
+  padding-top: 100px;
+}
+
+.entity-form .p-t-130 {
+  padding-top: 130px;
+}
+
+.entity-form .p-t-180 {
+  padding-top: 180px;
+}
+
+.entity-form .p-t-45 {
+  padding-top: 45px;
+}
+
+.entity-form .p-t-20 {
+  padding-top: 20px;
+}
+
+.entity-form .p-t-15 {
+  padding-top: 15px;
+}
+
+.entity-form .p-t-10 {
+  padding-top: 10px;
+}
+
+.entity-form .p-t-30 {
+  padding-top: 30px;
+}
+
+.entity-form .p-b-100 {
+  padding-bottom: 100px;
+}
+
+.entity-form .p-b-50 {
+  padding-bottom: 50px;
+}
+
+.entity-form .m-r-45 {
+  margin-right: 45px;
+}
+
+.entity-form .m-r-55 {
+  margin-right: 55px;
+}
+
+.entity-form .m-b-55 {
+  margin-bottom: 55px;
+}
+
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.entity-form .wrapper {
+  margin: 0 auto;
+}
+
+.entity-form .wrapper--w960 {
+  max-width: 960px;
+}
+
+.entity-form .wrapper--w790 {
+  max-width: 890px;
+}
+
+.entity-form .wrapper--w780 {
+  max-width: 780px;
+}
+
+.entity-form .wrapper--w680 {
+  max-width: 680px;
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.entity-form .btn {
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 50px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  font-family: inherit;
+}
+
+.entity-form .btn--radius {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.entity-form .btn--radius-2 {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.entity-form .btn--pill {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.entity-form .btn--green {
+  background: #57b846;
+}
+
+.entity-form .btn--green:hover {
+  background: #4dae3c;
+}
+
+.entity-form .btn--blue {
+  background: #4272d7;
+}
+
+.entity-form .btn--blue:hover {
+  background: #3868cd;
+}
+
+.entity-form .btn--red {
+  background: #ff4b5a;
+}
+
+.entity-form .btn--red:hover {
+  background: #eb3746;
+}
+
+/* ==========================================================================
+   #DATE PICKER
+   ========================================================================== */
+td.active {
+  background-color: #2c6ed5;
+}
+
+input[type='date' i] {
+  padding: 14px;
+}
+
+.entity-form .table-condensed td,
+.table-condensed th {
+  font-size: 14px;
+  font-family: 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+}
+
+.entity-form .daterangepicker td {
+  width: 40px;
+  height: 30px;
+}
+
+.entity-form .daterangepicker {
+  border: none;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  display: none;
+  border: 1px solid #e0e0e0;
+  margin-top: 5px;
+}
+
+.entity-form .daterangepicker::after,
+.daterangepicker::before {
+  display: none;
+}
+
+.entity-form .daterangepicker thead tr th {
+  padding: 10px 0;
+}
+
+.entity-form .daterangepicker .table-condensed th select {
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
+}
+
+/* ==========================================================================
+   #FORM
+   ========================================================================== */
+.entity-form input {
+  outline: none;
+  margin: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.entity-form .radio-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.entity-form .radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.entity-form .radio-container input:checked ~ .checkmark {
+  background-color: #e5e5e5;
+}
+
+.entity-form .radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.entity-form .radio-container .checkmark:after {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: #57b846;
+}
+
+.entity-form .checkmark {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #e5e5e5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+}
+
+.entity-form .checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.entity-form .input--style-5 {
+  background: #e5e5e5;
+  line-height: 50px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 22px;
+  font-size: 16px;
+  color: #555;
+}
+
+.entity-form .input--style-6 {
+  background: #e5e5e5;
+  line-height: 50px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+}
+
+.entity-form .input-group-desc {
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .entity-form .input-group-desc {
+    margin-bottom: 40px;
+  }
+}
+
+.entity-form .input-group {
+  position: relative;
+  margin: 0;
+}
+
+.entity-form .label {
+  color: #555;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.entity-form .label--block {
+  width: 100%;
+}
+
+.entity-form .label--desc {
+  position: absolute;
+  text-transform: capitalize;
+  display: block;
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+  margin-top: 7px;
+  left: 0;
+}
+
+/* ==========================================================================
+   #SELECT2
+   ========================================================================== */
+.entity-form .select--no-search .select2-search {
+  display: none !important;
+}
+
+.entity-form .select2-container--open .select2-dropdown--below {
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.entity-form .select2-container--default .select2-results__option {
+  padding-left: 22px;
+}
+
+.entity-form .rs-select2 .select2-container {
+  width: 100% !important;
+  outline: none;
+  background: #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.entity-form .rs-select2 .select2-container .select2-selection--single {
+  outline: none;
+  border: none;
+  height: 50px;
+  background: transparent;
+}
+
+.entity-form .rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+  line-height: 50px;
+  padding-left: 0;
+  color: #555;
+  font-size: 16px;
+  font-family: inherit;
+  padding-left: 22px;
+  padding-right: 50px;
+}
+
+.entity-form .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 50px;
+  right: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.entity-form .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
+  display: none;
+}
+
+.entity-form .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow:after {
+  font-family: 'Material-Design-Iconic-Font';
+  content: '\f2f9';
+  font-size: 24px;
+  color: #999;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.entity-form .rs-select2 .select2-container.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.entity-form .title {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.entity-form .card {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.entity-form .card-5 {
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.entity-form .card-5 .card-heading {
+  padding: 20px 0;
+  background: #db3022;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-right-radius: 10px;
+}
+
+.entity-form .card-5 .card-body {
+  padding: 52px 85px 73px;
+}
+
+@media (max-width: 767px) {
+  .entity-form .card-5 .card-body {
+    padding: 40px 30px 50px;
+  }
+}

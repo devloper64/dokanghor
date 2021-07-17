@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
+import { Card } from 'reactstrap';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
@@ -13,6 +14,7 @@ import Payment from './payment';
 import Transaction from './transaction';
 import MobileIntro from './mobile-intro';
 import ProductImages from './product-images';
+import PageNotFound from "app/shared/error/page-not-found";
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -28,6 +30,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}transaction`} component={Transaction} />
       <ErrorBoundaryRoute path={`${match.url}mobile-intro`} component={MobileIntro} />
       <ErrorBoundaryRoute path={`${match.url}product-images`} component={ProductImages} />
+      <ErrorBoundaryRoute component={PageNotFound} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

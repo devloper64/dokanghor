@@ -6,6 +6,7 @@ import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstr
 import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import '../form.scss'
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
@@ -56,14 +57,15 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
   };
 
   return (
-    <div>
-      <Row className="justify-content-center">
-        <Col md="8">
-          <h2 id="ecommerceApp.address.home.createOrEditLabel">Create or edit a Address</h2>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col md="8">
+    <div className="entity-form">
+      <div className="page-wrapper  p-t-45 p-b-50">
+      <div className="wrapper wrapper--w790">
+        <div className="card-5">
+          <div className="card-heading">
+            <h2 className="title">Create Or Update Address</h2>
+          </div>
+
+        <div className="card-body">
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -71,7 +73,7 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
               {!isNew ? (
                 <AvGroup>
                   <Label for="address-id">ID</Label>
-                  <AvInput id="address-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput   className="input--style-5" id="address-id" type="text" name="id" required readOnly />
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -79,6 +81,7 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
                   Name
                 </Label>
                 <AvField
+                  className="input--style-5"
                   id="address-name"
                   type="text"
                   name="name"
@@ -92,6 +95,7 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
                   Postal Code
                 </Label>
                 <AvField
+                  className="input--style-5"
                   id="address-postalCode"
                   type="text"
                   name="postalCode"
@@ -118,15 +122,17 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
                 &nbsp;
                 <span className="d-none d-md-inline">Back</span>
               </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+              &nbsp;&nbsp;
+              <Button className="btn btn--radius-2 btn--green" id="save-entity" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp; Save
               </Button>
             </AvForm>
           )}
-        </Col>
-      </Row>
+        </div>
+      </div>
+    </div>
+    </div>
     </div>
   );
 };
