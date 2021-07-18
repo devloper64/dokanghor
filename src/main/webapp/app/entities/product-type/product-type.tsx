@@ -104,6 +104,9 @@ export const ProductType = (props: IProductTypeProps) => {
                   <th className="hand" onClick={sort('name')}>
                     Name <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" >
+                    Sub Category <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -116,6 +119,7 @@ export const ProductType = (props: IProductTypeProps) => {
                       </Button>
                     </td>
                     <td>{productType.name}</td>
+                    <td>  {productType.subCategoryId ? <Link to={`sub-category/${productType.subCategoryId}`}>{productType.subCategoryId}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${productType.id}`} color="info" size="sm">

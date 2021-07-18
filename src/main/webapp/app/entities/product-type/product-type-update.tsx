@@ -11,13 +11,14 @@ import { getEntity, updateEntity, createEntity, reset } from './product-type.red
 import { IProductType } from 'app/shared/model/product-type.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import {getEntities as getSubCategories} from "app/entities/sub-category/sub-category.reducer";
 
 export interface IProductTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const ProductTypeUpdate = (props: IProductTypeUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { productTypeEntity, loading, updating } = props;
+  const { productTypeEntity, subCategories,loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/product-type');
@@ -33,6 +34,7 @@ export const ProductTypeUpdate = (props: IProductTypeUpdateProps) => {
     if (props.updateSuccess) {
       handleClose();
     }
+    props.getSubCategories();
   }, [props.updateSuccess]);
 
   const saveEntity = (event, errors, values) => {
@@ -82,6 +84,21 @@ export const ProductTypeUpdate = (props: IProductTypeUpdateProps) => {
                   }}
                 />
               </AvGroup>
+
+              <AvGroup>
+                <Label for="product-type-subCategory">Sub Category</Label>
+                <AvInput id="product-type-subCategory" type="select" className="form-control" name="subCategoryId" required>
+                  {subCategories
+                    ? subCategories.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                    : null}
+                </AvInput>
+                <AvFeedback>This field is required.</AvFeedback>
+              </AvGroup>
+
               <Button tag={Link} id="cancel-save" to="/product-type" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -101,6 +118,7 @@ export const ProductTypeUpdate = (props: IProductTypeUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  subCategories: storeState.subCategory.entities,
   productTypeEntity: storeState.productType.entity,
   loading: storeState.productType.loading,
   updating: storeState.productType.updating,
@@ -108,6 +126,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getSubCategories,
   getEntity,
   updateEntity,
   createEntity,

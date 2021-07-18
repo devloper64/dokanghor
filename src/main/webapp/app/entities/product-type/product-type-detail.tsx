@@ -29,6 +29,10 @@ export const ProductTypeDetail = (props: IProductTypeDetailProps) => {
             <span id="name">Name</span>
           </dt>
           <dd>{productTypeEntity.name}</dd>
+          <dt>
+            <span id="name">Sub Category</span>
+          </dt>
+          <dd>{productTypeEntity.subCategoryId}</dd>
         </dl>
         <Button tag={Link} to="/product-type" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

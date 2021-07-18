@@ -33,7 +33,6 @@ public class ProductType implements Serializable {
 
 
     @ManyToOne
-    @NotNull
     @JsonIgnoreProperties(value = "productTypes", allowSetters = true)
     private SubCategory subCategory;
 
@@ -47,6 +46,13 @@ public class ProductType implements Serializable {
     }
 
 
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
+    }
 
     public String getName() {
         return name;

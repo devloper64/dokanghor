@@ -30,18 +30,29 @@ public class ProductTypeCriteria implements Serializable, Criteria {
 
     private LongFilter productId;
 
+    private LongFilter subCategoryId;
+
     public ProductTypeCriteria() {
     }
 
     public ProductTypeCriteria(ProductTypeCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
+        this.subCategoryId = other.subCategoryId == null ? null : other.subCategoryId.copy();
         this.productId = other.productId == null ? null : other.productId.copy();
     }
 
     @Override
     public ProductTypeCriteria copy() {
         return new ProductTypeCriteria(this);
+    }
+
+    public LongFilter getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(LongFilter subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     public LongFilter getId() {
@@ -81,7 +92,8 @@ public class ProductTypeCriteria implements Serializable, Criteria {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
-            Objects.equals(productId, that.productId);
+            Objects.equals(productId, that.productId)&&
+            Objects.equals(subCategoryId, that.subCategoryId);
     }
 
     @Override
@@ -89,7 +101,8 @@ public class ProductTypeCriteria implements Serializable, Criteria {
         return Objects.hash(
         id,
         name,
-        productId
+        productId,
+        subCategoryId
         );
     }
 
@@ -100,6 +113,7 @@ public class ProductTypeCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (productId != null ? "productId=" + productId + ", " : "") +
+                (subCategoryId != null ? "subCategoryId=" + subCategoryId + ", " : "") +
             "}";
     }
 

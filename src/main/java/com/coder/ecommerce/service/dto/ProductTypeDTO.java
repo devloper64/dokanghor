@@ -7,19 +7,30 @@ import java.io.Serializable;
  * A DTO for the {@link com.coder.ecommerce.domain.ProductType} entity.
  */
 public class ProductTypeDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
     private String name;
 
-    
+    private Long subCategoryId;
+
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public Long getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Long subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     public String getName() {
