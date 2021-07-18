@@ -32,6 +32,16 @@ public class ProductDTO implements Serializable {
 
     private Instant lastModifiedDate;
 
+    private Long productTypeId;
+
+
+    public Long getProductTypeId() {
+        return productTypeId;
+    }
+
+    public void setProductTypeId(Long productTypeId) {
+        this.productTypeId = productTypeId;
+    }
 
     public Long getId() {
         return id;

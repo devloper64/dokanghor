@@ -33,10 +33,22 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "image", nullable = false)
     private String image;
 
+
+//    @Column(name = "discount_amount")
+//    private double discount_amount;
+//
+//    @Column(name = "product_details")
+//    private String product_details;
+
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "products", allowSetters = true)
     private SubCategory subCategory;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "products", allowSetters = true)
+    private ProductType productType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -94,6 +106,15 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.subCategory = subCategory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 
     @Override
     public boolean equals(Object o) {

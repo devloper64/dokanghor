@@ -32,6 +32,8 @@ public class ProductCriteria implements Serializable, Criteria {
 
     private LongFilter subCategoryId;
 
+    private LongFilter productTypeId;
+
     public ProductCriteria() {
     }
 
@@ -40,6 +42,7 @@ public class ProductCriteria implements Serializable, Criteria {
         this.name = other.name == null ? null : other.name.copy();
         this.price = other.price == null ? null : other.price.copy();
         this.subCategoryId = other.subCategoryId == null ? null : other.subCategoryId.copy();
+        this.productTypeId = other.productTypeId == null ? null : other.productTypeId.copy();
     }
 
     @Override
@@ -79,6 +82,13 @@ public class ProductCriteria implements Serializable, Criteria {
         this.subCategoryId = subCategoryId;
     }
 
+    public LongFilter getProductTypeId() {
+        return productTypeId;
+    }
+
+    public void setProductTypeId(LongFilter productTypeId) {
+        this.productTypeId = productTypeId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,7 +103,8 @@ public class ProductCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
             Objects.equals(price, that.price) &&
-            Objects.equals(subCategoryId, that.subCategoryId);
+            Objects.equals(subCategoryId, that.subCategoryId)&&
+            Objects.equals(productTypeId, that.productTypeId);
     }
 
     @Override
@@ -102,7 +113,8 @@ public class ProductCriteria implements Serializable, Criteria {
         id,
         name,
         price,
-        subCategoryId
+        subCategoryId,
+        productTypeId
         );
     }
 
@@ -114,6 +126,7 @@ public class ProductCriteria implements Serializable, Criteria {
                 (name != null ? "name=" + name + ", " : "") +
                 (price != null ? "price=" + price + ", " : "") +
                 (subCategoryId != null ? "subCategoryId=" + subCategoryId + ", " : "") +
+                (productTypeId != null ? "productTypeId=" + productTypeId + ", " : "") +
             "}";
     }
 

@@ -5,6 +5,7 @@ export interface IProduct {
   image?: string;
   subCategoryName?: string;
   subCategoryId?: number;
+  productTypeId?: number;
 }
 
 export const defaultValue: Readonly<IProduct> = {};

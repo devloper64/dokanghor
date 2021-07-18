@@ -12,6 +12,7 @@ import { IProduct } from 'app/shared/model/product.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import './table-product.scss'
 
 export interface IProductProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -77,15 +78,17 @@ export const Product = (props: IProductProps) => {
 
   const { productList, match, loading } = props;
   return (
-    <div>
-      <h2 id="product-heading">
-        Products
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-          <FontAwesomeIcon icon="plus" />
-          &nbsp; Create new Product
-        </Link>
-      </h2>
-      <div className="table-responsive">
+    <div className="entity-table-product">
+      <div className="container-table100">
+        <div className="wrap-table100">
+          <h2 id="category-heading">
+            Products
+            <Link to={`${match.url}/new`} className="heading-padding btn btn-primary_head float-right jh-create-entity"
+                  id="jh-create-entity">
+              <FontAwesomeIcon icon="plus"/>
+              &nbsp; Create new Product
+            </Link>
+          </h2>
         <InfiniteScroll
           pageStart={paginationState.activePage}
           loadMore={handleLoadMore}
@@ -95,42 +98,49 @@ export const Product = (props: IProductProps) => {
           initialLoad={false}
         >
           {productList && productList.length > 0 ? (
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
+            <div className="table">
+              <div className="row header">
+
+                  <div className="cell" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('name')}>
+                  </div>
+                  <div className="cell" onClick={sort('name')}>
                     Name <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('price')}>
+                  </div>
+                  <div className="cell" onClick={sort('price')}>
                     Price <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('image')}>
+                  </div>
+                  <div className="cell" onClick={sort('image')}>
                     Image <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     Sub Category <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
-              </thead>
+                  </div>
+                  <div className="cell">
+                    Product Type <FontAwesomeIcon icon="sort" />
+                  </div>
+                <div className="cell">
+                  Action
+                </div>
+              </div>
               <tbody>
                 {productList.map((product, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>
+                  <div className="row" key={`entity-${i}`}>
+                    <div className="cell">
                       <Button tag={Link} to={`${match.url}/${product.id}`} color="link" size="sm">
                         {product.id}
                       </Button>
-                    </td>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
-                    <td>{product.image}</td>
-                    <td>
+                    </div>
+                    <div className="cell">{product.name}</div>
+                    <div className="cell">{product.price}</div>
+                    <div className="cell"><img className="img" src={product.image} alt="dokanghor"/></div>
+                    <div className="cell">
                       {product.subCategoryName ? <Link to={`sub-category/${product.subCategoryId}`}>{product.subCategoryName}</Link> : ''}
-                    </td>
-                    <td className="text-right">
+                    </div>
+                    <div className="cell">
+                      {product.productTypeId ? <Link to={`product-type/${product.productTypeId}`}>{product.productTypeId}</Link> : ''}
+                    </div>
+                    <div className="cell">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${product.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -142,16 +152,17 @@ export const Product = (props: IProductProps) => {
                           <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                         </Button>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
               </tbody>
-            </Table>
+            </div>
           ) : (
             !loading && <div className="alert alert-warning">No Products found</div>
           )}
         </InfiniteScroll>
       </div>
+    </div>
     </div>
   );
 };

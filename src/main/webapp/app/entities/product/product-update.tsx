@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntities as getSubCategories } from 'app/entities/sub-category/sub-category.reducer';
+import { getEntities as getProductTypes } from 'app/entities/product-type/product-type.reducer';
 import {getEntity, updateEntity, createEntity, reset } from './product.reducer';
 
 export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -15,7 +16,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
   const [subCategoryId, setSubCategoryId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { productEntity, subCategories, loading, updating } = props;
+  const { productEntity, subCategories,productTypes, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/product');
@@ -27,6 +28,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
     }
 
     props.getSubCategories();
+    props.getProductTypes();
   }, []);
 
   useEffect(() => {
@@ -124,6 +126,21 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                 </AvInput>
                 <AvFeedback>This field is required.</AvFeedback>
               </AvGroup>
+
+              <AvGroup>
+                <Label for="product-productType">Product Type</Label>
+                <AvInput id="product-productType" type="select" className="form-control" name="productTypeId" required>
+                  {productTypes
+                    ? productTypes.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                    : null}
+                </AvInput>
+                <AvFeedback>This field is required.</AvFeedback>
+              </AvGroup>
+
               <Button tag={Link} id="cancel-save" to="/product" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -143,6 +160,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  productTypes:storeState.productType.entities,
   subCategories: storeState.subCategory.entities,
   productEntity: storeState.product.entity,
   loading: storeState.product.loading,
@@ -151,6 +169,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getProductTypes,
   getSubCategories,
   getEntity,
   updateEntity,
