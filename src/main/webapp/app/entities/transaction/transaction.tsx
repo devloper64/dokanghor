@@ -145,7 +145,7 @@ export const Transaction = (props: ITransactionProps) => {
                 ))}
             </div>
           ) : (
-            !loading && <div className="alert alert-warning">No Transactions found</div>
+            !loading && <div className="alert-margin alert alert-warning">No Transactions found</div>
           )}
         </InfiniteScroll>
       </div>
