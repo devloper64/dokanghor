@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
-// {account && account.login ? (
 
 export type IHomeProp = StateProps;
 
