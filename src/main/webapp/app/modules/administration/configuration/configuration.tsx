@@ -4,6 +4,7 @@ import { Table, Input, Row, Col, Badge } from 'reactstrap';
 
 import { getConfigurations, getEnv } from '../administration.reducer';
 import { IRootState } from 'app/shared/reducers';
+import { Card } from 'reactstrap';
 
 export interface IConfigurationPageProps extends StateProps, DispatchProps {}
 
@@ -39,6 +40,8 @@ export const ConfigurationPage = (props: IConfigurationPageProps) => {
   const env = configuration && configuration.env ? configuration.env : {};
 
   return (
+    <Card className="jh-card">
+
     <div>
       <h2 id="configuration-page-heading">Configuration</h2>
       <span>Filter</span> <Input type="search" value={filter} onChange={changeFilter} name="search" id="search" />
@@ -102,6 +105,7 @@ export const ConfigurationPage = (props: IConfigurationPageProps) => {
           ))
         : null}
     </div>
+    </Card>
   );
 };
 

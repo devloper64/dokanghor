@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Card } from 'reactstrap';
 
 import { getLoggers, changeLogLevel } from '../administration.reducer';
 import { IRootState } from 'app/shared/reducers';
@@ -31,6 +32,7 @@ export const LogsPage = (props: ILogsPageProps) => {
   const loggers = logs ? Object.entries(logs.loggers).map(e => ({ name: e[0], level: e[1].effectiveLevel })) : [];
 
   return (
+    <Card className="jh-card">
     <div>
       <h2 id="logs-page-heading">Logs</h2>
       <p>There are {loggers.length.toString()} loggers.</p>
@@ -104,6 +106,7 @@ export const LogsPage = (props: ILogsPageProps) => {
         </tbody>
       </table>
     </div>
+    </Card>
   );
 };
 

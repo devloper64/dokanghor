@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Input, Row, Table } from 'reactstrap';
 import { TextFormat, JhiPagination, JhiItemCount, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card } from 'reactstrap';
 
 import { APP_TIMESTAMP_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -94,6 +95,8 @@ export const AuditsPage = (props: IAuditsPageProps) => {
   const { audits, totalItems } = props;
 
   return (
+    <Card className="jh-card">
+
     <div>
       <h2 id="audits-page-heading">Audits</h2>
       <span>from</span>
@@ -155,6 +158,7 @@ export const AuditsPage = (props: IAuditsPageProps) => {
         ''
       )}
     </div>
+    </Card>
   );
 };
 

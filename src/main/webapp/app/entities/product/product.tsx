@@ -158,7 +158,7 @@ export const Product = (props: IProductProps) => {
               </tbody>
             </div>
           ) : (
-            !loading && <div className="alert alert-warning">No Products found</div>
+            !loading && <div className="alert-margin alert alert-warning">No Products found</div>
           )}
         </InfiniteScroll>
       </div>

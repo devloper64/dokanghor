@@ -34,11 +34,11 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private String image;
 
 
-//    @Column(name = "discount_amount")
-//    private double discount_amount;
-//
-//    @Column(name = "product_details")
-//    private String product_details;
+    @Column(name = "discount_amount")
+    private double discount_amount;
+
+    @Column(name = "product_details")
+    private String product_details;
 
 
     @ManyToOne(optional = false)
@@ -57,6 +57,22 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public double getDiscount_amount() {
+        return discount_amount;
+    }
+
+    public void setDiscount_amount(double discount_amount) {
+        this.discount_amount = discount_amount;
+    }
+
+    public String getProduct_details() {
+        return product_details;
+    }
+
+    public void setProduct_details(String product_details) {
+        this.product_details = product_details;
     }
 
     public String getImage() {

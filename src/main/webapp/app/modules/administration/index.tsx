@@ -8,13 +8,12 @@ import Metrics from './metrics/metrics';
 import Configuration from './configuration/configuration';
 import Audits from './audits/audits';
 import Docs from './docs/docs';
-import { Card } from 'reactstrap';
 import PageNotFound from "app/shared/error/page-not-found";
 import { Switch } from 'react-router-dom';
 
 
 const Routes = ({ match }) => (
-  <Card className="jh-card">
+
   <div>
     <Switch>
     <ErrorBoundaryRoute path={`${match.url}/user-management`} component={UserManagement} />
@@ -27,7 +26,6 @@ const Routes = ({ match }) => (
     <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>
-  </Card>
 );
 
 export default Routes;

@@ -5,7 +5,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import '../table.scss'
 import { IRootState } from 'app/shared/reducers';
 import { getEntities, reset } from './transaction.reducer';
 import { ITransaction } from 'app/shared/model/transaction.model';
@@ -77,15 +77,18 @@ export const Transaction = (props: ITransactionProps) => {
 
   const { transactionList, match, loading } = props;
   return (
-    <div>
+    <div className="entity-table">
+
+      <div className="container-table100">
+        <div className="wrap-table100">
       <h2 id="transaction-heading">
         Transactions
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+        <Link to={`${match.url}/new`} className="heading-padding btn btn-primary_head float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Transaction
         </Link>
       </h2>
-      <div className="table-responsive">
+
         <InfiniteScroll
           pageStart={paginationState.activePage}
           loadMore={handleLoadMore}
@@ -95,36 +98,37 @@ export const Transaction = (props: ITransactionProps) => {
           initialLoad={false}
         >
           {transactionList && transactionList.length > 0 ? (
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
+            <div className="table">
+              <div className="row header">
+
+                  <div className="cell" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('transactionid')}>
+                  </div>
+                  <div className="cell" onClick={sort('transactionid')}>
                     Transactionid <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('transaction_method')}>
+                  </div>
+                  <div className="cell" onClick={sort('transaction_method')}>
                     Transaction Method <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     Payment <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
+                  </div>
+                  <div className="cell">
+                    Action
+                  </div>
+
+              </div>
                 {transactionList.map((transaction, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>
+                  <div className="row" key={`entity-${i}`}>
+                    <div className="cell">
                       <Button tag={Link} to={`${match.url}/${transaction.id}`} color="link" size="sm">
                         {transaction.id}
                       </Button>
-                    </td>
-                    <td>{transaction.transactionid}</td>
-                    <td>{transaction.transaction_method}</td>
-                    <td>{transaction.paymentId ? <Link to={`payment/${transaction.paymentId}`}>{transaction.paymentId}</Link> : ''}</td>
-                    <td className="text-right">
+                    </div>
+                    <div className="cell">{transaction.transactionid}</div>
+                    <div className="cell">{transaction.transaction_method}</div>
+                    <div className="cell">{transaction.paymentId ? <Link to={`payment/${transaction.paymentId}`}>{transaction.paymentId}</Link> : ''}</div>
+                    <div className="cell">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${transaction.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -136,17 +140,17 @@ export const Transaction = (props: ITransactionProps) => {
                           <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                         </Button>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </Table>
+            </div>
           ) : (
             !loading && <div className="alert alert-warning">No Transactions found</div>
           )}
         </InfiniteScroll>
       </div>
     </div>
+      </div>
   );
 };
 

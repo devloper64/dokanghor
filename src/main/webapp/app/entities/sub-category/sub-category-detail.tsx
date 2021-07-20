@@ -25,7 +25,7 @@ export const SubCategoryDetail = (props: ISubCategoryDetailProps) => {
         <div className="wrapper wrapper--w790">
           <div className="card-5">
             <div className="card-heading">
-              <h2 className="title">Category View</h2>
+              <h2 className="title">Sub Category View</h2>
             </div>
 
             <div className="card-body">

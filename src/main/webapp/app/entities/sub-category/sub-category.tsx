@@ -83,12 +83,12 @@ export const SubCategory = (props: ISubCategoryProps) => {
         <div className="container-table100">
           <div className="wrap-table100">
             <h2 id="category-heading">
-              Categories
+              Sub Categories
               <Link to={`${match.url}/new`}
                     className="heading-padding btn btn-primary_head float-right jh-create-entity"
                     id="jh-create-entity">
                 <FontAwesomeIcon icon="plus"/>
-                &nbsp; Create new Category
+                &nbsp; Create new Sub Category
               </Link>
             </h2>
             <InfiniteScroll
@@ -151,7 +151,7 @@ export const SubCategory = (props: ISubCategoryProps) => {
                   ))}
                   </div>
               ) : (
-                !loading && <div className="alert alert-warning">No Sub Categories found</div>
+                !loading && <div className="alert-margin alert alert-warning">No Sub Categories found</div>
               )}
             </InfiniteScroll>
           </div>

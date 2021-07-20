@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { systemHealth } from '../administration.reducer';
 import HealthModal from './health-modal';
+import { Card } from 'reactstrap';
 
 export interface IHealthPageProps extends StateProps, DispatchProps {}
 
@@ -37,7 +38,8 @@ export const HealthPage = (props: IHealthPageProps) => {
   const data = (health || {}).components || {};
 
   return (
-    <div>
+    <Card className="jh-card">
+    <div style={{marginBottom:'50px'}}>
       <h2 id="health-page-heading">Health Checks</h2>
       <p>
         <Button onClick={getSystemHealth} color={isFetching ? 'btn btn-danger' : 'btn btn-primary'} disabled={isFetching}>
@@ -79,6 +81,7 @@ export const HealthPage = (props: IHealthPageProps) => {
       </Row>
       {renderModal()}
     </div>
+    </Card>
   );
 };
 

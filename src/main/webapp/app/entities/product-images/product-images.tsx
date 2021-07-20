@@ -5,7 +5,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import '../table.scss'
 import { IRootState } from 'app/shared/reducers';
 import { getEntities, reset } from './product-images.reducer';
 import { IProductImages } from 'app/shared/model/product-images.model';
@@ -77,10 +77,12 @@ export const ProductImages = (props: IProductImagesProps) => {
 
   const { productImagesList, match, loading } = props;
   return (
-    <div>
+    <div className="entity-table">
+      <div className="container-table100">
+        <div className="wrap-table100">
       <h2 id="product-images-heading">
         Product Images
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+        <Link to={`${match.url}/new`} className="heading-padding btn btn-primary_head float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Product Images
         </Link>
@@ -95,34 +97,38 @@ export const ProductImages = (props: IProductImagesProps) => {
           initialLoad={false}
         >
           {productImagesList && productImagesList.length > 0 ? (
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
+            <div className="table">
+              <div className="row header">
+
+                  <div className="cell" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('image')}>
+                  </div>
+                  <div className="cell" onClick={sort('image')}>
                     Image <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     Product <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
-              </thead>
+                  </div>
+                <div className="cell">
+                  Action
+                </div>
+
+              </div>
               <tbody>
                 {productImagesList.map((productImages, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>
+                  <div className="row" key={`entity-${i}`}>
+                    <div className="cell">
                       <Button tag={Link} to={`${match.url}/${productImages.id}`} color="link" size="sm">
                         {productImages.id}
                       </Button>
-                    </td>
-                    <td>{productImages.image}</td>
-                    <td>
+                    </div>
+                    <div className="cell">
+                      <img className="img" src={productImages.image} alt="dokanghor"/>
+                    </div>
+                    <div className="cell">
                       {productImages.productId ? <Link to={`product/${productImages.productId}`}>{productImages.productId}</Link> : ''}
-                    </td>
-                    <td className="text-right">
+                    </div>
+                    <div className="cell">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${productImages.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -134,17 +140,20 @@ export const ProductImages = (props: IProductImagesProps) => {
                           <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                         </Button>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
               </tbody>
-            </Table>
+            </div>
           ) : (
-            !loading && <div className="alert alert-warning">No Product Images found</div>
+            !loading && <div className="alert-margin alert alert-warning">No Product Images found</div>
           )}
         </InfiniteScroll>
       </div>
     </div>
+      </div>
+    </div>
+
   );
 };
 

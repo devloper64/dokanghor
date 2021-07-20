@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Row, Col, Label} from 'reactstrap';
+import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
+import {ICrudGetAction, ICrudGetAllAction, ICrudPutAction} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import '../form.scss'
 
-import { IPayment } from 'app/shared/model/payment.model';
-import { getEntities as getPayments } from 'app/entities/payment/payment.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './transaction.reducer';
-import { ITransaction } from 'app/shared/model/transaction.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import {IPayment} from 'app/shared/model/payment.model';
+import {getEntities as getPayments} from 'app/entities/payment/payment.reducer';
+import {getEntity, updateEntity, createEntity, reset} from './transaction.reducer';
+import {ITransaction} from 'app/shared/model/transaction.model';
+import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
+import {mapIdList} from 'app/shared/util/entity-utils';
 
-export interface ITransactionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface ITransactionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const TransactionUpdate = (props: ITransactionUpdateProps) => {
   const [paymentId, setPaymentId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { transactionEntity, payments, loading, updating } = props;
+  const {transactionEntity, payments, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/transaction');
@@ -56,78 +58,84 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
   };
 
   return (
-    <div>
-      <Row className="justify-content-center">
-        <Col md="8">
-          <h2 id="ecommerceApp.transaction.home.createOrEditLabel">Create or edit a Transaction</h2>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col md="8">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <AvForm model={isNew ? {} : transactionEntity} onSubmit={saveEntity}>
-              {!isNew ? (
-                <AvGroup>
-                  <Label for="transaction-id">ID</Label>
-                  <AvInput id="transaction-id" type="text" className="form-control" name="id" required readOnly />
-                </AvGroup>
-              ) : null}
-              <AvGroup>
-                <Label id="transactionidLabel" for="transaction-transactionid">
-                  Transactionid
-                </Label>
-                <AvField
-                  id="transaction-transactionid"
-                  type="text"
-                  name="transactionid"
-                  validate={{
-                    required: { value: true, errorMessage: 'This field is required.' },
-                  }}
-                />
-              </AvGroup>
-              <AvGroup>
-                <Label id="transaction_methodLabel" for="transaction-transaction_method">
-                  Transaction Method
-                </Label>
-                <AvField
-                  id="transaction-transaction_method"
-                  type="text"
-                  name="transaction_method"
-                  validate={{
-                    required: { value: true, errorMessage: 'This field is required.' },
-                  }}
-                />
-              </AvGroup>
-              <AvGroup>
-                <Label for="transaction-payment">Payment</Label>
-                <AvInput id="transaction-payment" type="select" className="form-control" name="paymentId" required>
-                  {payments
-                    ? payments.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-                <AvFeedback>This field is required.</AvFeedback>
-              </AvGroup>
-              <Button tag={Link} id="cancel-save" to="/transaction" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
-                &nbsp;
-                <span className="d-none d-md-inline">Back</span>
-              </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
-                &nbsp; Save
-              </Button>
-            </AvForm>
-          )}
-        </Col>
-      </Row>
+    <div className="entity-form">
+      <div className="page-wrapper  p-t-45 p-b-50">
+        <div className="wrapper wrapper--w790">
+          <div className="card-5">
+            <div className="card-heading">
+              <h2 className="title">Create Or Update Transaction</h2>
+            </div>
+
+            <div className="card-body">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <AvForm model={isNew ? {} : transactionEntity} onSubmit={saveEntity}>
+                  {!isNew ? (
+                    <AvGroup>
+                      <Label for="transaction-id">ID</Label>
+                      <AvInput  id="transaction-id" type="text" className="input--style-5" name="id" required readOnly/>
+                    </AvGroup>
+                  ) : null}
+                  <AvGroup>
+                    <Label id="transactionidLabel" for="transaction-transactionid">
+                      Transactionid
+                    </Label>
+                    <AvField
+                      className="input--style-5"
+                      id="transaction-transactionid"
+                      type="text"
+                      name="transactionid"
+                      validate={{
+                        required: {value: true, errorMessage: 'This field is required.'},
+                      }}
+                    />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="transaction_methodLabel" for="transaction-transaction_method">
+                      Transaction Method
+                    </Label>
+                    <AvField
+                      className="input--style-5"
+                      id="transaction-transaction_method"
+                      type="text"
+                      name="transaction_method"
+                      validate={{
+                        required: {value: true, errorMessage: 'This field is required.'},
+                      }}
+                    />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="transaction-payment">Payment</Label>
+                    <AvInput id="transaction-payment" type="select" className="form-control" name="paymentId" required>
+                      {payments
+                        ? payments.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
+                  </AvGroup>
+                  <Button tag={Link} id="cancel-save" to="/transaction" replace color="info">
+                    <FontAwesomeIcon icon="arrow-left"/>
+                    &nbsp;
+                    <span className="d-none d-md-inline">Back</span>
+                  </Button>
+                  &nbsp;
+                  <Button className="btn btn--radius-2 btn--green" id="save-entity" type="submit" disabled={updating}>
+                    <FontAwesomeIcon icon="save"/>
+                    &nbsp; Save
+                  </Button>
+                </AvForm>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 };
 

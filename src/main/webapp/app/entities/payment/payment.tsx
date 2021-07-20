@@ -5,7 +5,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import '../table.scss'
 import { IRootState } from 'app/shared/reducers';
 import { getEntities, reset } from './payment.reducer';
 import { IPayment } from 'app/shared/model/payment.model';
@@ -77,15 +77,18 @@ export const Payment = (props: IPaymentProps) => {
 
   const { paymentList, match, loading } = props;
   return (
-    <div>
+    <div className="entity-table">
+
+      <div className="container-table100">
+        <div className="wrap-table100-payment">
       <h2 id="payment-heading">
         Payments
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+        <Link to={`${match.url}/new`} className="heading-padding btn btn-primary_head float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp; Create new Payment
         </Link>
       </h2>
-      <div className="table-responsive">
+
         <InfiniteScroll
           pageStart={paginationState.activePage}
           loadMore={handleLoadMore}
@@ -95,46 +98,46 @@ export const Payment = (props: IPaymentProps) => {
           initialLoad={false}
         >
           {paymentList && paymentList.length > 0 ? (
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
+            <div className="table">
+                <div className="row header">
+                  <div className="cell" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('amount')}>
+                  </div>
+                  <div className="cell" onClick={sort('amount')}>
                     Amount <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     User <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     Product <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </div>
+                  <div className="cell">
                     Shipping Address <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
+                  </div>
+                  <div className="cell">
+                    Action
+                  </div>
+                </div>
+
                 {paymentList.map((payment, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>
+                  <div className="row" key={`entity-${i}`}>
+                    <div className="cell">
                       <Button tag={Link} to={`${match.url}/${payment.id}`} color="link" size="sm">
                         {payment.id}
                       </Button>
-                    </td>
-                    <td>{payment.amount}</td>
-                    <td>{payment.userLogin ? payment.userLogin : ''}</td>
-                    <td>{payment.productId ? <Link to={`product/${payment.productId}`}>{payment.productId}</Link> : ''}</td>
-                    <td>
+                    </div>
+                    <div className="cell">{payment.amount}</div>
+                    <div className="cell">{payment.userLogin ? payment.userLogin : ''}</div>
+                    <div className="cell">{payment.productId ? <Link to={`product/${payment.productId}`}>{payment.productId}</Link> : ''}</div>
+                    <div className="cell">
                       {payment.shippingAddressId ? (
                         <Link to={`shipping-address/${payment.shippingAddressId}`}>{payment.shippingAddressId}</Link>
                       ) : (
                         ''
                       )}
-                    </td>
-                    <td className="text-right">
+                    </div>
+                    <div className="cell">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${payment.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -146,17 +149,18 @@ export const Payment = (props: IPaymentProps) => {
                           <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                         </Button>
                       </div>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </Table>
+            </div>
           ) : (
-            !loading && <div className="alert alert-warning">No Payments found</div>
+            !loading && <div className="alert-margin alert alert-warning">No Payments found</div>
           )}
         </InfiniteScroll>
       </div>
     </div>
+      </div>
+
   );
 };
 

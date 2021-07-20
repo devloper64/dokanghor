@@ -4,6 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table, Row, Badge } from 'reactstrap';
 import { TextFormat, JhiPagination, JhiItemCount, getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../../entities/table.scss'
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -62,10 +63,13 @@ export const UserManagement = (props: IUserManagementProps) => {
 
   const { users, account, match, totalItems } = props;
   return (
-    <div>
+    <div className="entity-table">
+
+      <div className="container-table100">
+        <div className="wrap-table100">
       <h2 id="user-management-page-heading">
         Users
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
+        <Link to={`${match.url}/new`} className="heading-padding btn btn-primary_head float-right jh-create-entity">
           <FontAwesomeIcon icon="plus" /> Create a new user
         </Link>
       </h2>
@@ -113,11 +117,11 @@ export const UserManagement = (props: IUserManagementProps) => {
               <td>{user.email}</td>
               <td>
                 {user.activated ? (
-                  <Button color="success" onClick={toggleActive(user)}>
+                  <Button color="success" style={{height:'40px',alignItems: 'center'}} onClick={toggleActive(user)}>
                     Activated
                   </Button>
                 ) : (
-                  <Button color="danger" onClick={toggleActive(user)}>
+                  <Button color="danger" style={{height:'40px',alignItems: 'center'}} onClick={toggleActive(user)}>
                     Deactivated
                   </Button>
                 )}
@@ -181,6 +185,8 @@ export const UserManagement = (props: IUserManagementProps) => {
       ) : (
         ''
       )}
+    </div>
+      </div>
     </div>
   );
 };

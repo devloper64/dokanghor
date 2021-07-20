@@ -34,6 +34,8 @@ public class ProductDTO implements Serializable {
 
     private Long productTypeId;
 
+    private double discount_amount;
+    private String product_details;
 
     public Long getProductTypeId() {
         return productTypeId;
@@ -65,6 +67,22 @@ public class ProductDTO implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getDiscount_amount() {
+        return discount_amount;
+    }
+
+    public void setDiscount_amount(double discount_amount) {
+        this.discount_amount = discount_amount;
+    }
+
+    public String getProduct_details() {
+        return product_details;
+    }
+
+    public void setProduct_details(String product_details) {
+        this.product_details = product_details;
     }
 
     public Long getSubCategoryId() {

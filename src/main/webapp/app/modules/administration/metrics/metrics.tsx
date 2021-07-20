@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Col, Progress, Row, Table } from 'reactstrap';
+import { Card } from 'reactstrap';
+
 import {
   CacheMetrics,
   DatasourceMetrics,
@@ -38,6 +40,7 @@ export const MetricsPage = (props: IMetricsPageProps) => {
   const { metrics, threadDump, isFetching } = props;
 
   return (
+    <Card className="jh-card">
     <div>
       <h2 id="metrics-page-heading">Application Metrics</h2>
       <p>
@@ -111,6 +114,7 @@ export const MetricsPage = (props: IMetricsPageProps) => {
         ''
       )}
     </div>
+    </Card>
   );
 };
 
