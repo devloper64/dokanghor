@@ -7,6 +7,7 @@
             </column>
         </addColumn>
     </changeSet>
+
     <changeSet author="coder (generated)" id="1626926696824-9">
         <addColumn tableName="payment">
             <column name="shipping_address_id" type="int8">
