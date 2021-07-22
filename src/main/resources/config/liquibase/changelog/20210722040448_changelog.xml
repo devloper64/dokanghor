@@ -40,7 +40,7 @@
     <changeSet author="coder (generated)" id="1626926696824-16">
         <addForeignKeyConstraint baseColumnNames="shipping_address_id" baseTableName="payment" constraintName="FKshd6ibsslya7s0cr1fupvnhfd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="shipping_address" validate="true"/>
     </changeSet>
-    <changeSet author="coder (generated)" id="1626926696824-17">
-        <dropForeignKeyConstraint baseTableName="payment" constraintName="FKoouk5d8rw4qvr18k84xoti6ax"/>
-    </changeSet>
+<!--    <changeSet author="coder (generated)" id="1626926696824-17">-->
+<!--        <dropForeignKeyConstraint baseTableName="payment" constraintName="FKoouk5d8rw4qvr18k84xoti6ax"/>-->
+<!--    </changeSet>-->
 </databaseChangeLog>
