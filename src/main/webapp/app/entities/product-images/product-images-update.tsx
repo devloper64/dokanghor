@@ -144,7 +144,6 @@ export const ProductImagesUpdate = (props: IProductImagesUpdateProps) => {
                       validate={{
                         required: {value: true, errorMessage: 'This field is required.'},
                       }}
-                      readOnly
                     />
                   </AvGroup>
                   <AvGroup>

@@ -153,7 +153,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
                       validate={{
                         required: {value: true, errorMessage: 'This field is required.'},
                       }}
-                      readOnly
                     />
 
                   </AvGroup>
