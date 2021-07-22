@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="coder (generated)" id="1626928224126-8">
+        <dropUniqueConstraint constraintName="UK_ctvskou1xh26obtbvta4d2o4l" tableName="payment"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626928224126-9">
+        <dropUniqueConstraint constraintName="UK_gb026sbbb53xshvs2n494g2dd" tableName="payment"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626928224126-10">
+        <dropUniqueConstraint constraintName="UK_j0ktw7jtc9bpvsgr5n734bw2j" tableName="payment"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, Row, Col} from 'reactstrap';
+import {Button, Row, Col,Badge} from 'reactstrap';
 import {ICrudGetAction} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import '../form.scss'
@@ -41,8 +41,18 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
                     <dd>{paymentEntity.amount}</dd>
                     <dt className="m-t">User</dt>
                     <dd>{paymentEntity.userLogin ? paymentEntity.userLogin : ''}</dd>
-                    <dt className="m-t">Product</dt>
-                    <dd>{paymentEntity.productId ? paymentEntity.productId : ''}</dd>
+                    <dt className="m-t">Products</dt>
+                    <dd>
+                      <ul className="list-unstyled">
+                        {paymentEntity.products
+                          ? paymentEntity.products.map((product, i) => (
+                            <li key={`user-auth-${i}`}>
+                              <Badge color="info">{product.name}</Badge>
+                            </li>
+                          ))
+                          : null}
+                      </ul>
+                    </dd>
                     <dt className="m-t">Shipping Address</dt>
                     <dd>{paymentEntity.shippingAddressId ? paymentEntity.shippingAddressId : ''}</dd>
                   </dl>

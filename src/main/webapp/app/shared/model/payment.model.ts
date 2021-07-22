@@ -1,9 +1,11 @@
+import { IProduct } from 'app/shared/model/product.model';
+
 export interface IPayment {
   id?: number;
   amount?: number;
   userLogin?: string;
   userId?: number;
-  productId?: number;
+  products?: IProduct[];
   shippingAddressId?: number;
 }
 

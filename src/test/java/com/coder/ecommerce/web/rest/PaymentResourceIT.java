@@ -6,6 +6,7 @@ import com.coder.ecommerce.domain.User;
 import com.coder.ecommerce.domain.Product;
 import com.coder.ecommerce.domain.ShippingAddress;
 import com.coder.ecommerce.repository.PaymentRepository;
+import com.coder.ecommerce.repository.ProductRepository;
 import com.coder.ecommerce.service.PaymentService;
 import com.coder.ecommerce.service.dto.PaymentDTO;
 import com.coder.ecommerce.service.mapper.PaymentMapper;
@@ -22,7 +23,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -43,6 +46,9 @@ public class PaymentResourceIT {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private PaymentMapper paymentMapper;
@@ -76,15 +82,15 @@ public class PaymentResourceIT {
         em.flush();
         payment.setUser(user);
         // Add required entity
-        Product product;
+        Set<Product> product = new HashSet<>();;
         if (TestUtil.findAll(em, Product.class).isEmpty()) {
-            product = ProductResourceIT.createEntity(em);
+            product.add( ProductResourceIT.createEntity(em));
             em.persist(product);
             em.flush();
         } else {
-            product = TestUtil.findAll(em, Product.class).get(0);
+            product.add( TestUtil.findAll(em, Product.class).get(0));
         }
-        payment.setProduct(product);
+        payment.setProducts(product);
         // Add required entity
         ShippingAddress shippingAddress;
         if (TestUtil.findAll(em, ShippingAddress.class).isEmpty()) {
@@ -112,15 +118,15 @@ public class PaymentResourceIT {
         em.flush();
         payment.setUser(user);
         // Add required entity
-        Product product;
+        Set<Product> product =new HashSet<>();;
         if (TestUtil.findAll(em, Product.class).isEmpty()) {
-            product = ProductResourceIT.createUpdatedEntity(em);
+            product.add(ProductResourceIT.createUpdatedEntity(em));
             em.persist(product);
             em.flush();
         } else {
-            product = TestUtil.findAll(em, Product.class).get(0);
+            product.add(TestUtil.findAll(em, Product.class).get(0));
         }
-        payment.setProduct(product);
+        payment.setProducts(product);
         // Add required entity
         ShippingAddress shippingAddress;
         if (TestUtil.findAll(em, ShippingAddress.class).isEmpty()) {
@@ -211,7 +217,7 @@ public class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())));
     }
-    
+
     @Test
     @Transactional
     public void getPayment() throws Exception {
@@ -367,20 +373,7 @@ public class PaymentResourceIT {
     }
 
 
-    @Test
-    @Transactional
-    public void getAllPaymentsByProductIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Product product = payment.getProduct();
-        paymentRepository.saveAndFlush(payment);
-        Long productId = product.getId();
 
-        // Get all the paymentList where product equals to productId
-        defaultPaymentShouldBeFound("productId.equals=" + productId);
-
-        // Get all the paymentList where product equals to productId + 1
-        defaultPaymentShouldNotBeFound("productId.equals=" + (productId + 1));
-    }
 
 
     @Test

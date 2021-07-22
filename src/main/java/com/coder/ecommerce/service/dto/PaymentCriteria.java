@@ -30,8 +30,6 @@ public class PaymentCriteria implements Serializable, Criteria {
 
     private LongFilter userId;
 
-    private LongFilter productId;
-
     private LongFilter shippingAddressId;
 
     public PaymentCriteria() {
@@ -41,7 +39,6 @@ public class PaymentCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.amount = other.amount == null ? null : other.amount.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
-        this.productId = other.productId == null ? null : other.productId.copy();
         this.shippingAddressId = other.shippingAddressId == null ? null : other.shippingAddressId.copy();
     }
 
@@ -74,13 +71,7 @@ public class PaymentCriteria implements Serializable, Criteria {
         this.userId = userId;
     }
 
-    public LongFilter getProductId() {
-        return productId;
-    }
 
-    public void setProductId(LongFilter productId) {
-        this.productId = productId;
-    }
 
     public LongFilter getShippingAddressId() {
         return shippingAddressId;
@@ -104,7 +95,6 @@ public class PaymentCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(amount, that.amount) &&
             Objects.equals(userId, that.userId) &&
-            Objects.equals(productId, that.productId) &&
             Objects.equals(shippingAddressId, that.shippingAddressId);
     }
 
@@ -114,7 +104,6 @@ public class PaymentCriteria implements Serializable, Criteria {
         id,
         amount,
         userId,
-        productId,
         shippingAddressId
         );
     }
@@ -126,7 +115,6 @@ public class PaymentCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (amount != null ? "amount=" + amount + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
-                (productId != null ? "productId=" + productId + ", " : "") +
                 (shippingAddressId != null ? "shippingAddressId=" + shippingAddressId + ", " : "") +
             "}";
     }

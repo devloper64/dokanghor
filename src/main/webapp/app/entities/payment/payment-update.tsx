@@ -55,6 +55,7 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
       const entity = {
         ...paymentEntity,
         ...values,
+        products:mapIdList(values.products)
       };
 
       if (isNew) {
@@ -114,22 +115,27 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                     <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <Label for="payment-product">Product</Label>
-                    <AvInput id="payment-product" type="select" className="form-control" name="productId" required>
-                      {products
-                        ? products.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                        : null}
+                    <Label for="payment-product">Products</Label>
+                    <AvInput id="payment-product"
+                             type="select"
+                             className="form-control"
+                             name="products"
+                             value={paymentEntity.products && paymentEntity.products.map(e => e.id)} multiple>
+                      {products?
+                        products.map(product => (
+                        <option value={product.id} key={product.id}>
+                          {product.name}
+                        </option>
+                      ))
+                        :null
+                      }
                     </AvInput>
-                    <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
                   <AvGroup>
                     <Label for="payment-shippingAddress">Shipping Address</Label>
                     <AvInput id="payment-shippingAddress" type="select" className="form-control"
                              name="shippingAddressId" required>
+
                       {shippingAddresses
                         ? shippingAddresses.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

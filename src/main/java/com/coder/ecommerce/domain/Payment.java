@@ -1,11 +1,14 @@
 package com.coder.ecommerce.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Payment.
@@ -30,10 +33,9 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     @JsonIgnoreProperties(value = "payments", allowSetters = true)
     private User user;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = "payments", allowSetters = true)
-    private Product product;
+    @JsonIgnore
+    @ManyToMany
+    private Set<Product> products = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -75,17 +77,17 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public Payment product(Product product) {
-        this.product = product;
+    public Payment products(Set<Product> products) {
+        this.products = products;
         return this;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public ShippingAddress getShippingAddress() {

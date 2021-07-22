@@ -29,9 +29,9 @@ public class Transaction extends AbstractAuditingEntity implements Serializable 
     @Column(name = "transaction_method", nullable = false)
     private String transaction_method;
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "transactions", allowSetters = true)
+    @JoinColumn(name = "payment_id")
     private Payment payment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

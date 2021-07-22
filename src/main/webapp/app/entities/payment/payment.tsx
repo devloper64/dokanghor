@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Table,Badge } from 'reactstrap';
 import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../table.scss'
@@ -129,7 +129,19 @@ export const Payment = (props: IPaymentProps) => {
                     </div>
                     <div className="cell">{payment.amount}</div>
                     <div className="cell">{payment.userLogin ? payment.userLogin : ''}</div>
-                    <div className="cell">{payment.productId ? <Link to={`product/${payment.productId}`}>{payment.productId}</Link> : ''}</div>
+
+
+                    <div className="cell">
+                      {payment.products
+                        ? payment.products.map((product, j) => (
+                          <div key={`payment-product-${i}-${j}`}>
+                            <Badge color="info">{product.name}</Badge>
+                          </div>
+                        ))
+                        : null}
+                    </div>
+
+
                     <div className="cell">
                       {payment.shippingAddressId ? (
                         <Link to={`shipping-address/${payment.shippingAddressId}`}>{payment.shippingAddressId}</Link>

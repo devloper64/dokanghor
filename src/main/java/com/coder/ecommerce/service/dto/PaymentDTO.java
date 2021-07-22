@@ -3,6 +3,7 @@ package com.coder.ecommerce.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.coder.ecommerce.domain.Payment} entity.
@@ -18,13 +19,9 @@ public class PaymentDTO implements Serializable {
     private Long userId;
 
     private String userLogin;
-
-    private Long productId;
-
+    private Set<ProductDTO> products;
     private Long shippingAddressId;
-
     private String createdBy;
-
     private Instant createdDate;
 
     private String lastModifiedBy;
@@ -96,12 +93,12 @@ public class PaymentDTO implements Serializable {
         this.userLogin = userLogin;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Set<ProductDTO> getProducts() {
+        return products;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProducts(Set<ProductDTO> products) {
+        this.products = products;
     }
 
     public Long getShippingAddressId() {
@@ -137,7 +134,6 @@ public class PaymentDTO implements Serializable {
             ", amount=" + getAmount() +
             ", userId=" + getUserId() +
             ", userLogin='" + getUserLogin() + "'" +
-            ", productId=" + getProductId() +
             ", shippingAddressId=" + getShippingAddressId() +
             "}";
     }

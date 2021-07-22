@@ -28,7 +28,6 @@ public class Address implements Serializable {
 
     @OneToOne(optional = false)
     @NotNull
-
     @MapsId
     @JoinColumn(name = "id")
     private User user;

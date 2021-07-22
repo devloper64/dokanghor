@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="coder (generated)" id="1626926696824-8">
+        <addColumn tableName="payment">
+            <column name="product_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-9">
+        <addColumn tableName="payment">
+            <column name="shipping_address_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-10">
+        <addColumn tableName="payment">
+            <column name="user_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-11">
+        <addUniqueConstraint columnNames="user_id" constraintName="UK_ctvskou1xh26obtbvta4d2o4l" tableName="payment"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-12">
+        <addUniqueConstraint columnNames="product_id" constraintName="UK_gb026sbbb53xshvs2n494g2dd" tableName="payment"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-13">
+        <addUniqueConstraint columnNames="shipping_address_id" constraintName="UK_j0ktw7jtc9bpvsgr5n734bw2j" tableName="payment"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-14">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="payment" constraintName="FK4spfnm9si9dowsatcqs5or42i" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-15">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="payment" constraintName="FK95mdx4gcoy5aacmes6h5fxhwr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-16">
+        <addForeignKeyConstraint baseColumnNames="shipping_address_id" baseTableName="payment" constraintName="FKshd6ibsslya7s0cr1fupvnhfd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="shipping_address" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1626926696824-17">
+        <dropForeignKeyConstraint baseTableName="payment" constraintName="FKoouk5d8rw4qvr18k84xoti6ax"/>
+    </changeSet>
+</databaseChangeLog>
