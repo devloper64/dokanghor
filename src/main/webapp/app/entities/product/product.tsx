@@ -123,7 +123,6 @@ export const Product = (props: IProductProps) => {
                   Action
                 </div>
               </div>
-              <tbody>
                 {productList.map((product, i) => (
                   <div className="row" key={`entity-${i}`}>
                     <div className="cell">
@@ -155,7 +154,6 @@ export const Product = (props: IProductProps) => {
                     </div>
                   </div>
                 ))}
-              </tbody>
             </div>
           ) : (
             !loading && <div className="alert-margin alert alert-warning">No Products found</div>
