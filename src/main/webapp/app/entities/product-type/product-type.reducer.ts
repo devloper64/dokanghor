@@ -110,11 +110,12 @@ export default (state: ProductTypeState = initialState, action): ProductTypeStat
 };
 
 const apiUrl = 'api/product-types';
-
+const apiUrlGetAll = 'api/getAllProductTypes';
+const apiUrlGet = 'api/one-product-types';
 // Actions
 
 export const getEntities: ICrudGetAllAction<IProductType> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrlGetAll}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_PRODUCTTYPE_LIST,
     payload: axios.get<IProductType>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`),
@@ -122,7 +123,7 @@ export const getEntities: ICrudGetAllAction<IProductType> = (page, size, sort) =
 };
 
 export const getEntity: ICrudGetAction<IProductType> = id => {
-  const requestUrl = `${apiUrl}/${id}`;
+  const requestUrl = `${apiUrlGet}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_PRODUCTTYPE,
     payload: axios.get<IProductType>(requestUrl),

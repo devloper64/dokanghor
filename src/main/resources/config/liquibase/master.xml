@@ -24,6 +24,7 @@
     <include file="config/liquibase/changelog/20210705163736_added_entity_MobileIntro.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210711041307_added_entity_ProductImages.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210717131551_added_entity_ProductType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210724150246_added_entity_ProductDetails.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210529105026_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210529170759_added_entity_constraints_SubCategory.xml" relativeToChangelogFile="false"/>
@@ -44,4 +45,6 @@
     <include file="config/liquibase/changelog/20210722043945_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210722073127_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210722140922_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210724151250_changelog.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

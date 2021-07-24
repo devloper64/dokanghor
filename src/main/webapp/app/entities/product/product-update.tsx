@@ -5,7 +5,7 @@ import {Button, Row, Col, Label} from 'reactstrap';
 import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
-
+import {getEntities as getProductDetails} from 'app/entities/product-details/product-details.reducer';
 import {getEntities as getSubCategories} from 'app/entities/sub-category/sub-category.reducer';
 import {getEntities as getProductTypes} from 'app/entities/product-type/product-type.reducer';
 import {getEntity, updateEntity, createEntity, reset} from './product.reducer';
@@ -18,7 +18,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
   const [subCategoryId, setSubCategoryId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {productEntity, subCategories, productTypes, loading, updating} = props;
+  const {productEntity, subCategories, productTypes,productDetails, loading, updating} = props;
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -66,6 +66,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
 
     props.getSubCategories();
     props.getProductTypes();
+    props.getProductDetails()
   }, []);
 
   useEffect(() => {
@@ -191,15 +192,16 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                     <Label id="product_detailsLabel" for="product_details">
                       Product Details
                     </Label>
-                    <AvField
-                      className="input--style-5"
-                      id="product_details"
-                      type="text"
-                      name="product_details"
-                      validate={{
-                        required: {value: true, errorMessage: 'This field is required.'},
-                      }}
-                    />
+                    <AvInput id="product_details" type="select" className="form-control" name="productDetailsId" required>
+                      {productDetails
+                        ? productDetails.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
 
                   <AvGroup>
@@ -255,6 +257,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
 const mapStateToProps = (storeState: IRootState) => ({
   productTypes: storeState.productType.entities,
   subCategories: storeState.subCategory.entities,
+  productDetails: storeState.productDetails.entities,
   productEntity: storeState.product.entity,
   loading: storeState.product.loading,
   updating: storeState.product.updating,
@@ -264,6 +267,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getProductTypes,
   getSubCategories,
+  getProductDetails,
   getEntity,
   updateEntity,
   createEntity,

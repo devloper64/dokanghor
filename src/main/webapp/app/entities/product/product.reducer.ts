@@ -111,6 +111,7 @@ export default (state: ProductState = initialState, action): ProductState => {
 
 const apiUrl = 'api/products';
 const apiUrlList = 'api/productsList';
+const apiUrlGet = 'api/one-products';
 // Actions
 
 export const getEntities: ICrudGetAllAction<IProduct> = (page, size, sort) => {
@@ -122,7 +123,7 @@ export const getEntities: ICrudGetAllAction<IProduct> = (page, size, sort) => {
 };
 
 export const getEntity: ICrudGetAction<IProduct> = id => {
-  const requestUrl = `${apiUrl}/${id}`;
+  const requestUrl = `${apiUrlGet}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_PRODUCT,
     payload: axios.get<IProduct>(requestUrl),

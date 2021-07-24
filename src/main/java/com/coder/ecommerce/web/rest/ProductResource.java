@@ -130,7 +130,7 @@ public class ProductResource {
      * @param id the id of the productDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/products/{id}")
+    @GetMapping("/one-products/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
         log.debug("REST request to get Product : {}", id);
         Optional<ProductDTO> productDTO = productService.findOne(id);

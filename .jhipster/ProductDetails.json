@@ -1,0 +1,48 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "product",
+      "otherEntityName": "product",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "productDetails"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "brand",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "style",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "size_mesaurments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "size_details",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20210724150246",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceImpl",
+  "entityTableName": "product_details",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "infinite-scroll"
+}

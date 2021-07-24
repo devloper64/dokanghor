@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="coder (generated)" id="1627139575886-8">
+        <addColumn tableName="product">
+            <column name="product_details_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1627139575886-9">
+        <addForeignKeyConstraint baseColumnNames="product_details_id" baseTableName="product" constraintName="FKt50xuxrxp6kiltwesnd3mumqy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product_details" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1627139575886-10">
+        <dropColumn columnName="product_details" tableName="product"/>
+    </changeSet>
+</databaseChangeLog>

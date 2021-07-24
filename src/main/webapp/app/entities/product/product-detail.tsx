@@ -57,7 +57,7 @@ export const ProductDetail = (props: IProductDetailProps) => {
                     <dt className="m-t">Discount Amount</dt>
                     <dd>{productEntity.discount_amount}</dd>
                     <dt className="m-t">Product Details</dt>
-                    <dd>{productEntity.product_details}</dd>
+                    <dd>{productEntity.productDetailsId}</dd>
                   </dl>
                   <div className="m-t">
                     <Button tag={Link} to="/product" replace color="info">

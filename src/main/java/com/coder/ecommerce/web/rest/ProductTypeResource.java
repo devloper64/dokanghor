@@ -96,7 +96,7 @@ public class ProductTypeResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productTypes in body.
      */
-    @GetMapping("/product-types")
+    @GetMapping("/getAllProductTypes")
     public ResponseEntity<List<ProductTypeDTO>> getAllProductTypes(ProductTypeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get ProductTypes by criteria: {}", criteria);
         Page<ProductTypeDTO> page = productTypeQueryService.findByCriteria(criteria, pageable);
@@ -122,7 +122,7 @@ public class ProductTypeResource {
      * @param id the id of the productTypeDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productTypeDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/product-types/{id}")
+    @GetMapping("/one-product-types/{id}")
     public ResponseEntity<ProductTypeDTO> getProductType(@PathVariable Long id) {
         log.debug("REST request to get ProductType : {}", id);
         Optional<ProductTypeDTO> productTypeDTO = productTypeService.findOne(id);
