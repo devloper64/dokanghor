@@ -173,7 +173,7 @@ public class ProductDetailsResourceIT {
             .andExpect(jsonPath("$.[*].size_mesaurments").value(hasItem(DEFAULT_SIZE_MESAURMENTS)))
             .andExpect(jsonPath("$.[*].size_details").value(hasItem(DEFAULT_SIZE_DETAILS)));
     }
-    
+
     @Test
     @Transactional
     public void getProductDetails() throws Exception {
@@ -689,7 +689,6 @@ public class ProductDetailsResourceIT {
         Product product = ProductResourceIT.createEntity(em);
         em.persist(product);
         em.flush();
-        productDetails.setProduct(product);
         product.setProductDetails(productDetails);
         productDetailsRepository.saveAndFlush(productDetails);
         Long productId = product.getId();

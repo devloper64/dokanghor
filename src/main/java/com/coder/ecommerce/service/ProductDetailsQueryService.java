@@ -109,10 +109,7 @@ public class ProductDetailsQueryService extends QueryService<ProductDetails> {
             if (criteria.getSize_details() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getSize_details(), ProductDetails_.size_details));
             }
-            if (criteria.getProductId() != null) {
-                specification = specification.and(buildSpecification(criteria.getProductId(),
-                    root -> root.join(ProductDetails_.product, JoinType.LEFT).get(Product_.id)));
-            }
+
         }
         return specification;
     }

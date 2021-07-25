@@ -38,7 +38,6 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
 
     private StringFilter size_details;
 
-    private LongFilter productId;
 
     public ProductDetailsCriteria() {
     }
@@ -51,7 +50,6 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
         this.style = other.style == null ? null : other.style.copy();
         this.size_mesaurments = other.size_mesaurments == null ? null : other.size_mesaurments.copy();
         this.size_details = other.size_details == null ? null : other.size_details.copy();
-        this.productId = other.productId == null ? null : other.productId.copy();
     }
 
     @Override
@@ -115,13 +113,7 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
         this.size_details = size_details;
     }
 
-    public LongFilter getProductId() {
-        return productId;
-    }
 
-    public void setProductId(LongFilter productId) {
-        this.productId = productId;
-    }
 
 
     @Override
@@ -140,8 +132,7 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
             Objects.equals(gender, that.gender) &&
             Objects.equals(style, that.style) &&
             Objects.equals(size_mesaurments, that.size_mesaurments) &&
-            Objects.equals(size_details, that.size_details) &&
-            Objects.equals(productId, that.productId);
+            Objects.equals(size_details, that.size_details);
     }
 
     @Override
@@ -153,8 +144,7 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
         gender,
         style,
         size_mesaurments,
-        size_details,
-        productId
+        size_details
         );
     }
 
@@ -169,7 +159,6 @@ public class ProductDetailsCriteria implements Serializable, Criteria {
                 (style != null ? "style=" + style + ", " : "") +
                 (size_mesaurments != null ? "size_mesaurments=" + size_mesaurments + ", " : "") +
                 (size_details != null ? "size_details=" + size_details + ", " : "") +
-                (productId != null ? "productId=" + productId + ", " : "") +
             "}";
     }
 

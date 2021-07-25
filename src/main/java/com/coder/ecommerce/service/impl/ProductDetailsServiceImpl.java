@@ -59,15 +59,15 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      *  Get all the productDetails where Product is {@code null}.
      *  @return the list of entities.
      */
-    @Transactional(readOnly = true) 
-    public List<ProductDetailsDTO> findAllWhereProductIsNull() {
-        log.debug("Request to get all productDetails where Product is null");
-        return StreamSupport
-            .stream(productDetailsRepository.findAll().spliterator(), false)
-            .filter(productDetails -> productDetails.getProduct() == null)
-            .map(productDetailsMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
+//    @Transactional(readOnly = true)
+//    public List<ProductDetailsDTO> findAllWhereProductIsNull() {
+//        log.debug("Request to get all productDetails where Product is null");
+//        return StreamSupport
+//            .stream(productDetailsRepository.findAll().spliterator(), false)
+//            .filter(productDetails -> productDetails.getProduct() == null)
+//            .map(productDetailsMapper::toDto)
+//            .collect(Collectors.toCollection(LinkedList::new));
+//    }
 
     @Override
     @Transactional(readOnly = true)

@@ -38,9 +38,7 @@ public class ProductDetails implements Serializable {
     @Column(name = "size_details")
     private String size_details;
 
-    @OneToOne(mappedBy = "productDetails")
-    @JsonIgnore
-    private Product product;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -129,18 +127,6 @@ public class ProductDetails implements Serializable {
         this.size_details = size_details;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public ProductDetails product(Product product) {
-        this.product = product;
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

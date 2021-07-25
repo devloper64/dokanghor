@@ -33,7 +33,7 @@ public interface ProductDetailsService {
      *
      * @return the {@link List} of entities.
      */
-    List<ProductDetailsDTO> findAllWhereProductIsNull();
+//    List<ProductDetailsDTO> findAllWhereProductIsNull();
 
 
     /**

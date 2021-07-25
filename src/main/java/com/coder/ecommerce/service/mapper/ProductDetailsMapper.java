@@ -13,7 +13,6 @@ import org.mapstruct.*;
 public interface ProductDetailsMapper extends EntityMapper<ProductDetailsDTO, ProductDetails> {
 
 
-    @Mapping(target = "product", ignore = true)
     ProductDetails toEntity(ProductDetailsDTO productDetailsDTO);
 
     default ProductDetails fromId(Long id) {
