@@ -15,12 +15,10 @@ public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
     @Mapping(source = "subCategory.id", target = "subCategoryId")
     @Mapping(source = "subCategory.name", target = "subCategoryName")
     @Mapping(source = "productType.id", target = "productTypeId")
-    @Mapping(source = "productDetails.id", target = "productDetailsId")
     ProductDTO toDto(Product product);
 
     @Mapping(source = "subCategoryId", target = "subCategory")
     @Mapping(source = "productTypeId", target = "productType")
-    @Mapping(source = "productDetailsId", target = "productDetails")
     Product toEntity(ProductDTO productDTO);
 
     default Product fromId(Long id) {

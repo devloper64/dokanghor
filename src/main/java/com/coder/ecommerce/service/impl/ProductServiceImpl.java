@@ -1,9 +1,13 @@
 package com.coder.ecommerce.service.impl;
 
+import com.coder.ecommerce.domain.ProductDetails;
+import com.coder.ecommerce.repository.ProductDetailsRepository;
 import com.coder.ecommerce.service.ProductService;
 import com.coder.ecommerce.domain.Product;
 import com.coder.ecommerce.repository.ProductRepository;
 import com.coder.ecommerce.service.dto.ProductDTO;
+import com.coder.ecommerce.service.dto.ProductDetailsDTO;
+import com.coder.ecommerce.service.mapper.ProductDetailsMapper;
 import com.coder.ecommerce.service.mapper.ProductMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +29,25 @@ public class ProductServiceImpl implements ProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
+    private final ProductDetailsRepository productDetailsRepository;
 
     private final ProductMapper productMapper;
+    private final ProductDetailsMapper productDetailsMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, ProductDetailsRepository productDetailsRepository, ProductDetailsMapper productDetailsMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+        this.productDetailsRepository=productDetailsRepository;
+        this.productDetailsMapper = productDetailsMapper;
     }
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
         log.debug("Request to save Product : {}", productDTO);
+        ProductDetails productDetails=productDetailsMapper.toEntity(productDTO.getProductDetails());
+        productDetails=productDetailsRepository.save(productDetails);
+        ProductDetailsDTO productDetailsDTO=productDetailsMapper.toDto(productDetails);
+        productDTO.setProductDetails(productDetailsDTO);
         Product product = productMapper.toEntity(productDTO);
         product = productRepository.save(product);
         return productMapper.toDto(product);

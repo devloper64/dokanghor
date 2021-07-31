@@ -36,7 +36,9 @@ public class ProductDTO implements Serializable {
 
     private double discount_amount;
 
-    private Long productDetailsId;
+    private ProductDetailsDTO productDetails;
+
+    private double quantity;
 
     public Long getProductTypeId() {
         return productTypeId;
@@ -78,14 +80,6 @@ public class ProductDTO implements Serializable {
         this.discount_amount = discount_amount;
     }
 
-    public Long getProductDetailsId() {
-        return productDetailsId;
-    }
-
-    public void setProductDetailsId(Long productDetailsId) {
-        this.productDetailsId = productDetailsId;
-    }
-
     public Long getSubCategoryId() {
         return subCategoryId;
     }
@@ -100,6 +94,22 @@ public class ProductDTO implements Serializable {
 
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public ProductDetailsDTO getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(ProductDetailsDTO productDetails) {
+        this.productDetails = productDetails;
     }
 
     public String getImage() {

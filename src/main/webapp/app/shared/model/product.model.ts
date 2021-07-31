@@ -1,3 +1,5 @@
+import { IProductDetails } from 'app/shared/model/product-details.model';
+
 export interface IProduct {
   id?: number;
   name?: string;
@@ -7,7 +9,8 @@ export interface IProduct {
   subCategoryId?: number;
   productTypeId?: number;
   discount_amount?: number;
-  productDetailsId?: number;
+  quantity?: number;
+  productDetails?: IProductDetails;
 }
 
 export const defaultValue: Readonly<IProduct> = {};

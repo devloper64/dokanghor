@@ -37,6 +37,9 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "discount_amount")
     private double discount_amount;
 
+    @Column(name = "quantity")
+    private double quantity;
+
     @OneToOne
     @JoinColumn(name = "product_details_id")
     private ProductDetails productDetails;
@@ -68,6 +71,13 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.discount_amount = discount_amount;
     }
 
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

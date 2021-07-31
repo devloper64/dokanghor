@@ -56,8 +56,10 @@ export const ProductDetail = (props: IProductDetailProps) => {
                     <dd>{productEntity.productTypeId ? productEntity.productTypeId : ''}</dd>
                     <dt className="m-t">Discount Amount</dt>
                     <dd>{productEntity.discount_amount}</dd>
+                    <dt className="m-t">Quantity</dt>
+                    <dd>{productEntity.quantity}</dd>
                     <dt className="m-t">Product Details</dt>
-                    <dd>{productEntity.productDetailsId}</dd>
+                    <dd><ul><li>{productEntity.productDetails?productEntity.productDetails.id: null}</li></ul></dd>
                   </dl>
                   <div className="m-t">
                     <Button tag={Link} to="/product" replace color="info">

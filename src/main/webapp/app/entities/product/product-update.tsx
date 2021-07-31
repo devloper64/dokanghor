@@ -128,6 +128,12 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                       <AvInput id="product-id" type="text" className="input--style-5" name="id" required readOnly/>
                     </AvGroup>
                   ) : null}
+                  {!isNew ? (
+                    <AvGroup>
+                      <Label for="product-details-id">Product Details ID</Label>
+                      <AvInput id="product-details-id" type="text" className="input--style-5" name="productDetails.id" required readOnly/>
+                    </AvGroup>
+                  ) : null}
                   <AvGroup>
                     <Label id="nameLabel" for="product-name">
                       Name
@@ -188,21 +194,60 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                     />
                   </AvGroup>
 
+
                   <AvGroup>
-                    <Label id="product_detailsLabel" for="product_details">
-                      Product Details
+                    <Label id="quantityLabel" for="quantity">
+                      Quantity
                     </Label>
-                    <AvInput id="product_details" type="select" className="form-control" name="productDetailsId" required>
-                      {productDetails
-                        ? productDetails.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                        : null}
-                    </AvInput>
-                    <AvFeedback>This field is required.</AvFeedback>
+                    <AvField
+                      className="input--style-5"
+                      id="quantity"
+                      type="number"
+                      name="quantity"
+                      validate={{
+                        required: {value: true, errorMessage: 'This field is required.'},
+                      }}
+                    />
                   </AvGroup>
+
+                  <AvGroup>
+                    <Label id="brandLabel" for="product-details-brand">
+                      Brand
+                    </Label>
+                    <AvField  className="input--style-5" id="product-details-brand" type="text" name="productDetails.brand" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="colorLabel" for="product-details-color">
+                      Color
+                    </Label>
+                    <AvField className="input--style-5" id="product-details-color" type="text" name="productDetails.color" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="genderLabel" for="product-details-gender">
+                      Gender
+                    </Label>
+                    <AvField className="input--style-5" id="product-details-gender" type="text" name="productDetails.gender" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="styleLabel" for="product-details-style">
+                      Style
+                    </Label>
+                    <AvField className="input--style-5" id="product-details-style" type="text" name="productDetails.style" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="size_mesaurmentsLabel" for="product-details-size_mesaurments">
+                      Size Mesaurments
+                    </Label>
+                    <AvField className="input--style-5" id="product-details-size_mesaurments" type="text" name="productDetails.size_mesaurments" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="size_detailsLabel" for="product-details-size_details">
+                      Size Details
+                    </Label>
+                    <AvField className="input--style-5" id="product-details-size_details" type="text" name="productDetails.size_details" />
+                  </AvGroup>
+
+
 
                   <AvGroup>
                     <Label for="product-subCategory">Sub Category</Label>
