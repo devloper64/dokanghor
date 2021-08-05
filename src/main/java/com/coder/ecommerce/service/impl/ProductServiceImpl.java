@@ -73,6 +73,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
+        Optional<Product> product=productRepository.findById(id);
         productRepository.deleteById(id);
+        product.ifPresent(product1 -> {
+            productDetailsRepository.delete(product1.getProductDetails());
+        });
     }
 }
