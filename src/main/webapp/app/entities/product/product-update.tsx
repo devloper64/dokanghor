@@ -18,12 +18,125 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
   const [subCategoryId, setSubCategoryId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {productEntity, subCategories, productTypes,productDetails, loading, updating} = props;
+  const {productEntity, subCategories, productTypes, productDetails, loading, updating} = props;
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [fileName, setFileName] = useState("");
   const [messageFail, setMessageFail] = useState("");
   const [messageSuccess, setMessageSuccess] = useState("");
+  const [colorList, setColorList] = useState([{color: ""}]);
+  const [readColor, setReadColor] = useState(false);
+
+  const [styleList, setStyleList] = useState([{style: ""}]);
+  const [readStyle, setReadStyle] = useState(false);
+
+  const [sizeDetailsList, setSizeDetailsList] = useState([{sizeDetails: ""}]);
+  const [readSizeDetails, setReadSizeDetails] = useState(false);
+
+  // --------------color section-----------
+  // handle input change
+  const handleColorInputChange = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...colorList];
+    list[index][name] = value;
+    setColorList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleColorRemoveClick = index => {
+    const list = [...colorList];
+    list.splice(index, 1);
+    setColorList(list);
+  };
+
+  // handle click event of the Add button
+  const handleColorAddClick = () => {
+    setColorList([...colorList, {color: ""}]);
+  };
+
+  const initialColor = (value) => {
+    const jsonObj =JSON.parse(value);
+    jsonObj.map((v,i)=>{
+      if (v!==""){
+        colorList.push(v)
+      }
+
+    })
+
+  }
+
+
+  // --------------style section-----------
+  // handle input change
+  const handleStyleInputChange = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...styleList];
+    list[index][name] = value;
+    setStyleList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleStyleRemoveClick = index => {
+    const list = [...styleList];
+    list.splice(index, 1);
+    setStyleList(list);
+  };
+
+  // handle click event of the Add button
+  const handleStyleAddClick = () => {
+    setStyleList([...styleList, {style: ""}]);
+  };
+
+  const initialStyle = (value) => {
+    const jsonObj =JSON.parse(value);
+    jsonObj.map((v,i)=>{
+      if (v!==""){
+        styleList.push(v)
+      }
+
+    })
+
+  }
+
+  // --------------Size Details section-----------
+  // handle input change
+  const handleSizeDetailsInputChange = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...sizeDetailsList];
+    list[index][name] = value;
+    setSizeDetailsList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleSizeDetailsRemoveClick = index => {
+    const list = [...sizeDetailsList];
+    list.splice(index, 1);
+    setSizeDetailsList(list);
+  };
+
+  // handle click event of the Add button
+  const handleSizeDetailsAddClick = () => {
+    setSizeDetailsList([...sizeDetailsList, {sizeDetails: ""}]);
+  };
+
+  const initialSizeDetails = (value) => {
+    const jsonObj =JSON.parse(value);
+    jsonObj.map((v,i)=>{
+      if (v!==""){
+        sizeDetailsList.push(v)
+      }
+
+    })
+
+  }
+
+
+
+
+
+
+
+
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -55,13 +168,19 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
     })
   };
 
+
   const handleClose = () => {
     props.history.push('/product');
   };
 
+
   useEffect(() => {
     if (!isNew) {
+
       props.getEntity(props.match.params.id);
+      setColorList([])
+      setStyleList([])
+      setSizeDetailsList([])
     }
 
     props.getSubCategories();
@@ -121,7 +240,9 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
               {loading ? (
                 <p>Loading...</p>
               ) : (
+
                 <AvForm model={isNew ? {} : productEntity} onSubmit={saveEntity}>
+
                   {!isNew ? (
                     <AvGroup>
                       <Label for="product-id">ID</Label>
@@ -129,9 +250,11 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                     </AvGroup>
                   ) : null}
                   {!isNew ? (
+
                     <AvGroup>
                       <Label for="product-details-id">Product Details ID</Label>
-                      <AvInput id="product-details-id" type="text" className="input--style-5" name="productDetails.id" required readOnly/>
+                      <AvInput id="product-details-id" type="text" className="input--style-5" name="productDetails.id"
+                               required readOnly/>
                     </AvGroup>
                   ) : null}
                   <AvGroup>
@@ -214,37 +337,164 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                     <Label id="brandLabel" for="product-details-brand">
                       Brand
                     </Label>
-                    <AvField  className="input--style-5" id="product-details-brand" type="text" name="productDetails.brand" />
+                    <AvField className="input--style-5" id="product-details-brand" type="text"
+                             name="productDetails.brand"/>
                   </AvGroup>
+
+                  {
+                   productEntity.productDetails!=null && !isNew && !readColor?productDetails.map((v,n) => {
+                     if (v.id===productEntity.productDetails.id){
+                       initialColor(v.color)
+                       setReadColor(true)
+                     }
+                   }):null
+                  }
+
+                  {colorList.map((x, i) => (
+                    <AvGroup key="">
+                      <Label id="colorLabel" for="product-details-color">
+                        Color
+                      </Label>
+                      <AvField
+                        key=""
+                        className="input--style-multiple"
+                        id="product-details-color"
+                        type="text"
+                        value={x.color}
+                        onChange={e => handleColorInputChange(e, i)}
+                        name="color"/>
+
+                      <div>
+                        {colorList.length !== 1 && (
+                          <Button
+                            className="m-r btn btn--radius-2 btn--red"
+                            onClick={() => handleColorRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {colorList.length - 1 === i && (
+                          <Button className="btn btn--radius-2 btn--green" onClick={handleColorAddClick}>Add</Button>
+                        )}
+                      </div>
+                    </AvGroup>
+                  ))}
+
                   <AvGroup>
-                    <Label id="colorLabel" for="product-details-color">
-                      Color
-                    </Label>
-                    <AvField className="input--style-5" id="product-details-color" type="text" name="productDetails.color" />
+                    <AvField className="input--style-5" value={JSON.stringify(colorList)} id="c-gender" type="hidden"
+                             name="productDetails.color"/>
                   </AvGroup>
+
+
                   <AvGroup>
                     <Label id="genderLabel" for="product-details-gender">
                       Gender
                     </Label>
-                    <AvField className="input--style-5" id="product-details-gender" type="text" name="productDetails.gender" />
+                    <AvField className="input--style-5" id="product-details-gender" type="text"
+                             name="productDetails.gender"/>
                   </AvGroup>
+
+
+                  {
+                    productEntity.productDetails!=null && !isNew && !readStyle?productDetails.map((v,n) => {
+                      if (v.id===productEntity.productDetails.id){
+                        initialStyle(v.style)
+                        setReadStyle(true)
+                      }
+                    }):null
+                  }
+
+
+                  {styleList.map((x, i) => (
+                    <AvGroup key="">
+                      <Label id="sLabel" for="product-details-s">
+                        Style
+                      </Label>
+                      <AvField
+                        key=""
+                        className="input--style-multiple"
+                        id="product-details-s"
+                        type="text"
+                        value={x.style}
+                        onChange={e => handleStyleInputChange(e, i)}
+                        name="style"/>
+
+                      <div>
+                        {styleList.length !== 1 && (
+                          <Button
+                            className="m-r btn btn--radius-2 btn--red"
+                            onClick={() => handleStyleRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {styleList.length - 1 === i && (
+                          <Button className="btn btn--radius-2 btn--green" onClick={handleStyleAddClick}>Add</Button>
+                        )}
+                      </div>
+                    </AvGroup>
+                  ))}
+
                   <AvGroup>
-                    <Label id="styleLabel" for="product-details-style">
-                      Style
-                    </Label>
-                    <AvField className="input--style-5" id="product-details-style" type="text" name="productDetails.style" />
+                    <AvField className="input--style-5" id="product-details-style" value={JSON.stringify(styleList)} type="hidden"
+                             name="productDetails.style"/>
                   </AvGroup>
+
+
                   <AvGroup>
                     <Label id="size_mesaurmentsLabel" for="product-details-size_mesaurments">
                       Size Mesaurments
                     </Label>
-                    <AvField className="input--style-5" id="product-details-size_mesaurments" type="text" name="productDetails.size_mesaurments" />
+                    <AvField className="input--style-5" id="product-details-size_mesaurments" type="text"
+                             name="productDetails.size_mesaurments"/>
                   </AvGroup>
+
+
+                  {
+                    productEntity.productDetails!=null && !isNew && !readSizeDetails?productDetails.map((v,n) => {
+                      if (v.id===productEntity.productDetails.id){
+                        initialSizeDetails(v.size_details)
+                        setReadSizeDetails(true)
+                      }
+                    }):null
+                  }
+
+
+                  {sizeDetailsList.map((x, i) => (
+                    <AvGroup key="">
+                      <Label id="sdLabel" for="product-details-s-d">
+                        Size Details
+                      </Label>
+                      <AvField
+                        key=""
+                        className="input--style-multiple"
+                        id="product-details-s"
+                        type="text"
+                        value={x.sizeDetails}
+                        onChange={e => handleSizeDetailsInputChange(e, i)}
+                        name="sizeDetails"/>
+
+                      <div>
+                        {sizeDetailsList.length !== 1 && (
+                          <Button
+                            className="m-r btn btn--radius-2 btn--red"
+                            onClick={() => handleSizeDetailsRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {sizeDetailsList.length - 1 === i && (
+                          <Button className="btn btn--radius-2 btn--green" onClick={handleSizeDetailsAddClick}>Add</Button>
+                        )}
+                      </div>
+                    </AvGroup>
+                  ))}
+
+
+
                   <AvGroup>
-                    <Label id="size_detailsLabel" for="product-details-size_details">
-                      Size Details
-                    </Label>
-                    <AvField className="input--style-5" id="product-details-size_details" type="text" name="productDetails.size_details" />
+                    <AvField className="input--style-5" id="product-details-size_details" value={JSON.stringify(sizeDetailsList)} type="hidden"
+                             name="productDetails.size_details"/>
                   </AvGroup>
 
 

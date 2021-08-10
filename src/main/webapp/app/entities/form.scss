@@ -17,6 +17,9 @@
 .entity-form .m-l {
   margin-left: 5px;
 }
+.entity-form .m-r {
+  margin-right: 5px;
+}
 .entity-form .m-b {
   margin-bottom: 20px;
 }
@@ -585,6 +588,18 @@ input[type='date' i] {
 .entity-form .input--style-5 {
   background: #e5e5e5;
   line-height: 50px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 22px;
+  font-size: 16px;
+  color: #555;
+}
+
+.entity-form .input--style-multiple {
+  background: #e5e5e5;
+  line-height: 50px;
+  width: 50%;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;

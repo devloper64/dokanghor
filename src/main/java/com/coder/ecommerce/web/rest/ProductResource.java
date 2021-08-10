@@ -2,6 +2,8 @@ package com.coder.ecommerce.web.rest;
 
 import com.coder.ecommerce.service.FileService;
 import com.coder.ecommerce.service.ProductService;
+import com.coder.ecommerce.service.customReponse.ProductDetailsResponse;
+import com.coder.ecommerce.service.customReponse.ProductResponse;
 import com.coder.ecommerce.service.dto.FileDTO;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.ProductDTO;
@@ -11,9 +13,12 @@ import com.coder.ecommerce.service.ProductQueryService;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,11 +111,90 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/productsList")
-    public ResponseEntity<List<ProductDTO>> getAllProducts(ProductCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<ProductResponse>> getAllProducts(ProductCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Products by criteria: {}", criteria);
         Page<ProductDTO> page = productQueryService.findByCriteria(criteria, pageable);
+
+
+
+        List<ProductResponse> productResponse=new ArrayList<>();
+
+        for (ProductDTO productDTO:page.getContent()) {
+
+            ArrayList<String> colors=new ArrayList<>();
+
+            ArrayList<String> styles=new ArrayList<>();
+
+            ArrayList<String> size_details=new ArrayList<>();
+
+            if (productDTO.getProductDetails().getColor()!=null){
+                try{
+                    JSONArray array = new JSONArray(productDTO.getProductDetails().getColor());
+                    for(int i=0; i < array.length(); i++)
+                    {
+                        JSONObject object = array.getJSONObject(i);
+                        if (!object.getString("color").equals("")){
+                            colors.add(object.getString("color"));
+                        }
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            if (productDTO.getProductDetails().getStyle()!=null){
+                try{
+                    JSONArray array = new JSONArray(productDTO.getProductDetails().getStyle());
+                    for(int i=0; i < array.length(); i++)
+                    {
+                        JSONObject object = array.getJSONObject(i);
+                        if (!object.getString("style").equals("")){
+                            styles.add(object.getString("style"));
+                        }
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            if (productDTO.getProductDetails().getSize_details()!=null){
+                try{
+                    JSONArray array = new JSONArray(productDTO.getProductDetails().getSize_details());
+                    for(int i=0; i < array.length(); i++)
+                    {
+                        JSONObject object = array.getJSONObject(i);
+                        if (!object.getString("sizeDetails").equals("")){
+                            size_details.add(object.getString("sizeDetails"));
+                        }
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            ProductDetailsResponse productDetailsResponse=new ProductDetailsResponse();
+            if (productDTO.getProductDetails()!=null){
+               productDetailsResponse = new ProductDetailsResponse(
+                    productDTO.getProductDetails().getId(),
+                    productDTO.getProductDetails().getBrand(),
+                    colors,
+                    productDTO.getProductDetails().getGender(),
+                    styles,
+                    productDTO.getProductDetails().getSize_mesaurments(),
+                   size_details
+                );
+            }
+            productResponse.add(new ProductResponse(productDTO.getId(),productDTO.getName(),productDTO.getPrice(),productDTO.getImage(),productDTO.getSubCategoryId(),productDTO.getSubCategoryName(),productDTO.getCreatedBy(),productDTO.getCreatedDate(),productDTO.getLastModifiedBy(),productDTO.getLastModifiedDate(),productDTO.getProductTypeId(),productDTO.getDiscount_amount(),productDetailsResponse,productDTO.getQuantity()));
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return ResponseEntity.ok().headers(headers).body(productResponse);
     }
 
     /**
