@@ -1,11 +1,19 @@
 package com.coder.ecommerce.web.rest;
 
+import com.coder.ecommerce.domain.Payment;
+import com.coder.ecommerce.repository.PaymentRepository;
 import com.coder.ecommerce.service.PaymentService;
+import com.coder.ecommerce.service.customBody.PaymentBody;
+import com.coder.ecommerce.service.customBody.ProductsList;
+import com.coder.ecommerce.service.dto.ProductDTO;
+import com.coder.ecommerce.service.helper.IndividualAmount;
+import com.coder.ecommerce.service.helper.IndividualQuantity;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.PaymentDTO;
 import com.coder.ecommerce.service.dto.PaymentCriteria;
 import com.coder.ecommerce.service.PaymentQueryService;
 
+import com.google.gson.Gson;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -15,7 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing {@link com.coder.ecommerce.domain.Payment}.
@@ -44,24 +50,63 @@ public class PaymentResource {
 
     private final PaymentQueryService paymentQueryService;
 
-    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService) {
+    private final PaymentRepository paymentRepository;
+
+    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService, PaymentRepository paymentRepository) {
         this.paymentService = paymentService;
         this.paymentQueryService = paymentQueryService;
+        this.paymentRepository = paymentRepository;
     }
 
     /**
      * {@code POST  /payments} : Create a new payment.
      *
-     * @param paymentDTO the paymentDTO to create.
+     * @param paymentBody the paymentBody to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new paymentDTO, or with status {@code 400 (Bad Request)} if the payment has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PostMapping("/create-payments")
+    public ResponseEntity<PaymentDTO> createPayment(@Valid @RequestBody PaymentBody paymentBody) throws URISyntaxException {
+        PaymentDTO paymentDTO=new PaymentDTO();
+        paymentDTO.setUserId(paymentBody.getUserId());
+        paymentDTO.setTotalAmount(paymentBody.getTotalAmount());
+        paymentDTO.setShippingAddressId(paymentBody.getShippingAddressId());
+        paymentDTO.setActive(true);
+        Set<ProductDTO> products =new HashSet<>();
+
+         List<IndividualAmount>individualAmountList=new ArrayList<>();
+         List<IndividualQuantity> individualQuantityList=new ArrayList<>();
+
+        for (ProductsList productsList:paymentBody.getProductsLists()) {
+            ProductDTO productDTO=new ProductDTO();
+            productDTO.setId(productsList.getProductId());
+            products.add(productDTO);
+            individualAmountList.add(new IndividualAmount(productsList.getProductId().toString(),String.valueOf(productsList.getAmount())));
+            individualQuantityList.add(new IndividualQuantity(productsList.getProductId().toString(),String.valueOf(productsList.getQuantity())));
+        }
+        String individualAmountStr = new Gson().toJson(individualAmountList);
+        String individualQuantityStr = new Gson().toJson(individualQuantityList);
+        paymentDTO.setProducts(products);
+        paymentDTO.setIndividualAmount(individualAmountStr);
+        paymentDTO.setProductQuantities(individualQuantityStr);
+
+        log.debug("REST request to save Payment For Client : {}", paymentDTO);
+        if (paymentDTO.getId() != null) {
+            throw new BadRequestAlertException("A new payment cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        PaymentDTO result = paymentService.save(paymentDTO);
+        return ResponseEntity.created(new URI("/api/payments/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
     @PostMapping("/payments")
     public ResponseEntity<PaymentDTO> createPayment(@Valid @RequestBody PaymentDTO paymentDTO) throws URISyntaxException {
         log.debug("REST request to save Payment : {}", paymentDTO);
         if (paymentDTO.getId() != null) {
             throw new BadRequestAlertException("A new payment cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        paymentDTO.setActive(true);
         PaymentDTO result = paymentService.save(paymentDTO);
         return ResponseEntity.created(new URI("/api/payments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -83,6 +128,12 @@ public class PaymentResource {
         if (paymentDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Payment payment=new Payment();
+        Optional<Payment> paymentOptional=paymentRepository.findById(paymentDTO.getId());
+        if (paymentOptional.isPresent()){
+            payment=paymentOptional.get();
+        }
+        paymentDTO.setActive(payment.isActive());
         PaymentDTO result = paymentService.save(paymentDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, paymentDTO.getId().toString()))

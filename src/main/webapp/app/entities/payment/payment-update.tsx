@@ -30,6 +30,92 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
 
   const {paymentEntity, users, products, shippingAddresses, loading, updating} = props;
 
+  const [productAmountList, setProductAmountList] = useState([{productId: "",amount:""}]);
+  const [readProductAmount, setReadProductAmount] = useState(false);
+
+
+  const [productQuantityList, setProductQuantityList] = useState([{productId: "",quantity:""}]);
+  const [readProductQuantity, setReadProductQuantity] = useState(false);
+
+
+
+  // -------- product amount----------
+  const handleProductAmount = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...productAmountList];
+    list[index][name] = value;
+    setProductAmountList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleProductAmountRemoveClick = index => {
+    const list = [...productAmountList];
+    list.splice(index, 1);
+    setProductAmountList(list);
+  };
+
+  // handle click event of the Add button
+  const handleProductAmountAddClick = () => {
+    setProductAmountList([...productAmountList, {productId: "",amount:""}]);
+  };
+
+  const initialProductAmount = (value) => {
+    const jsonObj =JSON.parse(value);
+    jsonObj.map((v,i)=>{
+      if (v!==""){
+        productAmountList.push(v)
+      }
+
+    })
+
+  }
+
+  const initialAmountData = (value) => {
+
+    initialProductAmount(value)
+    setReadProductAmount(true)
+  }
+
+
+  // -------- product quantity----------
+  const handleProductQuantity = (e, index) => {
+    const {name, value} = e.target;
+    const list = [...productQuantityList];
+    list[index][name] = value;
+    setProductQuantityList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleProductQuantityRemoveClick = index => {
+    const list = [...productQuantityList];
+    list.splice(index, 1);
+    setProductQuantityList(list);
+  };
+
+  // handle click event of the Add button
+  const handleProductQuantityAddClick = () => {
+    setProductQuantityList([...productQuantityList, {productId: "",quantity:""}]);
+  };
+
+  const initialProductQuantity = (value) => {
+    const jsonObj =JSON.parse(value);
+    jsonObj.map((v,i)=>{
+      if (v!==""){
+        productQuantityList.push(v)
+      }
+
+    })
+
+  }
+
+  const initialQuantityData = (value) => {
+
+    initialProductQuantity(value)
+    setReadProductQuantity(true)
+  }
+
+  // -----------------
+
   const handleClose = () => {
     props.history.push('/payment');
   };
@@ -37,6 +123,8 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
   useEffect(() => {
     if (!isNew) {
       props.getEntity(props.match.params.id);
+      setProductAmountList([])
+      setProductQuantityList([])
     }
 
     props.getUsers();
@@ -88,13 +176,13 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                   ) : null}
                   <AvGroup>
                     <Label id="amountLabel" for="payment-amount">
-                      Amount
+                      Total Amount
                     </Label>
                     <AvField
                       id="payment-amount"
                       type="string"
                       className="input--style-5"
-                      name="amount"
+                      name="totalAmount"
                       validate={{
                         required: {value: true, errorMessage: 'This field is required.'},
                         number: {value: true, errorMessage: 'This field should be a number.'},
@@ -123,14 +211,129 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                              value={paymentEntity.products && paymentEntity.products.map(e => e.id)} multiple>
                       {products?
                         products.map(product => (
-                        <option value={product.id} key={product.id}>
-                          {product.name}
-                        </option>
-                      ))
+                          <option value={product.id} key={product.id}>
+                            {product.name}
+                          </option>
+                        ))
                         :null
                       }
                     </AvInput>
                   </AvGroup>
+
+
+
+                  {
+                    paymentEntity.individualAmount!=null && !isNew && !readProductAmount?initialAmountData(paymentEntity.individualAmount):null
+                  }
+
+                  {productAmountList.map((x, i) => (
+                    <AvGroup key="">
+                      <Label id="colorLabel" for="product-details-color">
+                        Add individual Amount
+                      </Label>
+
+                      <AvInput
+                        id="payment-pid"
+                        type="select"
+                        className="form-control"
+                        value={x.productId}
+                        onChange={e => handleProductAmount(e, i)}
+                        name="productId" required>
+
+                        {products
+                          ? products.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.name}
+                            </option>
+                          ))
+                          : null}
+                      </AvInput>
+
+                      <AvField
+                        key=""
+                        placeholder="amount"
+                        className="m-t input--style-multiple"
+                        id="payment-amount"
+                        type="text"
+                        value={x.amount}
+                        onChange={e => handleProductAmount(e, i)}
+                        name="amount"/>
+
+                      <div>
+                        {productAmountList.length !== 1 && (
+                          <Button
+                            className="m-r btn btn--radius-2 btn--red"
+                            onClick={() => handleProductAmountRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {productAmountList.length - 1 === i && (
+                          <Button className="btn btn--radius-2 btn--green" onClick={handleProductAmountAddClick}>Add</Button>
+                        )}
+                      </div>
+                    </AvGroup>
+                  ))}
+
+
+
+
+
+                  {
+                    paymentEntity.productQuantities!=null && !isNew && !readProductQuantity?initialQuantityData(paymentEntity.productQuantities):null
+                  }
+
+                  {productQuantityList.map((x, i) => (
+                    <AvGroup key="">
+                      <Label id="colorLabel" for="product-details-color">
+                        Add individual Quantity
+                      </Label>
+
+                      <AvInput
+                        id="payment-pid"
+                        type="select"
+                        className="form-control"
+                        value={x.productId}
+                        onChange={e => handleProductQuantity(e, i)}
+                        name="productId" required>
+
+                        {products
+                          ? products.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.name}
+                            </option>
+                          ))
+                          : null}
+                      </AvInput>
+
+                      <AvField
+                        key=""
+                        placeholder="quantity"
+                        className="m-t input--style-multiple"
+                        id="payment-quantity"
+                        type="text"
+                        value={x.quantity}
+                        onChange={e => handleProductQuantity(e, i)}
+                        name="quantity"/>
+
+                      <div>
+                        {productQuantityList.length !== 1 && (
+                          <Button
+                            className="m-r btn btn--radius-2 btn--red"
+                            onClick={() => handleProductQuantityRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {productQuantityList.length - 1 === i && (
+                          <Button className="btn btn--radius-2 btn--green" onClick={handleProductQuantityAddClick}>Add</Button>
+                        )}
+                      </div>
+                    </AvGroup>
+                  ))}
+
+
+
                   <AvGroup>
                     <Label for="payment-shippingAddress">Shipping Address</Label>
                     <AvInput id="payment-shippingAddress" type="select" className="form-control"
@@ -146,6 +349,17 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                     </AvInput>
                     <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
+                  <AvGroup>
+                    <AvField className="input--style-5" id="payment-productQuantities" value={JSON.stringify(productQuantityList)} type="hidden"
+                             name="productQuantities"/>
+                  </AvGroup>
+
+                  <AvGroup>
+                    <AvField className="input--style-5" id="payment-individualAmount" value={JSON.stringify(productAmountList)} type="hidden"
+                             name="individualAmount"/>
+                  </AvGroup>
+
+
                   <Button tag={Link} id="cancel-save" to="/payment" replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
                     &nbsp;

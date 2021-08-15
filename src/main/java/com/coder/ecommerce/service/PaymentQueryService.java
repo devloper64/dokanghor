@@ -92,7 +92,7 @@ public class PaymentQueryService extends QueryService<Payment> {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Payment_.id));
             }
             if (criteria.getAmount() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getAmount(), Payment_.amount));
+                specification = specification.and(buildRangeSpecification(criteria.getAmount(), Payment_.totalAmount));
             }
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),

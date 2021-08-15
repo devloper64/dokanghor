@@ -55,6 +55,10 @@ import productType, {
 import productDetails, {
   ProductDetailsState
 } from 'app/entities/product-details/product-details.reducer';
+// prettier-ignore
+import orderStatus, {
+  OrderStatusState
+} from 'app/entities/order-status/order-status.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -78,6 +82,7 @@ export interface IRootState {
   readonly productImages: ProductImagesState;
   readonly productType: ProductTypeState;
   readonly productDetails: ProductDetailsState;
+  readonly orderStatus: OrderStatusState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -103,6 +108,7 @@ const rootReducer = combineReducers<IRootState>({
   productImages,
   productType,
   productDetails,
+  orderStatus,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

@@ -104,13 +104,16 @@ export const Payment = (props: IPaymentProps) => {
                     ID <FontAwesomeIcon icon="sort" />
                   </div>
                   <div className="cell" onClick={sort('amount')}>
-                    Amount <FontAwesomeIcon icon="sort" />
+                    Total Amount <FontAwesomeIcon icon="sort" />
                   </div>
                   <div className="cell">
                     User <FontAwesomeIcon icon="sort" />
                   </div>
                   <div className="cell">
                     Product <FontAwesomeIcon icon="sort" />
+                  </div>
+                  <div className="cell">
+                    IsActive <FontAwesomeIcon icon="sort" />
                   </div>
                   <div className="cell">
                     Shipping Address <FontAwesomeIcon icon="sort" />
@@ -127,7 +130,7 @@ export const Payment = (props: IPaymentProps) => {
                         {payment.id}
                       </Button>
                     </div>
-                    <div className="cell">{payment.amount}</div>
+                    <div className="cell">{payment.totalAmount}</div>
                     <div className="cell">{payment.userLogin ? payment.userLogin : ''}</div>
 
 
@@ -140,6 +143,10 @@ export const Payment = (props: IPaymentProps) => {
                         ))
                         : null}
                     </div>
+
+                    {
+                      payment.active? <div className="cell">True</div>: <div className="cell">False</div>
+                    }
 
 
                     <div className="cell">

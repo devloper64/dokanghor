@@ -38,7 +38,13 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
                     <dt className="m-t">
                       <span id="amount">Amount</span>
                     </dt>
-                    <dd>{paymentEntity.amount}</dd>
+                    <dd>{paymentEntity.totalAmount}</dd>
+
+                    <dt className="m-t">
+                      <span id="amount">Is Active</span>
+                    </dt>
+                    <dd>{paymentEntity.active?<dd>True</dd>:<dd>False</dd>}</dd>
+
                     <dt className="m-t">User</dt>
                     <dd>{paymentEntity.userLogin ? paymentEntity.userLogin : ''}</dd>
                     <dt className="m-t">Products</dt>

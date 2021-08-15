@@ -25,8 +25,22 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "amount", nullable = false)
-    private Double amount;
+    @Column(name = "total_amount", nullable = false)
+    private Double totalAmount;
+
+
+    @NotNull
+    @Column(name = "individual_amount", nullable = false)
+    private String individualAmount;
+
+    @NotNull
+    @Column(name = "product_quantities", nullable = false)
+    private String productQuantities;
+
+    @NotNull
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
 
     @ManyToOne(optional = false)
     @NotNull
@@ -34,7 +48,7 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     private User user;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Product> products = new HashSet<>();
 
     @ManyToOne(optional = false)
@@ -51,17 +65,52 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public Payment amount(Double amount) {
-        this.amount = amount;
+    public Payment totalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
         return this;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Payment productQuantities(String productQuantities) {
+        this.productQuantities = productQuantities;
+        return this;
+    }
+
+
+    public String getProductQuantities() {
+        return productQuantities;
+    }
+
+    public void setProductQuantities(String productQuantities) {
+        this.productQuantities = productQuantities;
+    }
+
+    public Payment individualAmount(String individualAmount) {
+        this.individualAmount = individualAmount;
+        return this;
+    }
+
+    public String getIndividualAmount() {
+        return individualAmount;
+    }
+
+    public void setIndividualAmount(String individualAmount) {
+        this.individualAmount = individualAmount;
     }
 
     public User getUser() {
@@ -125,7 +174,7 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "Payment{" +
             "id=" + getId() +
-            ", amount=" + getAmount() +
+            ", amount=" + getTotalAmount() +
             "}";
     }
 }

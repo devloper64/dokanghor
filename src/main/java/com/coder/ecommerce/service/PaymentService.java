@@ -21,6 +21,14 @@ public interface PaymentService {
     PaymentDTO save(PaymentDTO paymentDTO);
 
     /**
+     * Save a payment.
+     *
+     * @param paymentDTO the entity to save.
+     * @return the persisted entity.
+     */
+    PaymentDTO cleanSave(PaymentDTO paymentDTO);
+
+    /**
      * Get all the payments.
      *
      * @param pageable the pagination information.

@@ -75,7 +75,7 @@ public class PaymentResourceIT {
      */
     public static Payment createEntity(EntityManager em) {
         Payment payment = new Payment()
-            .amount(DEFAULT_AMOUNT);
+            .totalAmount(DEFAULT_AMOUNT);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -111,7 +111,7 @@ public class PaymentResourceIT {
      */
     public static Payment createUpdatedEntity(EntityManager em) {
         Payment payment = new Payment()
-            .amount(UPDATED_AMOUNT);
+            .totalAmount(UPDATED_AMOUNT);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -160,7 +160,7 @@ public class PaymentResourceIT {
         List<Payment> paymentList = paymentRepository.findAll();
         assertThat(paymentList).hasSize(databaseSizeBeforeCreate + 1);
         Payment testPayment = paymentList.get(paymentList.size() - 1);
-        assertThat(testPayment.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        assertThat(testPayment.getTotalAmount()).isEqualTo(DEFAULT_AMOUNT);
     }
 
     @Test
@@ -189,7 +189,7 @@ public class PaymentResourceIT {
     public void checkAmountIsRequired() throws Exception {
         int databaseSizeBeforeTest = paymentRepository.findAll().size();
         // set the field null
-        payment.setAmount(null);
+        payment.setTotalAmount(null);
 
         // Create the Payment, which fails.
         PaymentDTO paymentDTO = paymentMapper.toDto(payment);
@@ -446,7 +446,7 @@ public class PaymentResourceIT {
         // Disconnect from session so that the updates on updatedPayment are not directly saved in db
         em.detach(updatedPayment);
         updatedPayment
-            .amount(UPDATED_AMOUNT);
+            .totalAmount(UPDATED_AMOUNT);
         PaymentDTO paymentDTO = paymentMapper.toDto(updatedPayment);
 
         restPaymentMockMvc.perform(put("/api/payments")
@@ -458,7 +458,7 @@ public class PaymentResourceIT {
         List<Payment> paymentList = paymentRepository.findAll();
         assertThat(paymentList).hasSize(databaseSizeBeforeUpdate);
         Payment testPayment = paymentList.get(paymentList.size() - 1);
-        assertThat(testPayment.getAmount()).isEqualTo(UPDATED_AMOUNT);
+        assertThat(testPayment.getTotalAmount()).isEqualTo(UPDATED_AMOUNT);
     }
 
     @Test

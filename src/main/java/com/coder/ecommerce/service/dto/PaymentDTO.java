@@ -13,7 +13,7 @@ public class PaymentDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Double amount;
+    private Double totalAmount;
 
 
     private Long userId;
@@ -28,6 +28,9 @@ public class PaymentDTO implements Serializable {
 
     private Instant lastModifiedDate;
 
+    private String productQuantities;
+    private String individualAmount;
+    private boolean isActive;
 
     public String getCreatedBy() {
         return createdBy;
@@ -69,12 +72,29 @@ public class PaymentDTO implements Serializable {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getProductQuantities() {
+        return productQuantities;
+    }
+
+    public void setProductQuantities(String productQuantities) {
+        this.productQuantities = productQuantities;
+    }
+
+    public String getIndividualAmount() {
+        return individualAmount;
+    }
+
+    public void setIndividualAmount(String individualAmount) {
+        this.individualAmount = individualAmount;
     }
 
     public Long getUserId() {
@@ -109,6 +129,14 @@ public class PaymentDTO implements Serializable {
         this.shippingAddressId = shippingAddressId;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -131,7 +159,7 @@ public class PaymentDTO implements Serializable {
     public String toString() {
         return "PaymentDTO{" +
             "id=" + getId() +
-            ", amount=" + getAmount() +
+            ", amount=" + getTotalAmount() +
             ", userId=" + getUserId() +
             ", userLogin='" + getUserLogin() + "'" +
             ", shippingAddressId=" + getShippingAddressId() +
