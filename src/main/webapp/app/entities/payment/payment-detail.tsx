@@ -61,6 +61,10 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
                     </dd>
                     <dt className="m-t">Shipping Address</dt>
                     <dd>{paymentEntity.shippingAddressId ? paymentEntity.shippingAddressId : ''}</dd>
+
+                    <dt className="m-t">Order Status</dt>
+                    <dd>{paymentEntity.orderStatusId ? paymentEntity.orderStatusId : ''}</dd>
+
                   </dl>
                   <div className="m-t">
                   <Button tag={Link} to="/payment" replace color="info">

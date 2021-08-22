@@ -25,14 +25,22 @@ public class Transaction extends AbstractAuditingEntity implements Serializable 
     @Column(name = "transactionid", nullable = false)
     private String transactionid;
 
-    @NotNull
-    @Column(name = "transaction_method", nullable = false)
-    private String transaction_method;
 
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(name = "payment_id")
     private Payment payment;
+
+    @NotNull
+    @Column(name = "is_transaction_completed", nullable = false)
+    private boolean is_transaction_completed;
+
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = "transactions", allowSetters = true)
+    private TransactionMethod transactionMethod;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -56,17 +64,13 @@ public class Transaction extends AbstractAuditingEntity implements Serializable 
         this.transactionid = transactionid;
     }
 
-    public String getTransaction_method() {
-        return transaction_method;
+
+    public boolean isIs_transaction_completed() {
+        return is_transaction_completed;
     }
 
-    public Transaction transaction_method(String transaction_method) {
-        this.transaction_method = transaction_method;
-        return this;
-    }
-
-    public void setTransaction_method(String transaction_method) {
-        this.transaction_method = transaction_method;
+    public void setIs_transaction_completed(boolean is_transaction_completed) {
+        this.is_transaction_completed = is_transaction_completed;
     }
 
     public Payment getPayment() {
@@ -82,6 +86,20 @@ public class Transaction extends AbstractAuditingEntity implements Serializable 
         this.payment = payment;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+
+    public TransactionMethod getTransactionMethod() {
+        return transactionMethod;
+    }
+
+    public void setTransactionMethod(TransactionMethod transactionMethod) {
+        this.transactionMethod = transactionMethod;
+    }
+
+    public Transaction transactionMethod(TransactionMethod transactionMethod){
+        this.transactionMethod=transactionMethod;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -105,7 +123,6 @@ public class Transaction extends AbstractAuditingEntity implements Serializable 
         return "Transaction{" +
             "id=" + getId() +
             ", transactionid='" + getTransactionid() + "'" +
-            ", transaction_method='" + getTransaction_method() + "'" +
             "}";
     }
 }

@@ -18,6 +18,7 @@ import PageNotFound from 'app/shared/error/page-not-found';
 import ProductType from './product-type';
 import ProductDetails from './product-details';
 import OrderStatus from './order-status';
+import TransactionMethod from './transaction-method';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -35,9 +36,11 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}product-images`} component={ProductImages} />
       <ErrorBoundaryRoute path={`${match.url}product-type`} component={ProductType} />
       <ErrorBoundaryRoute path={`${match.url}product-details`} component={ProductDetails} />
+      <ErrorBoundaryRoute path={`${match.url}order-status`} component={OrderStatus} />
+      <ErrorBoundaryRoute path={`${match.url}transaction-method`} component={TransactionMethod} />
       <ErrorBoundaryRoute component={PageNotFound} />
 
-      <ErrorBoundaryRoute path={`${match.url}order-status`} component={OrderStatus} />
+
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

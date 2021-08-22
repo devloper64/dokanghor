@@ -10,6 +10,7 @@ export interface IPayment {
   productQuantities?: string;
   individualAmount?: string;
   active?: boolean;
+  orderStatusId?: number;
 }
 
 export const defaultValue: Readonly<IPayment> = {};

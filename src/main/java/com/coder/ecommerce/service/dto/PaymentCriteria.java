@@ -2,6 +2,7 @@ package com.coder.ecommerce.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
@@ -32,6 +33,8 @@ public class PaymentCriteria implements Serializable, Criteria {
 
     private LongFilter shippingAddressId;
 
+    private LongFilter orderStatusId;
+
     public PaymentCriteria() {
     }
 
@@ -40,6 +43,7 @@ public class PaymentCriteria implements Serializable, Criteria {
         this.amount = other.amount == null ? null : other.amount.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
         this.shippingAddressId = other.shippingAddressId == null ? null : other.shippingAddressId.copy();
+        this.orderStatusId = other.orderStatusId == null ? null : other.orderStatusId.copy();
     }
 
     @Override
@@ -72,7 +76,6 @@ public class PaymentCriteria implements Serializable, Criteria {
     }
 
 
-
     public LongFilter getShippingAddressId() {
         return shippingAddressId;
     }
@@ -81,6 +84,14 @@ public class PaymentCriteria implements Serializable, Criteria {
         this.shippingAddressId = shippingAddressId;
     }
 
+
+    public LongFilter getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(LongFilter orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,18 +104,20 @@ public class PaymentCriteria implements Serializable, Criteria {
         final PaymentCriteria that = (PaymentCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(amount, that.amount) &&
-            Objects.equals(userId, that.userId) &&
-            Objects.equals(shippingAddressId, that.shippingAddressId);
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(shippingAddressId, that.shippingAddressId) &&
+                Objects.equals(orderStatusId, that.orderStatusId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-        id,
-        amount,
-        userId,
-        shippingAddressId
+            id,
+            amount,
+            userId,
+            shippingAddressId,
+            orderStatusId
         );
     }
 
@@ -112,10 +125,10 @@ public class PaymentCriteria implements Serializable, Criteria {
     @Override
     public String toString() {
         return "PaymentCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (amount != null ? "amount=" + amount + ", " : "") +
-                (userId != null ? "userId=" + userId + ", " : "") +
-                (shippingAddressId != null ? "shippingAddressId=" + shippingAddressId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (amount != null ? "amount=" + amount + ", " : "") +
+            (userId != null ? "userId=" + userId + ", " : "") +
+            (shippingAddressId != null ? "shippingAddressId=" + shippingAddressId + ", " : "") +
             "}";
     }
 

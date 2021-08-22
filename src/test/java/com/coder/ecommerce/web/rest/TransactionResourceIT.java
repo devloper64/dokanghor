@@ -69,9 +69,7 @@ public class TransactionResourceIT {
      */
     public static Transaction createEntity(EntityManager em) {
         Transaction transaction = new Transaction()
-            .transactionid(DEFAULT_TRANSACTIONID)
-            .transaction_method(DEFAULT_TRANSACTION_METHOD);
-        // Add required entity
+            .transactionid(DEFAULT_TRANSACTIONID);// Add required entity
         Payment payment;
         if (TestUtil.findAll(em, Payment.class).isEmpty()) {
             payment = PaymentResourceIT.createEntity(em);
@@ -91,8 +89,7 @@ public class TransactionResourceIT {
      */
     public static Transaction createUpdatedEntity(EntityManager em) {
         Transaction transaction = new Transaction()
-            .transactionid(UPDATED_TRANSACTIONID)
-            .transaction_method(UPDATED_TRANSACTION_METHOD);
+            .transactionid(UPDATED_TRANSACTIONID);
         // Add required entity
         Payment payment;
         if (TestUtil.findAll(em, Payment.class).isEmpty()) {
@@ -127,7 +124,6 @@ public class TransactionResourceIT {
         assertThat(transactionList).hasSize(databaseSizeBeforeCreate + 1);
         Transaction testTransaction = transactionList.get(transactionList.size() - 1);
         assertThat(testTransaction.getTransactionid()).isEqualTo(DEFAULT_TRANSACTIONID);
-        assertThat(testTransaction.getTransaction_method()).isEqualTo(DEFAULT_TRANSACTION_METHOD);
     }
 
     @Test
@@ -176,7 +172,6 @@ public class TransactionResourceIT {
     public void checkTransaction_methodIsRequired() throws Exception {
         int databaseSizeBeforeTest = transactionRepository.findAll().size();
         // set the field null
-        transaction.setTransaction_method(null);
 
         // Create the Transaction, which fails.
         TransactionDTO transactionDTO = transactionMapper.toDto(transaction);
@@ -205,7 +200,7 @@ public class TransactionResourceIT {
             .andExpect(jsonPath("$.[*].transactionid").value(hasItem(DEFAULT_TRANSACTIONID)))
             .andExpect(jsonPath("$.[*].transaction_method").value(hasItem(DEFAULT_TRANSACTION_METHOD)));
     }
-    
+
     @Test
     @Transactional
     public void getTransaction() throws Exception {
@@ -468,8 +463,7 @@ public class TransactionResourceIT {
         // Disconnect from session so that the updates on updatedTransaction are not directly saved in db
         em.detach(updatedTransaction);
         updatedTransaction
-            .transactionid(UPDATED_TRANSACTIONID)
-            .transaction_method(UPDATED_TRANSACTION_METHOD);
+            .transactionid(UPDATED_TRANSACTIONID);
         TransactionDTO transactionDTO = transactionMapper.toDto(updatedTransaction);
 
         restTransactionMockMvc.perform(put("/api/transactions")
@@ -482,7 +476,6 @@ public class TransactionResourceIT {
         assertThat(transactionList).hasSize(databaseSizeBeforeUpdate);
         Transaction testTransaction = transactionList.get(transactionList.size() - 1);
         assertThat(testTransaction.getTransactionid()).isEqualTo(UPDATED_TRANSACTIONID);
-        assertThat(testTransaction.getTransaction_method()).isEqualTo(UPDATED_TRANSACTION_METHOD);
     }
 
     @Test

@@ -59,6 +59,10 @@ import productDetails, {
 import orderStatus, {
   OrderStatusState
 } from 'app/entities/order-status/order-status.reducer';
+// prettier-ignore
+import transactionMethod, {
+  TransactionMethodState
+} from 'app/entities/transaction-method/transaction-method.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -83,6 +87,7 @@ export interface IRootState {
   readonly productType: ProductTypeState;
   readonly productDetails: ProductDetailsState;
   readonly orderStatus: OrderStatusState;
+  readonly transactionMethod: TransactionMethodState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -109,6 +114,7 @@ const rootReducer = combineReducers<IRootState>({
   productType,
   productDetails,
   orderStatus,
+  transactionMethod,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

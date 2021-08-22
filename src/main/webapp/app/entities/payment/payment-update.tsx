@@ -14,6 +14,9 @@ import {IProduct} from 'app/shared/model/product.model';
 import {getEntities as getProducts} from 'app/entities/product/product.reducer';
 import {IShippingAddress} from 'app/shared/model/shipping-address.model';
 import {getEntities as getShippingAddresses} from 'app/entities/shipping-address/shipping-address.reducer';
+
+import {getEntities as getOrderStatus} from 'app/entities/order-status/order-status.reducer';
+
 import {getEntity, updateEntity, createEntity, reset} from './payment.reducer';
 import {IPayment} from 'app/shared/model/payment.model';
 import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
@@ -28,7 +31,7 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
   const [shippingAddressId, setShippingAddressId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {paymentEntity, users, products, shippingAddresses, loading, updating} = props;
+  const {paymentEntity, users, products, shippingAddresses,orderStatus, loading, updating} = props;
 
   const [productAmountList, setProductAmountList] = useState([{productId: "",amount:""}]);
   const [readProductAmount, setReadProductAmount] = useState(false);
@@ -130,6 +133,7 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
     props.getUsers();
     props.getProducts();
     props.getShippingAddresses();
+    props.getOrderStatus();
   }, []);
 
   useEffect(() => {
@@ -349,6 +353,28 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                     </AvInput>
                     <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
+
+
+
+                  <AvGroup>
+                    <Label for="payment-order-status">Order Status</Label>
+                    <AvInput id="payment-order-status" type="select" className="form-control"
+                             name="orderStatusId" required>
+
+                      {orderStatus
+                        ? orderStatus.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
+                  </AvGroup>
+
+
+
+
                   <AvGroup>
                     <AvField className="input--style-5" id="payment-productQuantities" value={JSON.stringify(productQuantityList)} type="hidden"
                              name="productQuantities"/>
@@ -384,6 +410,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   products: storeState.product.entities,
   shippingAddresses: storeState.shippingAddress.entities,
+  orderStatus: storeState.orderStatus.entities,
   paymentEntity: storeState.payment.entity,
   loading: storeState.payment.loading,
   updating: storeState.payment.updating,
@@ -398,6 +425,7 @@ const mapDispatchToProps = {
   updateEntity,
   createEntity,
   reset,
+  getOrderStatus
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -1,5 +1,7 @@
 package com.coder.ecommerce.service.dto;
 
+import com.coder.ecommerce.domain.OrderStatus;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -31,6 +33,9 @@ public class PaymentDTO implements Serializable {
     private String productQuantities;
     private String individualAmount;
     private boolean isActive;
+
+    private Long orderStatusId;
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -137,6 +142,14 @@ public class PaymentDTO implements Serializable {
         isActive = active;
     }
 
+    public Long getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(Long orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -163,6 +176,7 @@ public class PaymentDTO implements Serializable {
             ", userId=" + getUserId() +
             ", userLogin='" + getUserLogin() + "'" +
             ", shippingAddressId=" + getShippingAddressId() +
+            ", orderStatusId=" + getOrderStatusId() +
             "}";
     }
 }

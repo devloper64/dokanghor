@@ -11,9 +11,8 @@ import '../form.scss'
 import {IPayment} from 'app/shared/model/payment.model';
 import {getEntities as getPayments} from 'app/entities/payment/payment.reducer';
 import {getEntity, updateEntity, createEntity, reset} from './transaction.reducer';
-import {ITransaction} from 'app/shared/model/transaction.model';
-import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
-import {mapIdList} from 'app/shared/util/entity-utils';
+import {getEntities as getMethods} from 'app/entities/transaction-method/transaction-method.reducer';
+
 
 export interface ITransactionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -22,7 +21,7 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
   const [paymentId, setPaymentId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {transactionEntity, payments, loading, updating} = props;
+  const {transactionEntity, payments,methods, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/transaction');
@@ -34,6 +33,7 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
     }
 
     props.getPayments();
+    props.getMethods();
   }, []);
 
   useEffect(() => {
@@ -118,6 +118,22 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
                     </AvInput>
                     <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
+
+
+                  <AvGroup>
+                    <Label for="transaction-method">Transaction Method</Label>
+                    <AvInput id="transaction-method" type="select" className="form-control" name="transactionMethodId" required>
+                      {methods
+                        ? methods.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
+                  </AvGroup>
+
                   <Button tag={Link} id="cancel-save" to="/transaction" replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
                     &nbsp;
@@ -141,6 +157,7 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   payments: storeState.payment.entities,
+  methods: storeState.transactionMethod.entities,
   transactionEntity: storeState.transaction.entity,
   loading: storeState.transaction.loading,
   updating: storeState.transaction.updating,
@@ -149,6 +166,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getPayments,
+  getMethods,
   getEntity,
   updateEntity,
   createEntity,

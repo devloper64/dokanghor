@@ -14,7 +14,7 @@ public class PaymentBody {
     private Long userId;
     private Long shippingAddressId;
     private List<ProductsList> productsLists;
-
+    private Long orderStatusId;
 
     public Double getTotalAmount() {
         return totalAmount;
@@ -46,5 +46,13 @@ public class PaymentBody {
 
     public void setProductsLists(List<ProductsList> productsLists) {
         this.productsLists = productsLists;
+    }
+
+    public Long getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(Long orderStatusId) {
+        this.orderStatusId = orderStatusId;
     }
 }

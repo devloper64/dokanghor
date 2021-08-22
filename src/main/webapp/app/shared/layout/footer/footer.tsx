@@ -7,7 +7,7 @@ import {IHeaderProps} from "app/shared/layout/header/header";
 import 'font-awesome/css/font-awesome.min.css';
 
 const Footer =  (props: IHeaderProps) => (
-  <div className="footer page-content">
+  <div className="footer page-content d-print-none">
     {props.isAuthenticated && props.isAdmin && (
       <footer className="footer-20192">
         <div className="site-section">

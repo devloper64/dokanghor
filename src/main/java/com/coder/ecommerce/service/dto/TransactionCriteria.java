@@ -2,6 +2,7 @@ package com.coder.ecommerce.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
@@ -28,9 +29,12 @@ public class TransactionCriteria implements Serializable, Criteria {
 
     private StringFilter transactionid;
 
-    private StringFilter transaction_method;
 
     private LongFilter paymentId;
+
+    private LongFilter transactionMethodId;
+
+    private BooleanFilter is_transaction_completed;
 
     public TransactionCriteria() {
     }
@@ -38,8 +42,9 @@ public class TransactionCriteria implements Serializable, Criteria {
     public TransactionCriteria(TransactionCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.transactionid = other.transactionid == null ? null : other.transactionid.copy();
-        this.transaction_method = other.transaction_method == null ? null : other.transaction_method.copy();
         this.paymentId = other.paymentId == null ? null : other.paymentId.copy();
+        this.transactionMethodId = other.transactionMethodId == null ? null : other.transactionMethodId.copy();
+        this.is_transaction_completed = other.is_transaction_completed == null ? null : other.is_transaction_completed.copy();
     }
 
     @Override
@@ -63,13 +68,6 @@ public class TransactionCriteria implements Serializable, Criteria {
         this.transactionid = transactionid;
     }
 
-    public StringFilter getTransaction_method() {
-        return transaction_method;
-    }
-
-    public void setTransaction_method(StringFilter transaction_method) {
-        this.transaction_method = transaction_method;
-    }
 
     public LongFilter getPaymentId() {
         return paymentId;
@@ -79,6 +77,21 @@ public class TransactionCriteria implements Serializable, Criteria {
         this.paymentId = paymentId;
     }
 
+    public LongFilter getTransactionMethodId() {
+        return transactionMethodId;
+    }
+
+    public void setTransactionMethodId(LongFilter transactionMethodId) {
+        this.transactionMethodId = transactionMethodId;
+    }
+
+    public BooleanFilter getIs_transaction_completed() {
+        return is_transaction_completed;
+    }
+
+    public void setIs_transaction_completed(BooleanFilter is_transaction_completed) {
+        this.is_transaction_completed = is_transaction_completed;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -91,18 +104,20 @@ public class TransactionCriteria implements Serializable, Criteria {
         final TransactionCriteria that = (TransactionCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(transactionid, that.transactionid) &&
-            Objects.equals(transaction_method, that.transaction_method) &&
-            Objects.equals(paymentId, that.paymentId);
+                Objects.equals(transactionid, that.transactionid) &&
+                Objects.equals(paymentId, that.paymentId) &&
+                Objects.equals(transactionMethodId, that.transactionMethodId)&&
+                Objects.equals(is_transaction_completed, that.is_transaction_completed);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-        id,
-        transactionid,
-        transaction_method,
-        paymentId
+            id,
+            transactionid,
+            paymentId,
+            transactionMethodId,
+            is_transaction_completed
         );
     }
 
@@ -110,10 +125,11 @@ public class TransactionCriteria implements Serializable, Criteria {
     @Override
     public String toString() {
         return "TransactionCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (transactionid != null ? "transactionid=" + transactionid + ", " : "") +
-                (transaction_method != null ? "transaction_method=" + transaction_method + ", " : "") +
-                (paymentId != null ? "paymentId=" + paymentId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (transactionid != null ? "transactionid=" + transactionid + ", " : "") +
+            (paymentId != null ? "paymentId=" + paymentId + ", " : "") +
+            (transactionMethodId != null ? "transactionMethodId=" + transactionMethodId + ", " : "") +
+            (is_transaction_completed != null ? "is_transaction_completed=" + is_transaction_completed + ", " : "") +
             "}";
     }
 

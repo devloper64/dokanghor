@@ -72,6 +72,7 @@ public class PaymentResource {
         paymentDTO.setTotalAmount(paymentBody.getTotalAmount());
         paymentDTO.setShippingAddressId(paymentBody.getShippingAddressId());
         paymentDTO.setActive(true);
+        paymentDTO.setOrderStatusId(paymentBody.getOrderStatusId());
         Set<ProductDTO> products =new HashSet<>();
 
          List<IndividualAmount>individualAmountList=new ArrayList<>();
@@ -134,7 +135,7 @@ public class PaymentResource {
             payment=paymentOptional.get();
         }
         paymentDTO.setActive(payment.isActive());
-        PaymentDTO result = paymentService.save(paymentDTO);
+        PaymentDTO result = paymentService.cleanSave(paymentDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, paymentDTO.getId().toString()))
             .body(result);

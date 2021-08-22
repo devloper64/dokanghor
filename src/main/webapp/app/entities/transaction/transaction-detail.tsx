@@ -41,7 +41,7 @@ export const TransactionDetail = (props: ITransactionDetailProps) => {
                     <dt className="m-t">
                       <span id="transaction_method">Transaction Method</span>
                     </dt>
-                    <dd>{transactionEntity.transaction_method}</dd>
+                    <dd>{transactionEntity.transactionMethodId  ? transactionEntity.transactionMethodId : ''}</dd>
                     <dt className="m-t">Payment</dt>
                     <dd>{transactionEntity.paymentId ? transactionEntity.paymentId : ''}</dd>
                   </dl>

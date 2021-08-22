@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="coder (generated)" id="1629132193842-8">
+        <addColumn tableName="transaction">
+            <column name="is_transaction_completed" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1629132193842-9">
+        <addColumn tableName="payment">
+            <column name="order_status_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1629132193842-10">
+        <addColumn tableName="transaction">
+            <column name="transaction_method_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="coder (generated)" id="1629132193842-11">
+        <addForeignKeyConstraint baseColumnNames="order_status_id" baseTableName="payment" constraintName="FK4ptvf71s6od8c7yxnynifipsi" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="order_status" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1629132193842-12">
+        <addForeignKeyConstraint baseColumnNames="transaction_method_id" baseTableName="transaction" constraintName="FKgvlgganivhfxads2hiw2pbf8v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transaction_method" validate="true"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1629132193842-13">
+        <dropColumn columnName="transaction_method" tableName="transaction"/>
+    </changeSet>
+    <changeSet author="coder (generated)" id="1629132193842-14">
+        <modifyDataType tableName="transaction" columnName="is_transaction_completed" newDataType="boolean"/>
+    </changeSet>
+</databaseChangeLog>

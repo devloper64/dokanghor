@@ -14,9 +14,6 @@ public class TransactionDTO implements Serializable {
     @NotNull
     private String transactionid;
 
-    @NotNull
-    private String transaction_method;
-
 
     private Long paymentId;
 
@@ -27,6 +24,11 @@ public class TransactionDTO implements Serializable {
     private String lastModifiedBy;
 
     private Instant lastModifiedDate;
+
+    private Long transactionMethodId;
+
+    private boolean is_transaction_completed;
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -76,20 +78,28 @@ public class TransactionDTO implements Serializable {
         this.transactionid = transactionid;
     }
 
-    public String getTransaction_method() {
-        return transaction_method;
-    }
-
-    public void setTransaction_method(String transaction_method) {
-        this.transaction_method = transaction_method;
-    }
-
     public Long getPaymentId() {
         return paymentId;
     }
 
     public void setPaymentId(Long paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public Long getTransactionMethodId() {
+        return transactionMethodId;
+    }
+
+    public void setTransactionMethodId(Long transactionMethodId) {
+        this.transactionMethodId = transactionMethodId;
+    }
+
+    public boolean isIs_transaction_completed() {
+        return is_transaction_completed;
+    }
+
+    public void setIs_transaction_completed(boolean is_transaction_completed) {
+        this.is_transaction_completed = is_transaction_completed;
     }
 
     @Override
@@ -115,7 +125,6 @@ public class TransactionDTO implements Serializable {
         return "TransactionDTO{" +
             "id=" + getId() +
             ", transactionid='" + getTransactionid() + "'" +
-            ", transaction_method='" + getTransaction_method() + "'" +
             ", paymentId=" + getPaymentId() +
             "}";
     }

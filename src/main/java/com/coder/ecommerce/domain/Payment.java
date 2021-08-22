@@ -56,6 +56,13 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     @JsonIgnoreProperties(value = "payments", allowSetters = true)
     private ShippingAddress shippingAddress;
 
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = "payments", allowSetters = true)
+    private OrderStatus orderStatus;
+
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -139,9 +146,25 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
         this.products = products;
     }
 
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Payment orderStatus(OrderStatus orderStatus){
+        this.orderStatus=orderStatus;
+        return this;
+    }
+
     public ShippingAddress getShippingAddress() {
         return shippingAddress;
     }
+
+
 
     public Payment shippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;

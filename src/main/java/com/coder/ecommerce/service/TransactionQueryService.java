@@ -94,12 +94,18 @@ public class TransactionQueryService extends QueryService<Transaction> {
             if (criteria.getTransactionid() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTransactionid(), Transaction_.transactionid));
             }
-            if (criteria.getTransaction_method() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTransaction_method(), Transaction_.transaction_method));
+
+            if (criteria.getIs_transaction_completed() != null) {
+                specification = specification.and(buildSpecification(criteria.getIs_transaction_completed(), Transaction_.is_transaction_completed));
             }
+
             if (criteria.getPaymentId() != null) {
                 specification = specification.and(buildSpecification(criteria.getPaymentId(),
                     root -> root.join(Transaction_.payment, JoinType.LEFT).get(Payment_.id)));
+            }
+            if (criteria.getTransactionMethodId() != null) {
+                specification = specification.and(buildSpecification(criteria.getTransactionMethodId(),
+                    root -> root.join(Transaction_.transactionMethod, JoinType.LEFT).get(TransactionMethod_.id)));
             }
         }
         return specification;
