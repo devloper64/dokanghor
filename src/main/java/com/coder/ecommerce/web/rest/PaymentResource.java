@@ -1,7 +1,10 @@
 package com.coder.ecommerce.web.rest;
 
 import com.coder.ecommerce.domain.Payment;
+import com.coder.ecommerce.domain.User;
 import com.coder.ecommerce.repository.PaymentRepository;
+import com.coder.ecommerce.repository.UserRepository;
+import com.coder.ecommerce.security.SecurityUtils;
 import com.coder.ecommerce.service.PaymentService;
 import com.coder.ecommerce.service.customBody.PaymentBody;
 import com.coder.ecommerce.service.customBody.ProductsList;
@@ -52,10 +55,13 @@ public class PaymentResource {
 
     private final PaymentRepository paymentRepository;
 
-    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService, PaymentRepository paymentRepository) {
+    private final UserRepository userRepository;
+
+    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService, PaymentRepository paymentRepository, UserRepository userRepository) {
         this.paymentService = paymentService;
         this.paymentQueryService = paymentQueryService;
         this.paymentRepository = paymentRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -68,7 +74,13 @@ public class PaymentResource {
     @PostMapping("/create-payments")
     public ResponseEntity<PaymentDTO> createPayment(@Valid @RequestBody PaymentBody paymentBody) throws URISyntaxException {
         PaymentDTO paymentDTO=new PaymentDTO();
-        paymentDTO.setUserId(paymentBody.getUserId());
+        User user=new User();
+        Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+        if (userOptional.isPresent()){
+            user=userOptional.get();
+        }
+        System.out.println(">>>>>>>>>>"+user.getId());
+        paymentDTO.setUserId(user.getId());
         paymentDTO.setTotalAmount(paymentBody.getTotalAmount());
         paymentDTO.setShippingAddressId(paymentBody.getShippingAddressId());
         paymentDTO.setActive(true);

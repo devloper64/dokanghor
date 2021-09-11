@@ -1,10 +1,12 @@
 package com.coder.ecommerce.web.rest;
 
+import com.coder.ecommerce.domain.User;
+import com.coder.ecommerce.repository.UserRepository;
+import com.coder.ecommerce.security.SecurityUtils;
 import com.coder.ecommerce.service.FileService;
 import com.coder.ecommerce.service.ProductService;
 import com.coder.ecommerce.service.customReponse.ProductDetailsResponse;
 import com.coder.ecommerce.service.customReponse.ProductResponse;
-import com.coder.ecommerce.service.dto.FileDTO;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.ProductDTO;
 import com.coder.ecommerce.service.dto.ProductCriteria;
@@ -13,7 +15,6 @@ import com.coder.ecommerce.service.ProductQueryService;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +23,6 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,11 +51,12 @@ public class ProductResource {
     private final ProductService productService;
 
     private final ProductQueryService productQueryService;
+    private final UserRepository userRepository;
 
-
-    public ProductResource(ProductService productService, ProductQueryService productQueryService,FileService fileService) {
+    public ProductResource(ProductService productService, ProductQueryService productQueryService, FileService fileService, UserRepository userRepository) {
         this.productService = productService;
         this.productQueryService = productQueryService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -69,6 +69,17 @@ public class ProductResource {
     @PostMapping(value = "/products")
     public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) throws URISyntaxException {
         log.debug("REST request to save Product : {}", productDTO);
+
+        if (productDTO.getUserId()==null){
+            User user=new User();
+            Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+            if (userOptional.isPresent()){
+                user=userOptional.get();
+            }
+            System.out.println(">>>>>>>>>>"+user.getId());
+            productDTO.setUserId(user.getId());
+        }
+
         if (productDTO.getId() != null) {
             throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -190,7 +201,7 @@ public class ProductResource {
                    size_details
                 );
             }
-            productResponse.add(new ProductResponse(productDTO.getId(),productDTO.getName(),productDTO.getPrice(),productDTO.getImage(),productDTO.getSubCategoryId(),productDTO.getSubCategoryName(),productDTO.getCreatedBy(),productDTO.getCreatedDate(),productDTO.getLastModifiedBy(),productDTO.getLastModifiedDate(),productDTO.getProductTypeId(),productDTO.getDiscount_amount(),productDetailsResponse,productDTO.getQuantity()));
+            productResponse.add(new ProductResponse(productDTO.getId(),productDTO.getName(),productDTO.getPrice(),productDTO.getImage(),productDTO.getSubCategoryId(),productDTO.getSubCategoryName(),productDTO.getCreatedBy(),productDTO.getCreatedDate(),productDTO.getLastModifiedBy(),productDTO.getLastModifiedDate(),productDTO.getProductTypeId(),productDTO.getDiscount_amount(),productDetailsResponse,productDTO.getQuantity(),productDTO.getUserId()));
         }
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

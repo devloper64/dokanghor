@@ -40,6 +40,8 @@ public class ProductDTO implements Serializable {
 
     private double quantity;
 
+    private Long userId;
+
     public Long getProductTypeId() {
         return productTypeId;
     }
@@ -150,6 +152,14 @@ public class ProductDTO implements Serializable {
 
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

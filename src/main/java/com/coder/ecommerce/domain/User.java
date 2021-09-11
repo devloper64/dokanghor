@@ -90,6 +90,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @Size(max = 15)
+    @Column(name = "phone", length = 15)
+    private String phone;
+
+    @Size(max = 250)
+    @Column(name = "fcmToken", length = 250)
+    private String fcmToken;
 
     public Long getId() {
         return id;
@@ -196,6 +203,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -224,6 +247,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
+            ", phone='" + phone + '\'' +
+            ", fcmToken='" + fcmToken + '\'' +
             "}";
     }
 }

@@ -5,6 +5,7 @@ import com.coder.ecommerce.config.Constants;
 import com.coder.ecommerce.domain.Authority;
 import com.coder.ecommerce.domain.User;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
@@ -50,6 +51,13 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+
+    private String phone;
+
+
+    private String fcmToken;
+
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -67,6 +75,8 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.phone=user.getPhone();
+        this.fcmToken=user.getFcmToken();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -176,6 +186,22 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
     // prettier-ignore
     @Override
     public String toString() {
@@ -192,6 +218,8 @@ public class UserDTO {
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
+            ", phone" + phone +
+            ", fcm" + fcmToken +
             "}";
     }
 }

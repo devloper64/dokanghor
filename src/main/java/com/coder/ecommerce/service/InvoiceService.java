@@ -1,7 +1,6 @@
 package com.coder.ecommerce.service;
 
 import com.coder.ecommerce.service.dto.InvoiceDTO;
-import com.coder.ecommerce.service.dto.TransactionDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,39 +8,37 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link com.coder.ecommerce.domain.Transaction}.
+ * Service Interface for managing {@link com.coder.ecommerce.domain.Invoice}.
  */
-public interface TransactionService {
+public interface InvoiceService {
 
     /**
-     * Save a transaction.
+     * Save a invoice.
      *
-     * @param transactionDTO the entity to save.
+     * @param invoiceDTO the entity to save.
      * @return the persisted entity.
      */
-    TransactionDTO save(TransactionDTO transactionDTO);
-
-    InvoiceDTO transactionCompleted(Long id);
+    InvoiceDTO save(InvoiceDTO invoiceDTO);
 
     /**
-     * Get all the transactions.
+     * Get all the invoices.
      *
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<TransactionDTO> findAll(Pageable pageable);
+    Page<InvoiceDTO> findAll(Pageable pageable);
 
 
     /**
-     * Get the "id" transaction.
+     * Get the "id" invoice.
      *
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<TransactionDTO> findOne(Long id);
+    Optional<InvoiceDTO> findOne(Long id);
 
     /**
-     * Delete the "id" transaction.
+     * Delete the "id" invoice.
      *
      * @param id the id of the entity.
      */

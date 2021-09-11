@@ -8,6 +8,8 @@ import {IRootState} from 'app/shared/reducers';
 import {getEntities as getProductDetails} from 'app/entities/product-details/product-details.reducer';
 import {getEntities as getSubCategories} from 'app/entities/sub-category/sub-category.reducer';
 import {getEntities as getProductTypes} from 'app/entities/product-type/product-type.reducer';
+import {getUsers} from 'app/modules/administration/user-management/user-management.reducer';
+
 import {getEntity, updateEntity, createEntity, reset} from './product.reducer';
 import axios from "axios";
 
@@ -18,7 +20,7 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
   const [subCategoryId, setSubCategoryId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {productEntity, subCategories, productTypes, productDetails, loading, updating} = props;
+  const {productEntity, subCategories, productTypes, productDetails,users, loading, updating} = props;
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -185,7 +187,8 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
 
     props.getSubCategories();
     props.getProductTypes();
-    props.getProductDetails()
+    props.getProductDetails();
+    props.getUsers();
   }, []);
 
   useEffect(() => {
@@ -529,6 +532,21 @@ export const ProductUpdate = (props: IProductUpdateProps) => {
                     <AvFeedback>This field is required.</AvFeedback>
                   </AvGroup>
 
+                  <AvGroup>
+                    <Label for="product-user">User</Label>
+                    <AvInput id="product-user" type="select" className="form-control" name="userId"
+                             required>
+                      {users
+                        ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
+                  </AvGroup>
+
                   <Button tag={Link} id="cancel-save" to="/product" replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
                     &nbsp;
@@ -557,6 +575,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   loading: storeState.product.loading,
   updating: storeState.product.updating,
   updateSuccess: storeState.product.updateSuccess,
+  users: storeState.userManagement.users
 });
 
 const mapDispatchToProps = {
@@ -567,6 +586,7 @@ const mapDispatchToProps = {
   updateEntity,
   createEntity,
   reset,
+  getUsers
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -11,7 +11,6 @@ public class PaymentBody {
 
 
     private Double totalAmount;
-    private Long userId;
     private Long shippingAddressId;
     private List<ProductsList> productsLists;
     private Long orderStatusId;
@@ -24,13 +23,6 @@ public class PaymentBody {
         this.totalAmount = totalAmount;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Long getShippingAddressId() {
         return shippingAddressId;

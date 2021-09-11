@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Row, Col} from 'reactstrap';
@@ -6,20 +6,77 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './invoice.scss'
 import {IRootState} from 'app/shared/reducers';
 import {getEntity} from './transaction.reducer';
+import {getEntity as getPaymentEntity} from '../payment/payment.reducer'
+import {getEntity as getShippingAddressEntity} from '../shipping-address/shipping-address.reducer'
+import axios from "axios";
+
 export interface IInvoiceProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
 export const Invoice = (props: IInvoiceProps) => {
 
+
+  const [paymentStatus, setPaymentStatus] = useState(false);
+  const [shippingAddressStatus, setShippingAddressStatus] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const {transactionEntity,paymentEntity,shippingAddressEntity} = props;
+
+
+  const fetchUser = () => {
+    axios.get('api/account').then(r => {
+        console.log(r)
+        setName(r.data["firstName"]+" "+r.data["lastName"])
+        setEmail(r.data["email"])
+      }
+    ).catch(e => {
+      console.log(e)
+    })
+  };
+
+
   useEffect(() => {
-    props.getEntity(props.match.params.id);
+    fetchUser()
+    const fetchTransaction = async () => {
+     await Promise.all([props.getEntity(props.match.params.id)]);
+    }
+    fetchTransaction().then(()=>setPaymentStatus(true))
   }, []);
+
+
+  useEffect(() => {
+
+    if (paymentStatus){
+      const fetchPayment = async () => {
+        await Promise.all([props.getPaymentEntity(transactionEntity.paymentId)])
+      }
+      fetchPayment().then(()=>setShippingAddressStatus(true))
+
+    }
+
+  }, [paymentStatus]);
+
+
+  useEffect(() => {
+    if (shippingAddressStatus){
+
+      props.getShippingAddressEntity(paymentEntity.shippingAddressId)
+    }
+
+  }, [shippingAddressStatus]);
+
+
+
+
+
 
   const print = () => {
     window.print()
   }
 
-  const {transactionEntity} = props;
+
 
   return (
     <div className="invoice">
@@ -28,7 +85,7 @@ export const Invoice = (props: IInvoiceProps) => {
         <div>
           <div className="card">
             <div className="card-header">Invoice
-              <strong>#BBB-10010110101938</strong>
+              <strong>#{transactionEntity.transactionid}</strong>
               <a className="btn btn-sm btn-secondary float-right mr-1 d-print-none"  onClick={print} data-abc="true">
                 <i className="fa fa-print"></i> Print</a>
             </div>
@@ -37,21 +94,21 @@ export const Invoice = (props: IInvoiceProps) => {
                 <div className="col-sm-4">
                   <h6 className="mb-3">From:</h6>
                   <div>
-                    <strong>BBBootstrap.com</strong>
+                    <strong>Dokanghor</strong>
                   </div>
-                  <div>42, Awesome Enclave</div>
-                  <div>New York City, New york, 10394</div>
-                  <div>Email: admin@bbbootstrap.com</div>
-                  <div>Phone: +48 123 456 789</div>
+                  <div>2nd floor Estern Plaza</div>
+                  <div>Mirpur 10,Dhaka,Bangladesh</div>
+                  <div>Email: dokanghor@gmail.com</div>
+                  <div>Phone: +88 01795-888218</div>
                 </div>
                 <div className="col-sm-4">
                   <h6 className="mb-3">To:</h6>
                   <div>
-                    <strong>BBBootstrap.com</strong>
+                    <strong>{name}</strong>
                   </div>
-                  <div>42, Awesome Enclave</div>
-                  <div>New York City, New york, 10394</div>
-                  <div>Email: admin@bbbootstrap.com</div>
+                  <div>{shippingAddressEntity.district}</div>
+                  <div>{shippingAddressEntity.upazila},{shippingAddressEntity.postalcode}</div>
+                  <div>Email: {email}</div>
                   <div>Phone: +48 123 456 789</div>
                 </div>
                 <div className="col-sm-4">
@@ -129,7 +186,7 @@ export const Invoice = (props: IInvoiceProps) => {
                         <strong>Total</strong>
                       </td>
                       <td className="right">
-                        <strong>$7.477,36</strong>
+                        <strong>{paymentEntity.totalAmount}</strong>
                       </td>
                     </tr>
                     </tbody>
@@ -145,11 +202,13 @@ export const Invoice = (props: IInvoiceProps) => {
   );
 };
 
-const mapStateToProps = ({transaction}: IRootState) => ({
-  transactionEntity: transaction.entity,
+const mapStateToProps = (storeState: IRootState) => ({
+  transactionEntity: storeState.transaction.entity,
+  paymentEntity: storeState.payment.entity,
+  shippingAddressEntity: storeState.shippingAddress.entity
 });
 
-const mapDispatchToProps = {getEntity};
+const mapDispatchToProps = {getEntity,getPaymentEntity,getShippingAddressEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

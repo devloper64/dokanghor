@@ -60,6 +60,8 @@ export const ProductDetail = (props: IProductDetailProps) => {
                     <dd>{productEntity.quantity}</dd>
                     <dt className="m-t">Product Details</dt>
                     <dd><ul><li>{productEntity.productDetails?productEntity.productDetails.id: null}</li></ul></dd>
+                    <dt className="m-t">User</dt>
+                    <dd>{productEntity.userId ? productEntity.userId : ''}</dd>
                   </dl>
                   <div className="m-t">
                     <Button tag={Link} to="/product" replace color="info">

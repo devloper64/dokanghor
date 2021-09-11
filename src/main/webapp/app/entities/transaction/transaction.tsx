@@ -5,7 +5,6 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoice } from "@fortawesome/free-solid-svg-icons"
 import '../table.scss'
 import { IRootState } from 'app/shared/reducers';
 import { getEntities, reset } from './transaction.reducer';
@@ -127,13 +126,13 @@ export const Transaction = (props: ITransactionProps) => {
                       </Button>
                     </div>
                     <div className="cell">{transaction.transactionid}</div>
-                    <div className="cell">{transaction.transactionMethodId? <Link to={`transaction-method/${transaction.transactionMethodId}`}>{transaction.transactionMethodId}</Link> : ''}</div>
+                    <div className="cell">&nbsp;&nbsp;&nbsp;&nbsp;{transaction.transactionMethodId? <Link to={`transaction-method/${transaction.transactionMethodId}`}>{transaction.transactionMethodId}</Link> : ''}</div>
                     <div className="cell">{transaction.paymentId ? <Link to={`payment/${transaction.paymentId}`}>{transaction.paymentId}</Link> : ''}</div>
                     <div className="cell">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${transaction.id}/invoice`} color="primary" size="sm">
-                          <FontAwesomeIcon icon={faFileInvoice} /> <span className="d-none d-md-inline">Invoice</span>
-                        </Button>
+                        {/* <Button tag={Link} to={`${match.url}/${transaction.id}/invoice`} color="primary" size="sm"> */}
+                        {/*  <FontAwesomeIcon icon={faFileInvoice} /> <span className="d-none d-md-inline">Invoice</span> */}
+                        {/* </Button> */}
                         <Button tag={Link} to={`${match.url}/${transaction.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                         </Button>

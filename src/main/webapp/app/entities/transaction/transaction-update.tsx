@@ -92,20 +92,6 @@ export const TransactionUpdate = (props: ITransactionUpdateProps) => {
                     />
                   </AvGroup>
                   <AvGroup>
-                    <Label id="transaction_methodLabel" for="transaction-transaction_method">
-                      Transaction Method
-                    </Label>
-                    <AvField
-                      className="input--style-5"
-                      id="transaction-transaction_method"
-                      type="text"
-                      name="transaction_method"
-                      validate={{
-                        required: {value: true, errorMessage: 'This field is required.'},
-                      }}
-                    />
-                  </AvGroup>
-                  <AvGroup>
                     <Label for="transaction-payment">Payment</Label>
                     <AvInput id="transaction-payment" type="select" className="form-control" name="paymentId" required>
                       {payments

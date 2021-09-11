@@ -54,6 +54,10 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @JsonIgnoreProperties(value = "products", allowSetters = true)
     private ProductType productType;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "products", allowSetters = true)
+    private User user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -89,6 +93,19 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     public void setProductDetails(ProductDetails productDetails) {
         this.productDetails = productDetails;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Product user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Product productDetails(ProductDetails productDetails){

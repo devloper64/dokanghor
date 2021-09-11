@@ -149,6 +149,32 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                       value={user.email}
                     />
                   </AvGroup>
+                  <AvGroup>
+                    <Label for="phone">Phone</Label>
+                    <AvField
+                      type="text"
+                      className="input--style-5"
+                      name="phone"
+                      validate={{
+                        maxLength: {
+                          value: 15,
+                          errorMessage: 'This field cannot be longer than 15 characters.',
+                        },
+                      }}
+                      value={user.phone}
+                    />
+                  </AvGroup>
+
+                  <AvGroup>
+                    <Label for="fcmToken">Fcm Token</Label>
+                    <AvField
+                      type="text"
+                      className="input--style-5"
+                      name="fcmToken"
+                      value={user.fcmToken}
+                    />
+                  </AvGroup>
+
                   <AvGroup check>
                     <Label className="m-t m-l" for="activated">
                       <AvInput   className="checkmark" type="checkbox" name="activated" value={user.activated} checked={user.activated}

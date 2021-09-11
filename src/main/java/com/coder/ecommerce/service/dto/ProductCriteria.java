@@ -2,6 +2,7 @@ package com.coder.ecommerce.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
@@ -34,6 +35,8 @@ public class ProductCriteria implements Serializable, Criteria {
 
     private LongFilter productTypeId;
 
+    private LongFilter userId;
+
     public ProductCriteria() {
     }
 
@@ -43,6 +46,7 @@ public class ProductCriteria implements Serializable, Criteria {
         this.price = other.price == null ? null : other.price.copy();
         this.subCategoryId = other.subCategoryId == null ? null : other.subCategoryId.copy();
         this.productTypeId = other.productTypeId == null ? null : other.productTypeId.copy();
+        this.userId = other.userId == null ? null : other.userId.copy();
     }
 
     @Override
@@ -90,6 +94,14 @@ public class ProductCriteria implements Serializable, Criteria {
         this.productTypeId = productTypeId;
     }
 
+    public LongFilter getUserId() {
+        return userId;
+    }
+
+    public void setUserId(LongFilter userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,20 +113,22 @@ public class ProductCriteria implements Serializable, Criteria {
         final ProductCriteria that = (ProductCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(price, that.price) &&
-            Objects.equals(subCategoryId, that.subCategoryId)&&
-            Objects.equals(productTypeId, that.productTypeId);
+                Objects.equals(name, that.name) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(subCategoryId, that.subCategoryId) &&
+                Objects.equals(productTypeId, that.productTypeId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-        id,
-        name,
-        price,
-        subCategoryId,
-        productTypeId
+            id,
+            name,
+            price,
+            subCategoryId,
+            productTypeId,
+            userId
         );
     }
 
@@ -122,11 +136,12 @@ public class ProductCriteria implements Serializable, Criteria {
     @Override
     public String toString() {
         return "ProductCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (price != null ? "price=" + price + ", " : "") +
-                (subCategoryId != null ? "subCategoryId=" + subCategoryId + ", " : "") +
-                (productTypeId != null ? "productTypeId=" + productTypeId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (price != null ? "price=" + price + ", " : "") +
+            (subCategoryId != null ? "subCategoryId=" + subCategoryId + ", " : "") +
+            (productTypeId != null ? "productTypeId=" + productTypeId + ", " : "") +
+            (userId != null ? "productTypeId=" + userId + ", " : "") +
             "}";
     }
 

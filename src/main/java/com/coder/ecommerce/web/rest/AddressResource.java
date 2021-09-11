@@ -1,5 +1,8 @@
 package com.coder.ecommerce.web.rest;
 
+import com.coder.ecommerce.domain.User;
+import com.coder.ecommerce.repository.UserRepository;
+import com.coder.ecommerce.security.SecurityUtils;
 import com.coder.ecommerce.service.AddressService;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.AddressDTO;
@@ -15,7 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,7 @@ public class AddressResource {
     private final Logger log = LoggerFactory.getLogger(AddressResource.class);
 
     private static final String ENTITY_NAME = "address";
+    private final UserRepository userRepository;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -45,7 +48,8 @@ public class AddressResource {
 
     private final AddressQueryService addressQueryService;
 
-    public AddressResource(AddressService addressService, AddressQueryService addressQueryService) {
+    public AddressResource(UserRepository userRepository, AddressService addressService, AddressQueryService addressQueryService) {
+        this.userRepository = userRepository;
         this.addressService = addressService;
         this.addressQueryService = addressQueryService;
     }
@@ -63,6 +67,16 @@ public class AddressResource {
         if (addressDTO.getId() != null) {
             throw new BadRequestAlertException("A new address cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (addressDTO.getUserId()==null){
+            User user=new User();
+            Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+            if (userOptional.isPresent()){
+                user=userOptional.get();
+            }
+            System.out.println(">>>>>>>>>>"+user.getId());
+            addressDTO.setUserId(user.getId());
+        }
+
         if (Objects.isNull(addressDTO.getUserId())) {
             throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
         }

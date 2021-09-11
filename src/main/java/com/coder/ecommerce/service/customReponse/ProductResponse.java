@@ -38,7 +38,10 @@ public class ProductResponse {
 
     private double quantity;
 
-    public ProductResponse(Long id, String name, double price, String image, Long subCategoryId, String subCategoryName, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, Long productTypeId, double discount_amount, ProductDetailsResponse productDetailsResponse, double quantity) {
+    private Long userId;
+
+
+    public ProductResponse(Long id, String name, double price, String image, Long subCategoryId, String subCategoryName, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, Long productTypeId, double discount_amount, ProductDetailsResponse productDetailsResponse, double quantity,Long userId) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -53,6 +56,7 @@ public class ProductResponse {
         this.discount_amount = discount_amount;
         this.productDetailsResponse = productDetailsResponse;
         this.quantity = quantity;
+        this.userId=userId;
     }
 
     public Long getId() {
@@ -165,6 +169,14 @@ public class ProductResponse {
 
     public void setQuantity(double quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

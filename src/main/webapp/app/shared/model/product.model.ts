@@ -11,6 +11,7 @@ export interface IProduct {
   discount_amount?: number;
   quantity?: number;
   productDetails?: IProductDetails;
+  userId?: number;
 }
 
 export const defaultValue: Readonly<IProduct> = {};

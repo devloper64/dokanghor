@@ -1,6 +1,8 @@
 package com.coder.ecommerce.web.rest;
 
 import com.coder.ecommerce.service.TransactionService;
+import com.coder.ecommerce.service.customBody.TransactionComplete;
+import com.coder.ecommerce.service.dto.InvoiceDTO;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
 import com.coder.ecommerce.service.dto.TransactionDTO;
 import com.coder.ecommerce.service.dto.TransactionCriteria;
@@ -127,6 +129,17 @@ public class TransactionResource {
         log.debug("REST request to get Transaction : {}", id);
         Optional<TransactionDTO> transactionDTO = transactionService.findOne(id);
         return ResponseUtil.wrapOrNotFound(transactionDTO);
+    }
+
+
+    @PostMapping("/transactions-complete")
+    public ResponseEntity<InvoiceDTO> transactionComplete(@RequestBody TransactionComplete  transactionComplete)throws URISyntaxException {
+        log.debug("REST request to get Transaction : {}", transactionComplete);
+        InvoiceDTO result = transactionService.transactionCompleted(transactionComplete.getId());
+
+        return ResponseEntity.created(new URI("/api/transactions-complete/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
