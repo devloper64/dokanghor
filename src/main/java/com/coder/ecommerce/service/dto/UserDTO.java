@@ -57,6 +57,10 @@ public class UserDTO {
 
     private String fcmToken;
 
+    private boolean gmail_user;
+
+    private boolean phone_user;
+
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -77,6 +81,7 @@ public class UserDTO {
         this.lastModifiedDate = user.getLastModifiedDate();
         this.phone=user.getPhone();
         this.fcmToken=user.getFcmToken();
+        this.gmail_user=user.isGmail_user();
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
@@ -200,6 +205,22 @@ public class UserDTO {
 
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public boolean isGmail_user() {
+        return gmail_user;
+    }
+
+    public void setGmail_user(boolean gmail_user) {
+        this.gmail_user = gmail_user;
+    }
+
+    public boolean isPhone_user() {
+        return phone_user;
+    }
+
+    public void setPhone_user(boolean phone_user) {
+        this.phone_user = phone_user;
     }
 
     // prettier-ignore

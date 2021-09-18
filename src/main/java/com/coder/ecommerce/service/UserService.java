@@ -7,6 +7,8 @@ import com.coder.ecommerce.repository.AuthorityRepository;
 import com.coder.ecommerce.repository.UserRepository;
 import com.coder.ecommerce.security.AuthoritiesConstants;
 import com.coder.ecommerce.security.SecurityUtils;
+import com.coder.ecommerce.security.jwt.JWTFilter;
+import com.coder.ecommerce.security.jwt.TokenProvider;
 import com.coder.ecommerce.service.dto.UserDTO;
 
 import io.github.jhipster.security.RandomUtil;
@@ -15,7 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,10 +47,16 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    private final TokenProvider tokenProvider;
+
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.tokenProvider = tokenProvider;
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -109,6 +122,8 @@ public class UserService {
         newUser.setActivated(false);
         newUser.setPhone(userDTO.getPhone());
         newUser.setFcmToken(userDTO.getFcmToken());
+        newUser.setGmail_user(userDTO.isGmail_user());
+        newUser.setPhone_user(userDTO.isPhone_user());
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
@@ -149,6 +164,8 @@ public class UserService {
         user.setActivated(true);
         user.setPhone(userDTO.getPhone());
         user.setFcmToken(userDTO.getFcmToken());
+        user.setGmail_user(user.isGmail_user());
+        user.setPhone_user(user.isPhone_user());
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream()
                 .map(authorityRepository::findById)
@@ -185,6 +202,8 @@ public class UserService {
                 user.setLangKey(userDTO.getLangKey());
                 user.setPhone(userDTO.getPhone());
                 user.setFcmToken(userDTO.getFcmToken());
+                user.setGmail_user(userDTO.isGmail_user());
+                user.setPhone_user(userDTO.isPhone_user());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
@@ -282,6 +301,17 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    }
+
+    public String getIdToken(User user){
+        UsernamePasswordAuthenticationToken authenticationToken =
+            new UsernamePasswordAuthenticationToken(user.getLogin(), "*#!$%^&*()|dokanghor643463846!!!!!*#!$%^&*()|");
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenProvider.createToken(authentication, true);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        return jwt;
     }
 
 }

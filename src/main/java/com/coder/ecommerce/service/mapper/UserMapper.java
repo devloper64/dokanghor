@@ -51,6 +51,10 @@ public class UserMapper {
             user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
+            user.setGmail_user(user.isGmail_user());
+            user.setPhone(userDTO.getPhone());
+            user.setFcmToken(userDTO.getFcmToken());
+            user.setPhone_user(userDTO.isPhone_user());
             return user;
         }
     }

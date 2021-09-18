@@ -3,8 +3,13 @@ package com.coder.ecommerce.web.rest;
 import com.coder.ecommerce.domain.User;
 import com.coder.ecommerce.repository.UserRepository;
 import com.coder.ecommerce.security.SecurityUtils;
+import com.coder.ecommerce.security.jwt.JWTFilter;
+import com.coder.ecommerce.security.jwt.TokenProvider;
 import com.coder.ecommerce.service.MailService;
 import com.coder.ecommerce.service.UserService;
+import com.coder.ecommerce.service.customBody.GmailLogin;
+import com.coder.ecommerce.service.customBody.PhoneLogin;
+import com.coder.ecommerce.service.customReponse.CustomLoginResponse;
 import com.coder.ecommerce.service.dto.PasswordChangeDTO;
 import com.coder.ecommerce.service.dto.UserDTO;
 import com.coder.ecommerce.web.rest.errors.*;
@@ -14,7 +19,13 @@ import com.coder.ecommerce.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +53,14 @@ public class AccountResource {
 
     private final MailService mailService;
 
+
+
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+
     }
 
     /**
@@ -65,6 +79,100 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+    }
+
+
+    /**
+     * {@code POST  /login} : register the user.
+     *
+     * @param gmailLogin the managed user View Model.
+     */
+    @PostMapping("/gmail-login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomLoginResponse gmailLogin(@Valid @RequestBody GmailLogin gmailLogin) {
+
+        Optional<User> userOptional=userRepository.findOneByEmailIgnoreCase(gmailLogin.getEmail());
+        if (userOptional.isPresent()){
+            User user=userOptional.get();
+            if (user.isGmail_user()){
+                String token=userService.getIdToken(user);
+                CustomLoginResponse customLoginResponse=new CustomLoginResponse();
+                customLoginResponse.setIdToken(token);
+                return customLoginResponse;
+            }else {
+                throw new AccountResourceException("please login with username and password" );
+            }
+
+        }else {
+            ManagedUserVM managedUserVM =new ManagedUserVM();
+            managedUserVM.setGmail_user(true);
+            managedUserVM.setActivated(true);
+            managedUserVM.setFcmToken(gmailLogin.getFcm());
+            managedUserVM.setImageUrl(gmailLogin.getImageUrl());
+            managedUserVM.setLangKey("en");
+            managedUserVM.setFirstName(gmailLogin.getFirstName());
+            managedUserVM.setLastName(gmailLogin.getLastName());
+            managedUserVM.setEmail(gmailLogin.getEmail());
+            managedUserVM.setLogin(gmailLogin.getEmail());
+            managedUserVM.setPassword("*#!$%^&*()|dokanghor643463846!!!!!*#!$%^&*()|");
+            User newUser = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+            Optional<User> userOptionalNew=userService.activateRegistration(newUser.getActivationKey());
+            if (userOptionalNew.isPresent()){
+                User userNew=userOptionalNew.get();
+                String token=userService.getIdToken(userNew);
+                CustomLoginResponse customLoginResponse=new CustomLoginResponse();
+                customLoginResponse.setIdToken(token);
+                return customLoginResponse;
+            }else {
+                throw new UsernameNotFoundException("User Not Found");
+            }
+
+        }
+    }
+
+    @PostMapping("/phone-login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomLoginResponse gmailLogin(@Valid @RequestBody PhoneLogin phoneLogin) {
+        if (phoneLogin.getPhone().contains("+")){
+            String phoneWithoutPlus=phoneLogin.getPhone().replace("+","");
+            String email=phoneWithoutPlus+"@dokanghor.com";
+            Optional<User> userOptional=userRepository.findOneByEmailIgnoreCase(email);
+            if (userOptional.isPresent()){
+                User user=userOptional.get();
+                    String token=userService.getIdToken(user);
+                    CustomLoginResponse customLoginResponse=new CustomLoginResponse();
+                    customLoginResponse.setIdToken(token);
+                    return customLoginResponse;
+
+
+            }else {
+                ManagedUserVM managedUserVM =new ManagedUserVM();
+                managedUserVM.setPhone_user(true);
+                managedUserVM.setActivated(true);
+                managedUserVM.setFcmToken(phoneLogin.getFcm());
+                managedUserVM.setLangKey("en");
+                managedUserVM.setFirstName("Not Set");
+                managedUserVM.setLastName("Not set");
+                managedUserVM.setEmail(email);
+                managedUserVM.setLogin(email);
+                managedUserVM.setPhone(phoneLogin.getPhone());
+                managedUserVM.setPassword("*#!$%^&*()|dokanghor643463846!!!!!*#!$%^&*()|");
+                User newUser = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+                Optional<User> userOptionalNew=userService.activateRegistration(newUser.getActivationKey());
+                if (userOptionalNew.isPresent()){
+                    User userNew=userOptionalNew.get();
+                    String token=userService.getIdToken(userNew);
+                    CustomLoginResponse customLoginResponse=new CustomLoginResponse();
+                    customLoginResponse.setIdToken(token);
+                    return customLoginResponse;
+                }else {
+                    throw new UsernameNotFoundException("User Not Found");
+                }
+
+            }
+        }else {
+            throw new AccountResourceException("phone number not valid");
+        }
     }
 
     /**

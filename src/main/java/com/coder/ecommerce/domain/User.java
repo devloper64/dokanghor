@@ -81,6 +81,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @Column(name = "gmail_user")
+    private boolean gmail_user;
+
+    @Column(name = "phone_user")
+    private boolean phone_user;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -217,6 +223,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public boolean isGmail_user() {
+        return gmail_user;
+    }
+
+    public void setGmail_user(boolean gmail_user) {
+        this.gmail_user = gmail_user;
+    }
+
+    public boolean isPhone_user() {
+        return phone_user;
+    }
+
+    public void setPhone_user(boolean phone_user) {
+        this.phone_user = phone_user;
     }
 
     @Override
