@@ -132,7 +132,7 @@ public class AccountResource {
 
     @PostMapping("/phone-login")
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomLoginResponse gmailLogin(@Valid @RequestBody PhoneLogin phoneLogin) {
+    public CustomLoginResponse phoneLogin(@Valid @RequestBody PhoneLogin phoneLogin) {
         if (phoneLogin.getPhone().contains("+")){
             String phoneWithoutPlus=phoneLogin.getPhone().replace("+","");
             String email=phoneWithoutPlus+"@dokanghor.com";
