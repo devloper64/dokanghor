@@ -1,9 +1,12 @@
 package com.coder.ecommerce.service.customBody;
 
+import java.util.List;
+
 public class ProductsList {
     private Long productId;
     private int quantity;
     private double amount;
+    private List<AdditionalData> additionalData;
 
     public Long getProductId() {
         return productId;
@@ -28,4 +31,14 @@ public class ProductsList {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public List<AdditionalData> getAdditionalData() {
+        return additionalData;
+    }
+
+    public void setAdditionalData(List<AdditionalData> additionalData) {
+        this.additionalData = additionalData;
+    }
 }
+
+

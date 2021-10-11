@@ -38,6 +38,10 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
     private String productQuantities;
 
     @NotNull
+    @Column(name = "additional_data")
+    private String additionalData;
+
+    @NotNull
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
@@ -98,6 +102,14 @@ public class Payment extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
+
+    public String getAdditionalData() {
+        return additionalData;
+    }
+
+    public void setAdditionalData(String additionalData) {
+        this.additionalData = additionalData;
+    }
 
     public String getProductQuantities() {
         return productQuantities;

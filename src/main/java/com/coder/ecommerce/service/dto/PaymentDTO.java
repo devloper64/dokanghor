@@ -36,6 +36,9 @@ public class PaymentDTO implements Serializable {
 
     private Long orderStatusId;
 
+    private String additionalData;
+
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -148,6 +151,14 @@ public class PaymentDTO implements Serializable {
 
     public void setOrderStatusId(Long orderStatusId) {
         this.orderStatusId = orderStatusId;
+    }
+
+    public String getAdditionalData() {
+        return additionalData;
+    }
+
+    public void setAdditionalData(String additionalData) {
+        this.additionalData = additionalData;
     }
 
     @Override

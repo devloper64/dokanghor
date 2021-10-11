@@ -6,9 +6,11 @@ import com.coder.ecommerce.repository.PaymentRepository;
 import com.coder.ecommerce.repository.UserRepository;
 import com.coder.ecommerce.security.SecurityUtils;
 import com.coder.ecommerce.service.PaymentService;
+import com.coder.ecommerce.service.customBody.AdditionalData;
 import com.coder.ecommerce.service.customBody.PaymentBody;
 import com.coder.ecommerce.service.customBody.ProductsList;
 import com.coder.ecommerce.service.dto.ProductDTO;
+import com.coder.ecommerce.service.helper.AdditionalDataHelper;
 import com.coder.ecommerce.service.helper.IndividualAmount;
 import com.coder.ecommerce.service.helper.IndividualQuantity;
 import com.coder.ecommerce.web.rest.errors.BadRequestAlertException;
@@ -89,6 +91,8 @@ public class PaymentResource {
 
          List<IndividualAmount>individualAmountList=new ArrayList<>();
          List<IndividualQuantity> individualQuantityList=new ArrayList<>();
+         List<AdditionalDataHelper> additionalDataList=new ArrayList<>();
+
 
         for (ProductsList productsList:paymentBody.getProductsLists()) {
             ProductDTO productDTO=new ProductDTO();
@@ -96,12 +100,16 @@ public class PaymentResource {
             products.add(productDTO);
             individualAmountList.add(new IndividualAmount(productsList.getProductId().toString(),String.valueOf(productsList.getAmount())));
             individualQuantityList.add(new IndividualQuantity(productsList.getProductId().toString(),String.valueOf(productsList.getQuantity())));
+            additionalDataList.add(new AdditionalDataHelper(productsList.getProductId().toString(),productsList.getAdditionalData()));
         }
         String individualAmountStr = new Gson().toJson(individualAmountList);
         String individualQuantityStr = new Gson().toJson(individualQuantityList);
+        String additionalData = new Gson().toJson(additionalDataList);
+
         paymentDTO.setProducts(products);
         paymentDTO.setIndividualAmount(individualAmountStr);
         paymentDTO.setProductQuantities(individualQuantityStr);
+        paymentDTO.setAdditionalData(additionalData);
 
         log.debug("REST request to save Payment For Client : {}", paymentDTO);
         if (paymentDTO.getId() != null) {
