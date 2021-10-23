@@ -100,6 +100,10 @@ public class ShippingAddressQueryService extends QueryService<ShippingAddress> {
             if (criteria.getPostalcode() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPostalcode(), ShippingAddress_.postalcode));
             }
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildSpecification(criteria.getUserId(),
+                    root -> root.join(ShippingAddress_.user, JoinType.LEFT).get(User_.id)));
+            }
         }
         return specification;
     }

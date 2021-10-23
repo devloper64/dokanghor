@@ -46,6 +46,17 @@ export const ShippingAddressDetail = (props: IShippingAddressDetailProps) => {
                       <span id="postalcode">Postalcode</span>
                     </dt>
                     <dd>{shippingAddressEntity.postalcode}</dd>
+                    <dt className="m-t">
+                      <span id="phoneNumber">Phone</span>
+                    </dt>
+                    <dd>{shippingAddressEntity.phoneNumber}</dd>
+
+
+                    <dt className="m-t">
+                      <span id="userId">User</span>
+                    </dt>
+                    <dd>{shippingAddressEntity.userId}</dd>
+
                   </dl>
                   <div className="m-t">
                   <Button tag={Link} to="/shipping-address" replace color="info">

@@ -32,6 +32,9 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
 
     private StringFilter postalcode;
 
+    private LongFilter userId;
+
+
     public ShippingAddressCriteria() {
     }
 
@@ -40,6 +43,8 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
         this.district = other.district == null ? null : other.district.copy();
         this.upazila = other.upazila == null ? null : other.upazila.copy();
         this.postalcode = other.postalcode == null ? null : other.postalcode.copy();
+        this.userId = other.userId == null ? null : other.userId.copy();
+
     }
 
     @Override
@@ -79,6 +84,13 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
         this.postalcode = postalcode;
     }
 
+    public LongFilter getUserId() {
+        return userId;
+    }
+
+    public void setUserId(LongFilter userId) {
+        this.userId = userId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,7 +105,8 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(district, that.district) &&
             Objects.equals(upazila, that.upazila) &&
-            Objects.equals(postalcode, that.postalcode);
+            Objects.equals(postalcode, that.postalcode) &&
+            Objects.equals(userId, that.userId);
     }
 
     @Override
@@ -102,7 +115,8 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
         id,
         district,
         upazila,
-        postalcode
+        postalcode,
+            userId
         );
     }
 
@@ -114,6 +128,7 @@ public class ShippingAddressCriteria implements Serializable, Criteria {
                 (district != null ? "district=" + district + ", " : "") +
                 (upazila != null ? "upazila=" + upazila + ", " : "") +
                 (postalcode != null ? "postalcode=" + postalcode + ", " : "") +
+                (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }
 

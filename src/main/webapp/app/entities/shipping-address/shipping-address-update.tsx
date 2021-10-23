@@ -12,6 +12,7 @@ import {getEntity, updateEntity, createEntity, reset} from './shipping-address.r
 import {IShippingAddress} from 'app/shared/model/shipping-address.model';
 import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
 import {mapIdList} from 'app/shared/util/entity-utils';
+import {getUsers} from "app/modules/administration/user-management/user-management.reducer";
 
 export interface IShippingAddressUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -19,7 +20,7 @@ export interface IShippingAddressUpdateProps extends StateProps, DispatchProps, 
 export const ShippingAddressUpdate = (props: IShippingAddressUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {shippingAddressEntity, loading, updating} = props;
+  const {shippingAddressEntity, loading, updating,users} = props;
 
   const handleClose = () => {
     props.history.push('/shipping-address');
@@ -29,6 +30,7 @@ export const ShippingAddressUpdate = (props: IShippingAddressUpdateProps) => {
     if (!isNew) {
       props.getEntity(props.match.params.id);
     }
+    props.getUsers();
   }, []);
 
   useEffect(() => {
@@ -115,6 +117,40 @@ export const ShippingAddressUpdate = (props: IShippingAddressUpdateProps) => {
                       }}
                     />
                   </AvGroup>
+
+
+                  <AvGroup>
+                    <Label id="phoneNumberLabel" for="shipping-address-phoneNumber">
+                      Phone
+                    </Label>
+                    <AvField
+                      className="input--style-5"
+                      id="shipping-address-phoneNumber"
+                      type="text"
+                      name="phoneNumber"
+                      validate={{
+                        required: {value: true, errorMessage: 'This field is required.'},
+                      }}
+                    />
+                  </AvGroup>
+
+
+                  <AvGroup>
+                    <Label for="shipping-address-user">User</Label>
+                    <AvInput id="shipping-address-user" type="select" className="form-control" name="userId"
+                             required>
+                      {users
+                        ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                        : null}
+                    </AvInput>
+                    <AvFeedback>This field is required.</AvFeedback>
+                  </AvGroup>
+
+
                   <Button tag={Link} id="cancel-save" to="/shipping-address" replace color="info">
                     <FontAwesomeIcon icon="arrow-left"/>
                     &nbsp;
@@ -140,6 +176,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   loading: storeState.shippingAddress.loading,
   updating: storeState.shippingAddress.updating,
   updateSuccess: storeState.shippingAddress.updateSuccess,
+  users: storeState.userManagement.users
 });
 
 const mapDispatchToProps = {
@@ -147,6 +184,7 @@ const mapDispatchToProps = {
   updateEntity,
   createEntity,
   reset,
+  getUsers
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

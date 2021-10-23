@@ -3,6 +3,8 @@ export interface IShippingAddress {
   district?: string;
   upazila?: string;
   postalcode?: string;
+  phoneNumber?: string;
+  userId?: number;
 }
 
 export const defaultValue: Readonly<IShippingAddress> = {};

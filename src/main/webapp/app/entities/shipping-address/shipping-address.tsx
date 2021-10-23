@@ -105,6 +105,9 @@ export const ShippingAddress = (props: IShippingAddressProps) => {
                     <div className="cell" onClick={sort('id')}>
                       ID <FontAwesomeIcon icon="sort"/>
                     </div>
+                    <div className="cell" onClick={sort('phoneNumber')}>
+                      Phone <FontAwesomeIcon icon="sort"/>
+                    </div>
                     <div className="cell" onClick={sort('district')}>
                       District <FontAwesomeIcon icon="sort"/>
                     </div>
@@ -114,6 +117,11 @@ export const ShippingAddress = (props: IShippingAddressProps) => {
                     <div className="cell" onClick={sort('postalcode')}>
                       Postalcode <FontAwesomeIcon icon="sort"/>
                     </div>
+
+                    <div className="cell" onClick={sort('userId')}>
+                      User <FontAwesomeIcon icon="sort"/>
+                    </div>
+
                     <div className="cell" >Action</div>
                   </div>
                   {shippingAddressList.map((shippingAddress, i) => (
@@ -123,9 +131,11 @@ export const ShippingAddress = (props: IShippingAddressProps) => {
                           {shippingAddress.id}
                         </Button>
                       </div>
+                      <div className="cell">{shippingAddress.phoneNumber}</div>
                       <div className="cell">{shippingAddress.district}</div>
                       <div className="cell">{shippingAddress.upazila}</div>
                       <div className="cell">{shippingAddress.postalcode}</div>
+                      <div className="cell">{shippingAddress.userId}</div>
                       <div className="cell">
                         <div className="btn-group flex-btn-group-container">
                           <Button tag={Link} to={`${match.url}/${shippingAddress.id}`} color="info" size="sm">

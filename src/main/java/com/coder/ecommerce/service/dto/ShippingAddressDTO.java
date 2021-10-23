@@ -7,7 +7,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.coder.ecommerce.domain.ShippingAddress} entity.
  */
 public class ShippingAddressDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
@@ -19,7 +19,11 @@ public class ShippingAddressDTO implements Serializable {
     @NotNull
     private String postalcode;
 
-    
+    private String phoneNumber;
+
+    private Long userId;
+
+
     public Long getId() {
         return id;
     }
@@ -50,6 +54,22 @@ public class ShippingAddressDTO implements Serializable {
 
     public void setPostalcode(String postalcode) {
         this.postalcode = postalcode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

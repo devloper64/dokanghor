@@ -1,6 +1,8 @@
 package com.coder.ecommerce.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -31,6 +33,15 @@ public class ShippingAddress implements Serializable {
     @NotNull
     @Column(name = "postalcode", nullable = false)
     private String postalcode;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "shipping_address", allowSetters = true)
+    private User user;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -79,6 +90,30 @@ public class ShippingAddress implements Serializable {
     public void setPostalcode(String postalcode) {
         this.postalcode = postalcode;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public ShippingAddress user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
