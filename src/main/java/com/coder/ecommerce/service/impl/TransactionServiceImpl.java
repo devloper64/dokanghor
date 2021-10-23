@@ -130,7 +130,7 @@ public class TransactionServiceImpl implements TransactionService {
                 user.getFirstName()+" "+user.getLastName(),
                 shippingAddress.getDistrict()+","+shippingAddress.getUpazila()+","+shippingAddress.getPostalcode(),
                         user.getEmail(),
-                "+8801795888218"
+                shippingAddress.getPhoneNumber()
             );
 
 
