@@ -45,6 +45,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private ProductDetails productDetails;
 
 
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "products", allowSetters = true)
