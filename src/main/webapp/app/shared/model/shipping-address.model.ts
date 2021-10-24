@@ -5,6 +5,7 @@ export interface IShippingAddress {
   postalcode?: string;
   phoneNumber?: string;
   userId?: number;
+  divisions?: string;
 }
 
 export const defaultValue: Readonly<IShippingAddress> = {};

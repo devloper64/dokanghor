@@ -37,6 +37,8 @@ public class ShippingAddress implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "divisions")
+    private String divisions;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "shipping_address", allowSetters = true)
@@ -99,6 +101,13 @@ public class ShippingAddress implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getDivisions() {
+        return divisions;
+    }
+
+    public void setDivisions(String divisions) {
+        this.divisions = divisions;
+    }
 
     public User getUser() {
         return user;

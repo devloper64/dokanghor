@@ -75,6 +75,24 @@ export const ShippingAddressUpdate = (props: IShippingAddressUpdateProps) => {
                                readOnly/>
                     </AvGroup>
                   ) : null}
+
+                  <AvGroup>
+                    <Label id="divisionsLabel" for="shipping-address-divisions">
+                      Divisions
+                    </Label>
+                    <AvField
+                      className="input--style-5"
+                      id="shipping-address-divisions"
+                      type="text"
+                      name="divisions"
+                      validate={{
+                        required: {value: true, errorMessage: 'This field is required.'},
+                      }}
+                    />
+                  </AvGroup>
+
+
+
                   <AvGroup>
                     <Label id="districtLabel" for="shipping-address-district">
                       District
@@ -133,6 +151,9 @@ export const ShippingAddressUpdate = (props: IShippingAddressUpdateProps) => {
                       }}
                     />
                   </AvGroup>
+
+
+
 
 
                   <AvGroup>

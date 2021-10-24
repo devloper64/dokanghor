@@ -28,6 +28,9 @@
     <include file="config/liquibase/changelog/20210815161605_added_entity_OrderStatus.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210815161928_added_entity_TransactionMethod.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210829142320_added_entity_Invoice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211023160855_added_entity_Divisions.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211024042515_added_entity_Districts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211024045237_added_entity_Upazilas.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210529105026_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210529170759_added_entity_constraints_SubCategory.xml" relativeToChangelogFile="false"/>
@@ -36,6 +39,8 @@
     <include file="config/liquibase/changelog/20210605141034_added_entity_constraints_Transaction.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210711041307_added_entity_constraints_ProductImages.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210829142320_added_entity_constraints_Invoice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211024042515_added_entity_constraints_Districts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211024045237_added_entity_constraints_Upazilas.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210530090125_changelog.xml" relativeToChangelogFile="false"/>
@@ -61,5 +66,6 @@
     <include file="config/liquibase/changelog/20211010163321_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211023052351_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211023134458_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211023155809_changelog.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

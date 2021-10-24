@@ -23,6 +23,8 @@ public class ShippingAddressDTO implements Serializable {
 
     private Long userId;
 
+    private String divisions;
+
 
     public Long getId() {
         return id;
@@ -70,6 +72,14 @@ public class ShippingAddressDTO implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getDivisions() {
+        return divisions;
+    }
+
+    public void setDivisions(String divisions) {
+        this.divisions = divisions;
     }
 
     @Override

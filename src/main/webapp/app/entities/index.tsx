@@ -20,6 +20,9 @@ import ProductDetails from './product-details';
 import OrderStatus from './order-status';
 import TransactionMethod from './transaction-method';
 import Invoice from './invoice';
+import Divisions from './divisions';
+import Districts from './districts';
+import Upazilas from './upazilas';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -40,10 +43,11 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}order-status`} component={OrderStatus} />
       <ErrorBoundaryRoute path={`${match.url}transaction-method`} component={TransactionMethod} />
       <ErrorBoundaryRoute path={`${match.url}invoice`} component={Invoice} />
-
-      <ErrorBoundaryRoute component={PageNotFound} />
-
+      <ErrorBoundaryRoute path={`${match.url}divisions`} component={Divisions} />
+      <ErrorBoundaryRoute path={`${match.url}districts`} component={Districts} />
+      <ErrorBoundaryRoute path={`${match.url}upazilas`} component={Upazilas} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
+      <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>
 );

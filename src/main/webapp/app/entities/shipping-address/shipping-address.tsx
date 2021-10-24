@@ -108,6 +108,11 @@ export const ShippingAddress = (props: IShippingAddressProps) => {
                     <div className="cell" onClick={sort('phoneNumber')}>
                       Phone <FontAwesomeIcon icon="sort"/>
                     </div>
+
+                    <div className="cell" onClick={sort('divisions')}>
+                      Divisions <FontAwesomeIcon icon="sort"/>
+                    </div>
+
                     <div className="cell" onClick={sort('district')}>
                       District <FontAwesomeIcon icon="sort"/>
                     </div>
@@ -132,6 +137,7 @@ export const ShippingAddress = (props: IShippingAddressProps) => {
                         </Button>
                       </div>
                       <div className="cell">{shippingAddress.phoneNumber}</div>
+                      <div className="cell">{shippingAddress.divisions}</div>
                       <div className="cell">{shippingAddress.district}</div>
                       <div className="cell">{shippingAddress.upazila}</div>
                       <div className="cell">{shippingAddress.postalcode}</div>

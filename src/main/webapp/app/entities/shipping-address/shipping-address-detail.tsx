@@ -53,6 +53,11 @@ export const ShippingAddressDetail = (props: IShippingAddressDetailProps) => {
 
 
                     <dt className="m-t">
+                      <span id="divisions">Divisions</span>
+                    </dt>
+                    <dd>{shippingAddressEntity.divisions}</dd>
+
+                    <dt className="m-t">
                       <span id="userId">User</span>
                     </dt>
                     <dd>{shippingAddressEntity.userId}</dd>

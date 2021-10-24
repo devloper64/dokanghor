@@ -67,6 +67,18 @@ import transactionMethod, {
 import invoice, {
   InvoiceState
 } from 'app/entities/invoice/invoice.reducer';
+// prettier-ignore
+import divisions, {
+  DivisionsState
+} from 'app/entities/divisions/divisions.reducer';
+// prettier-ignore
+import districts, {
+  DistrictsState
+} from 'app/entities/districts/districts.reducer';
+// prettier-ignore
+import upazilas, {
+  UpazilasState
+} from 'app/entities/upazilas/upazilas.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -93,6 +105,9 @@ export interface IRootState {
   readonly orderStatus: OrderStatusState;
   readonly transactionMethod: TransactionMethodState;
   readonly invoice: InvoiceState;
+  readonly divisions: DivisionsState;
+  readonly districts: DistrictsState;
+  readonly upazilas: UpazilasState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -121,6 +136,9 @@ const rootReducer = combineReducers<IRootState>({
   orderStatus,
   transactionMethod,
   invoice,
+  divisions,
+  districts,
+  upazilas,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });
